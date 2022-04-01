@@ -1,2 +1,0 @@
-# TheBloggr
-Blogging Website
