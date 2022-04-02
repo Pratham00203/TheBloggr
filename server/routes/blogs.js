@@ -15,6 +15,7 @@ router.post(
       check("title", "Title is Required").not().isEmpty(),
       check("description", "Description is Required").not().isEmpty(),
       check("category", "Category is Required").not().isEmpty(),
+      check("keywords", "Keywords are Required").not().isEmpty(),
     ],
   ],
   async (req, res) => {
@@ -29,10 +30,10 @@ router.post(
       ]);
       let createdon = new Date().toLocaleDateString();
 
-      let { title, description, category } = req.body;
+      let { title, description, category, keywords } = req.body;
 
       let result = await db.query(
-        "INSERT INTO BLOGS (userid,title,description,author,category,createdon,totalviews,totalcomments) VALUES ($1,$2,$3,$4,$5,$6,$7,$8) RETURNING *",
+        "INSERT INTO BLOGS (userid,title,description,author,category,createdon,totalviews,totalcomments,keywords) VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9) RETURNING *",
         [
           req.user.userid,
           title,
@@ -42,6 +43,7 @@ router.post(
           createdon,
           0,
           0,
+          keywords,
         ]
       );
 
@@ -61,7 +63,7 @@ router.post(
 router.get("/", async (req, res) => {
   try {
     let blogs = await db.query("SELECT * FROM BLOGS");
-    res.json(blogs.rows[0]);
+    res.json(blogs.rows);
   } catch (err) {
     console.log(err.message);
     res.status(500).send("Server Error");
@@ -97,16 +99,28 @@ router.get("/:blogid", async (req, res) => {
   }
 });
 
-// @route POST /blogs/search/:category
-// @description Search for Blogs by category
+// @route POST /blogs/search/:keyword
+// @description Search for Blogs by keyword
 // @access Public
-router.post("/search/:category", async (req, res) => {
+router.post("/search/:keyword", async (req, res) => {
   try {
-    let category = req.params.category.toLocaleLowerCase();
-    let blogs = await db.query("SELECT * FROM BLOGS WHERE category=$1", [
-      category,
-    ]);
-    res.json(blogs.rows[0]);
+    let results = await db.query("SELECT * FROM BLOGS");
+    let blogs = results.rows;
+    let resultBlogArray = [];
+
+    blogs.forEach((blog) => {
+      let keywords = blog.keywords.toLocaleLowerCase().split(",");
+      keywords.forEach((keyword) => {
+        if (
+          keyword.replace(/\s+/g, " ").trim() ===
+          req.params.keyword.toLocaleLowerCase()
+        ) {
+          resultBlogArray.push(blog);
+        }
+      });
+    });
+
+    res.json(resultBlogArray);
   } catch (err) {
     console.log(err.message);
     res.status(500).send("Server Error");
