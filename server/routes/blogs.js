@@ -63,7 +63,15 @@ router.post(
 router.get("/", async (req, res) => {
   try {
     let blogs = await db.query("SELECT * FROM BLOGS");
-    res.json(blogs.rows);
+    let randomBlogs = await db.query(
+      "SELECT * FROM BLOGS ORDER BY totalviews LIMIT 5"
+    );
+
+    res.json({
+      blogs: blogs.rows,
+      trendingBlog: randomBlogs.rows[0],
+      randomBlogs: randomBlogs.rows,
+    });
   } catch (err) {
     console.log(err.message);
     res.status(500).send("Server Error");
