@@ -14,10 +14,9 @@ router.get("/me", auth, async (req, res) => {
       req.user.userid,
     ]);
     if (check.rows.length !== 0) {
-      let user = await db.query(
-        "SELECT (name,bio,profile_img) FROM USERS WHERE userid=$1",
-        [req.user.userid]
-      );
+      let user = await db.query("SELECT * FROM USERS WHERE userid=$1", [
+        req.user.userid,
+      ]);
       let blogs = await db.query("SELECT * FROM BLOGS WHERE userid=$1", [
         req.user.userid,
       ]);
@@ -32,9 +31,9 @@ router.get("/me", auth, async (req, res) => {
 
       res.json({
         userDetails: {
-          name: user.rows[0].row.split('"')[1],
-          bio: user.rows[0].row.split('"')[3],
-          profile_img: user.rows[0].row.split('"')[5],
+          name: user.rows[0].name,
+          bio: user.rows[0].bio,
+          profile_img: user.rows[0].profile_img,
         },
         blogs: blogs.rows[0],
         followers: followers.rows,
@@ -64,9 +63,9 @@ router.get("/:userid", async (req, res) => {
 
     res.json({
       userDetails: {
-        name: user.rows[0].row.split('"')[1],
-        bio: user.rows[0].row.split('"')[3],
-        profile_img: user.rows[0].row.split('"')[5],
+        name: user.rows[0].name,
+        bio: user.rows[0].bio,
+        profile_img: user.rows[0].profile_img,
       },
       blogs: blogs.rows[0],
     });

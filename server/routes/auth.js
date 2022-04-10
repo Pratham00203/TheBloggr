@@ -25,7 +25,11 @@ router.post(
       return res.status(400).json({ errors: errors.array() });
     }
     // Get the details of the user
-    const { name, email, password, bio, profile_img } = req.body;
+    let { name, email, password, bio, profile_img } = req.body;
+
+    if (!profile_img)
+      profile_img =
+        "https://www.kindpng.com/picc/m/24-248253_user-profile-default-image-png-clipart-png-download.png";
 
     try {
       let user = await db.query("SELECT * FROM USERS WHERE email=$1", [email]);
@@ -70,6 +74,7 @@ router.get("/login", auth, async (req, res) => {
       return res.json({
         name: user.rows[0].row.split('"')[1],
         bio: user.rows[0].row.split('"')[3],
+        profile_img: user.rows[0].row.split('"')[5],
       });
     }
   } catch (err) {
