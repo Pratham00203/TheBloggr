@@ -128,18 +128,18 @@ router.post("/search/:keyword", async (req, res) => {
   try {
     let results = await db.query("SELECT * FROM BLOGS");
     let blogs = results.rows;
+    let keyword = req.params.keyword.toLocaleLowerCase();
     let resultBlogArray = [];
 
     blogs.forEach((blog) => {
-      let keywords = blog.keywords.toLocaleLowerCase().split(",");
-      keywords.forEach((keyword) => {
-        if (
-          keyword.replace(/\s+/g, " ").trim() ===
-          req.params.keyword.toLocaleLowerCase()
-        ) {
-          resultBlogArray.push(blog);
-        }
-      });
+      if (
+        blog.keywords.toLocaleLowerCase().includes(keyword) ||
+        blog.author.toLocaleLowerCase().includes(keyword) ||
+        blog.title.toLocaleLowerCase().includes(keyword) ||
+        blog.description.toLocaleLowerCase().includes(keyword)
+      ) {
+        resultBlogArray.push(blog);
+      }
     });
 
     res.json(resultBlogArray);
