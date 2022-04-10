@@ -51,7 +51,7 @@ router.get("/me", auth, async (req, res) => {
 // @route GET /users/:userid
 // @description Get a User's Profile
 // @access Public
-router.get("/:userid", async (req, res) => {
+router.get("/:userid", auth, async (req, res) => {
   try {
     let user = await db.query(
       "SELECT (name,bio,profile_img) FROM USERS WHERE userid=$1",
@@ -61,12 +61,24 @@ router.get("/:userid", async (req, res) => {
       req.params.userid,
     ]);
 
+    let followCheck = await db.query(
+      "SELECT * FROM FOLLOWS WHERE follower_id=$1 AND following_id=$2",
+      [req.user.userid, req.params.userid]
+    );
+
+    let followStatus;
+    if (followCheck.rows.length !== 0) {
+      followStatus = "Following";
+    } else {
+      followStatus = "Not Following";
+    }
     res.json({
       userDetails: {
         name: user.rows[0].name,
         bio: user.rows[0].bio,
         profile_img: user.rows[0].profile_img,
       },
+      followStatus: followStatus,
       blogs: blogs.rows[0],
     });
   } catch (err) {
