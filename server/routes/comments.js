@@ -20,9 +20,6 @@ router.put(
       let user = await db.query("SELECT (name) FROM USERS WHERE userid=$1", [
         req.user.userid,
       ]);
-      let blog = await db.query("SELECT * FROM BLOGS WHERE blogid=$1", [
-        req.params.blogid,
-      ]);
 
       const { commentbody } = req.body;
       let postedon = new Date().toLocaleDateString();
@@ -38,14 +35,6 @@ router.put(
         ]
       );
 
-      let totalcomments = blog.rows[0].totalcomments;
-      totalcomments += 1;
-
-      await db.query("UPDATE BLOGS SET totalcomments=$1 WHERE blogid=$2", [
-        totalcomments,
-        req.params.blogid,
-      ]);
-
       res.json("Added comment");
     } catch (err) {
       console.log(err.message);
@@ -59,10 +48,6 @@ router.put(
 // @access Private
 router.delete("/:commentid/:blogid/delete", auth, async (req, res) => {
   try {
-    let blog = await db.query("SELECT * FROM BLOGS WHERE blogid=$1", [
-      req.params.blogid,
-    ]);
-
     let comment = await db.query("SELECT * FROM COMMENTS WHERE commentid=$1", [
       req.params.commentid,
     ]);
@@ -71,13 +56,7 @@ router.delete("/:commentid/:blogid/delete", auth, async (req, res) => {
       await db.query("DELETE FROM COMMENTS WHERE commentid=$1", [
         req.params.commentid,
       ]);
-      let totalcomments = blog.rows[0].totalcomments;
-      totalcomments -= 1;
 
-      await db.query("UPDATE BLOGS SET totalcomments=$1 WHERE blogid=$2", [
-        totalcomments,
-        req.params.blogid,
-      ]);
       res.json("Comment Deleted");
     } else {
       res.json("Not authorized to delete comment");

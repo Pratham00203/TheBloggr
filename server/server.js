@@ -18,8 +18,8 @@ app.get("/", (req, res) => {
   res.send("Running");
 });
 
-app.post("/", (req, res) => {
-  console.log(req.body);
-});
+// app.post("/", (req, res) => {
+//   console.log(req.body);
+// });
 
 app.listen(PORT, () => console.log(`Server Listening at Port ${PORT}`));

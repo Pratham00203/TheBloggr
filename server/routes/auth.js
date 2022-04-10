@@ -25,7 +25,7 @@ router.post(
       return res.status(400).json({ errors: errors.array() });
     }
     // Get the details of the user
-    const { name, email, password, bio } = req.body;
+    const { name, email, password, bio, profile_img } = req.body;
 
     try {
       let user = await db.query("SELECT * FROM USERS WHERE email=$1", [email]);
@@ -37,8 +37,8 @@ router.post(
 
       let newPassword = md5(password);
       let result = await db.query(
-        "INSERT INTO USERS (name,email,password,bio) VALUES ($1,$2,$3,$4) RETURNING *",
-        [name, email, newPassword, bio]
+        "INSERT INTO USERS (name,email,password,bio,profile_img) VALUES ($1,$2,$3,$4,$5) RETURNING *",
+        [name, email, newPassword, bio, profile_img]
       );
 
       if (result.rows.length != 0) {
