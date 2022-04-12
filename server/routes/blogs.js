@@ -285,28 +285,28 @@ router.delete("/:blogid/unlike", auth, async (req, res) => {
 // @route DELETE /blogs/my-feed
 // @description Show Feed according to user's following
 // @access Private
-router.get("/me/my-feed", auth, async (req, res) => {
-  try {
-    let results = await db.query("SELECT * FROM FOLLOWS WHERE follower_id=$1", [
-      req.user.userid,
-    ]);
+// router.get("/me/my-feed", auth, async (req, res) => {
+//   try {
+//     let results = await db.query("SELECT * FROM FOLLOWS WHERE follower_id=$1", [
+//       req.user.userid,
+//     ]);
 
-    let followingPeopleId = results.rows;
-    let myFeed = [];
-    let blogs = await db.query("SELECT * FROM BLOGS");
-    blogs.rows.forEach((blog) => {
-      followingPeopleId.forEach((f) => {
-        if (blog.userid === f.following_id) {
-          myFeed.push(blog);
-        }
-      });
-    });
+//     let followingPeopleId = results.rows;
+//     let myFeed = [];
+//     let blogs = await db.query("SELECT * FROM BLOGS");
+//     blogs.rows.forEach((blog) => {
+//       followingPeopleId.forEach((f) => {
+//         if (blog.userid === f.following_id) {
+//           myFeed.push(blog);
+//         }
+//       });
+//     });
 
-    res.json(myFeed);
-  } catch (err) {
-    console.log(err.message);
-    res.status(500).send("Server Error");
-  }
-});
+//     res.json(myFeed);
+//   } catch (err) {
+//     console.log(err.message);
+//     res.status(500).send("Server Error");
+//   }
+// });
 
 module.exports = router;

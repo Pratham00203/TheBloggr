@@ -17,7 +17,7 @@ router.put(
       return res.status(400).json({ errors: errors.array() });
     }
     try {
-      let user = await db.query("SELECT (name) FROM USERS WHERE userid=$1", [
+      let user = await db.query("SELECT * FROM USERS WHERE userid=$1", [
         req.user.userid,
       ]);
 
@@ -25,17 +25,18 @@ router.put(
       let postedon = new Date().toLocaleDateString();
 
       await db.query(
-        "INSERT INTO COMMENTS (userid,blogid,commentbody,username,postedon) VALUES ($1,$2,$3,$4,$5)",
+        "INSERT INTO COMMENTS (userid,blogid,commentbody,username,postedon,user_img) VALUES ($1,$2,$3,$4,$5,$6)",
         [
           req.user.userid,
           req.params.blogid,
           commentbody,
           user.rows[0].name,
           postedon,
+          user.rows[0].profile_img,
         ]
       );
 
-      res.json("Added comment");
+      res.json("Added Comment");
     } catch (err) {
       console.log(err.message);
       res.status(500).send("Server Error");

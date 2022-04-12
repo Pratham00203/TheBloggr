@@ -20,14 +20,14 @@ router.get("/me", auth, async (req, res) => {
       let blogs = await db.query("SELECT * FROM BLOGS WHERE userid=$1", [
         req.user.userid,
       ]);
-      let followers = await db.query(
-        "SELECT * FROM FOLLOWS WHERE following_id = $1",
-        [req.user.userid]
-      );
-      let following = await db.query(
-        "SELECT * FROM FOLLOWS WHERE follower_id = $1",
-        [req.user.userid]
-      );
+      // let followers = await db.query(
+      //   "SELECT * FROM FOLLOWS WHERE following_id = $1",
+      //   [req.user.userid]
+      // );
+      // let following = await db.query(
+      //   "SELECT * FROM FOLLOWS WHERE follower_id = $1",
+      //   [req.user.userid]
+      // );
 
       res.json({
         userDetails: {
@@ -35,9 +35,9 @@ router.get("/me", auth, async (req, res) => {
           bio: user.rows[0].bio,
           profile_img: user.rows[0].profile_img,
         },
-        blogs: blogs.rows[0],
-        followers: followers.rows,
-        following: following.rows,
+        blogs: blogs.rows,
+        // followers: followers.rows,
+        // following: following.rows,
       });
     } else {
       res.json("User doesn't exists");
@@ -51,35 +51,34 @@ router.get("/me", auth, async (req, res) => {
 // @route GET /users/:userid
 // @description Get a User's Profile
 // @access Public
-router.get("/:userid", auth, async (req, res) => {
+router.get("/:userid", async (req, res) => {
   try {
-    let user = await db.query(
-      "SELECT (name,bio,profile_img) FROM USERS WHERE userid=$1",
-      [req.params.userid]
-    );
+    let user = await db.query("SELECT * FROM USERS WHERE userid=$1", [
+      req.params.userid,
+    ]);
     let blogs = await db.query("SELECT * FROM BLOGS WHERE userid=$1", [
       req.params.userid,
     ]);
 
-    let followCheck = await db.query(
-      "SELECT * FROM FOLLOWS WHERE follower_id=$1 AND following_id=$2",
-      [req.user.userid, req.params.userid]
-    );
+    // let followCheck = await db.query(
+    //   "SELECT * FROM FOLLOWS WHERE follower_id=$1 AND following_id=$2",
+    //   [req.user.userid, req.params.userid]
+    // );
 
-    let followStatus;
-    if (followCheck.rows.length !== 0) {
-      followStatus = "Following";
-    } else {
-      followStatus = "Not Following";
-    }
+    // let followStatus;
+    // if (followCheck.rows.length !== 0) {
+    //   followStatus = "Following";
+    // } else {
+    //   followStatus = "Not Following";
+    // }
     res.json({
       userDetails: {
         name: user.rows[0].name,
         bio: user.rows[0].bio,
         profile_img: user.rows[0].profile_img,
       },
-      followStatus: followStatus,
-      blogs: blogs.rows[0],
+      // followStatus: followStatus,
+      blogs: blogs.rows,
     });
   } catch (err) {
     console.log(err.message);
@@ -141,10 +140,10 @@ router.delete("/me/delete", auth, async (req, res) => {
     let results = await db.query("DELETE FROM LIKES WHERE userid=$1", [
       req.user.userid,
     ]);
-    results = await db.query(
-      "DELETE FROM FOLLOWS WHERE follower_id=$1 OR following_id=$2",
-      [req.user.userid, req.user.userid]
-    );
+    // results = await db.query(
+    //   "DELETE FROM FOLLOWS WHERE follower_id=$1 OR following_id=$2",
+    //   [req.user.userid, req.user.userid]
+    // );
     results = await db.query("DELETE FROM COMMENTS WHERE userid=$1", [
       req.user.userid,
     ]);
@@ -161,71 +160,71 @@ router.delete("/me/delete", auth, async (req, res) => {
 // @route POST /follow/:userid
 // @description Follow a user
 // @access Private
-router.post("/follow/:userid", auth, async (req, res) => {
-  try {
-    if (req.params.userid != req.user.userid) {
-      let followingPersonUserName = await db.query(
-        "SELECT * FROM USERS WHERE userid=$1",
-        [req.params.userid]
-      );
+// router.post("/follow/:userid", auth, async (req, res) => {
+//   try {
+//     if (req.params.userid != req.user.userid) {
+//       let followingPersonUserName = await db.query(
+//         "SELECT * FROM USERS WHERE userid=$1",
+//         [req.params.userid]
+//       );
 
-      let loggedUserName = await await db.query(
-        "SELECT * FROM USERS WHERE userid=$1",
-        [req.user.userid]
-      );
+//       let loggedUserName = await await db.query(
+//         "SELECT * FROM USERS WHERE userid=$1",
+//         [req.user.userid]
+//       );
 
-      let check = await db.query(
-        "SELECT * FROM FOLLOWS WHERE follower_id=$1 AND following_id=$2",
-        [req.user.userid, req.params.userid]
-      );
-      if (check.rows.length === 0) {
-        let results = await db.query(
-          "INSERT INTO FOLLOWS (follower_id,following_id,follower_name,following_name) VALUES ($1,$2,$3,$4) RETURNING *",
-          [
-            req.user.userid,
-            req.params.userid,
-            loggedUserName.rows[0].name,
-            followingPersonUserName.rows[0].name,
-          ]
-        );
+//       let check = await db.query(
+//         "SELECT * FROM FOLLOWS WHERE follower_id=$1 AND following_id=$2",
+//         [req.user.userid, req.params.userid]
+//       );
+//       if (check.rows.length === 0) {
+//         let results = await db.query(
+//           "INSERT INTO FOLLOWS (follower_id,following_id,follower_name,following_name) VALUES ($1,$2,$3,$4) RETURNING *",
+//           [
+//             req.user.userid,
+//             req.params.userid,
+//             loggedUserName.rows[0].name,
+//             followingPersonUserName.rows[0].name,
+//           ]
+//         );
 
-        res.json("Followed");
-      } else {
-        res.json("Already Followed");
-      }
-    } else {
-      res.json("You can't Follow yourself");
-    }
-  } catch (err) {
-    console.log(err.message);
-    res.status(500).send("Server Error");
-  }
-});
+//         res.json("Followed");
+//       } else {
+//         res.json("Already Followed");
+//       }
+//     } else {
+//       res.json("You can't Follow yourself");
+//     }
+//   } catch (err) {
+//     console.log(err.message);
+//     res.status(500).send("Server Error");
+//   }
+// });
 
-// @route POST /unfollow/:userid
-// @description Unfollow a user
-// @access Private
-router.post("/unfollow/:userid", auth, async (req, res) => {
-  try {
-    let check = await db.query(
-      "SELECT * FROM FOLLOWS WHERE follower_id=$1 AND following_id=$2",
-      [req.user.userid, req.params.userid]
-    );
-    if (check.rows.length !== 0) {
-      await db.query(
-        "DELETE FROM FOLLOWS WHERE follower_id=$1 AND following_id=$2",
-        [req.user.userid, req.params.userid]
-      );
+// // @route POST /unfollow/:userid
+// // @description Unfollow a user
+// // @access Private
+// router.post("/unfollow/:userid", auth, async (req, res) => {
+//   try {
+//     let check = await db.query(
+//       "SELECT * FROM FOLLOWS WHERE follower_id=$1 AND following_id=$2",
+//       [req.user.userid, req.params.userid]
+//     );
+//     if (check.rows.length !== 0) {
+//       await db.query(
+//         "DELETE FROM FOLLOWS WHERE follower_id=$1 AND following_id=$2",
+//         [req.user.userid, req.params.userid]
+//       );
 
-      res.json("Unfollowed");
-    } else {
-      res.json("Already Unfollowed");
-    }
-  } catch (err) {
-    console.log(err.message);
-    res.status(500).send("Server Error");
-  }
-});
+//       res.json("Unfollowed");
+//     } else {
+//       res.json("Already Unfollowed");
+//     }
+//   } catch (err) {
+//     console.log(err.message);
+//     res.status(500).send("Server Error");
+//   }
+// });
 
 // @route PUT /me/reset-password
 // @description Reset Password
