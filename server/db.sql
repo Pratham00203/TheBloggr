@@ -13,3 +13,5 @@ CREATE TABLE FOLLOWS(id uuid DEFAULT uuid_generate_v1(), follower_id uuid NOT NU
 following_name TEXT NOT NULL ,following_id uuid NOT NULL, PRIMARY KEY(id));
 
 CREATE TABLE LIKES (id uuid DEFAULT uuid_generate_v1(), userid uuid NOT NULL,username TEXT NOT NULL, blogid uuid NOT NULL ,PRIMARY KEY (id));
+
+CREATE TABLE REPORTS ( id uuid DEFAULT uuid_generate_v1(), userid uuid  NOT NULL, username TEXT NOT NULL, blogid uuid NOT NULL, author TEXT NOT NULL, reason TEXT NOT NULL, PRIMARY KEY(id));

@@ -318,4 +318,38 @@ router.get("/me/my-feed", auth, async (req, res) => {
   }
 });
 
+// @route POST /blogs/:blogid/report
+// @description Report a Blog
+// @access Private
+router.get("/:blogid/report", auth, async (req, res) => {
+  const { reason } = req.body;
+  let blog = await db.query("SELECT * FROM BLOGS WHERE blogid=$1", [
+    req.params.blogid,
+  ]);
+  let user = await db.query("SELECT * FROM USERS WHERE userid=$1", [
+    req.user.userid,
+  ]);
+
+  let checkReport = await db.query(
+    "SELECT * FROM REPORTS WHERE blogid=$1 AND userid=$2",
+    [req.params.blogid, req.user.userid]
+  );
+
+  if (checkReport.rows.length === 0) {
+    await db.query(
+      "INSERT INTO REPORTS (userid,username,blogid,author,reason) VALUES ($1,$2,$3,$4,$5) RETURNING *",
+      [
+        req.user.userid,
+        user.rows[0].name,
+        req.params.blogid,
+        blog.rows[0].author,
+        reason,
+      ]
+    );
+
+    res.json("Report Added");
+  }
+  res.json("Already Reported the Blog");
+});
+
 module.exports = router;
