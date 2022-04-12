@@ -3,7 +3,6 @@ const router = express.Router();
 const { check, validationResult } = require("express-validator");
 const db = require("../db/db");
 const auth = require("../middleware/auth");
-
 // @route POST /blogs/create
 // @description Create a Blog
 // @access Private
@@ -60,7 +59,7 @@ router.post(
 // @route GET /blogs
 // @description Get all the blogs
 // @access Public
-router.get("/", async (req, res) => {
+router.get("/", auth, async (req, res) => {
   try {
     let blogs = await db.query("SELECT * FROM BLOGS");
     let randomBlogs = [];
@@ -88,8 +87,9 @@ router.get("/", async (req, res) => {
 // @route GET /blogs/:blogid
 // @description Get a Blog by id
 // @access Public
-router.get("/:blogid", async (req, res) => {
+router.get("/:blogid", auth, async (req, res) => {
   try {
+    let likeStatus = false;
     let blog = await db.query("SELECT * FROM BLOGS WHERE blogid=$1", [
       req.params.blogid,
     ]);
@@ -110,10 +110,20 @@ router.get("/:blogid", async (req, res) => {
       req.params.blogid,
     ]);
 
+    let checkLike = await db.query(
+      "SELECT * FROM LIKES WHERE blogid=$1 AND userid=$2",
+      [req.params.blogid, req.user.userid]
+    );
+
+    if (checkLike.rows.length !== 0) {
+      likeStatus = true;
+    }
+
     res.json({
       blogDetails: result.rows[0],
       comments: comments.rows,
       likes: likes.rows,
+      likeStatus: likeStatus,
     });
   } catch (err) {
     console.log(err.message);
@@ -124,7 +134,7 @@ router.get("/:blogid", async (req, res) => {
 // @route POST /blogs/search/:keyword
 // @description Search for Blogs by keyword
 // @access Public
-router.post("/search/:keyword", async (req, res) => {
+router.post("/search/:keyword", auth, async (req, res) => {
   try {
     let results = await db.query("SELECT * FROM BLOGS");
     let blogs = results.rows;
@@ -245,7 +255,6 @@ router.put("/:blogid/like", auth, async (req, res) => {
         "INSERT INTO LIKES (userid,username,blogid) VALUES ($1,$2,$3) RETURNING *",
         [req.user.userid, user.rows[0].name, req.params.blogid]
       );
-
       res.json(results.rows[0]);
     } else {
       res.json("Already Liked");
@@ -282,31 +291,31 @@ router.delete("/:blogid/unlike", auth, async (req, res) => {
   }
 });
 
-// @route DELETE /blogs/my-feed
+// @route GET /blogs/my-feed
 // @description Show Feed according to user's following
 // @access Private
-// router.get("/me/my-feed", auth, async (req, res) => {
-//   try {
-//     let results = await db.query("SELECT * FROM FOLLOWS WHERE follower_id=$1", [
-//       req.user.userid,
-//     ]);
+router.get("/me/my-feed", auth, async (req, res) => {
+  try {
+    let results = await db.query("SELECT * FROM FOLLOWS WHERE follower_id=$1", [
+      req.user.userid,
+    ]);
 
-//     let followingPeopleId = results.rows;
-//     let myFeed = [];
-//     let blogs = await db.query("SELECT * FROM BLOGS");
-//     blogs.rows.forEach((blog) => {
-//       followingPeopleId.forEach((f) => {
-//         if (blog.userid === f.following_id) {
-//           myFeed.push(blog);
-//         }
-//       });
-//     });
+    let followingPeopleId = results.rows;
+    let myFeed = [];
+    let blogs = await db.query("SELECT * FROM BLOGS");
+    blogs.rows.forEach((blog) => {
+      followingPeopleId.forEach((f) => {
+        if (blog.userid === f.following_id) {
+          myFeed.push(blog);
+        }
+      });
+    });
 
-//     res.json(myFeed);
-//   } catch (err) {
-//     console.log(err.message);
-//     res.status(500).send("Server Error");
-//   }
-// });
+    res.json(myFeed);
+  } catch (err) {
+    console.log(err.message);
+    res.status(500).send("Server Error");
+  }
+});
 
 module.exports = router;
