@@ -1,4 +1,3 @@
-import "../App.css";
 import hamburgerIcon from "../images/icons8-hamburger-menu-60.png";
 import closeIcon from "../images/close.png";
 import defaultProfileIcon from "../images/profile.jpg";
