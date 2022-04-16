@@ -42,6 +42,7 @@ export default function App() {
   //   description:
   //     "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Soluta libero tenetur at fugiat consequuntur quidem minima quaerat, ipsum placeat dolores ullam eum porro dolorem alias, voluptas quo maiores molestiae perspiciatis. Sunt cupiditate enim non dolorum ut ipsa obcaecati! Possimus odio impedit eum amet porro est eius quaerat illum modi animi.",
   //   keywords: "tech,web,internet",
+  //   blog_img:"https://cdn.pixabay.com/photo/2016/04/04/14/12/monitor-1307227__480.jpg"
   // };
 
   // const previousUserDetails = {

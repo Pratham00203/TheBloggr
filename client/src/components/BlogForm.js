@@ -3,20 +3,27 @@ import axios from "axios";
 import Navbar from "./Navbar";
 import Footer from "./Footer";
 
-export default function BlogForm({ type, previousDetails }) {
+export default function BlogForm({ type, previousBlogDetails }) {
   const [blogDetails, setBlogDetails] = useState({
     title: "",
     category: "",
     description: "",
     keywords: "",
+    blog_img: "",
   });
 
   useEffect(() => {
-    previousDetails && setBlogDetails(previousDetails);
-  }, [previousDetails]);
+    previousBlogDetails && setBlogDetails(previousBlogDetails);
+  }, [previousBlogDetails]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
+
+    if (name === "blog_img") {
+      const file = e.target.files[0];
+      previewFile(file);
+    }
+
     setBlogDetails((prev) => {
       return {
         ...prev,
@@ -25,13 +32,26 @@ export default function BlogForm({ type, previousDetails }) {
     });
   };
 
+  const previewFile = (file) => {
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onloadend = () => {
+      setBlogDetails((prev) => {
+        return {
+          ...prev,
+          blog_img: reader.result,
+        };
+      });
+    };
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!(await checkProfanity(blogDetails.description))) {
       if (type === "Update") {
         console.log("Updated the Blog");
       } else {
-        console.log("Created the Blog");
+        console.log(blogDetails);
       }
     } else {
       alert("There are some offensive words in your blog. Please Change them.");
@@ -107,6 +127,20 @@ export default function BlogForm({ type, previousDetails }) {
               Eg : For Technology - tech,web,internet,etc
             </span>
           </label>
+          <label htmlFor='' className='d-flex flex-col'>
+            <span>Upload Blog Pic:</span>
+            <input
+              type='file'
+              name='blog_img'
+              value=''
+              onChange={handleChange}
+            />
+          </label>
+          <div className='blog-img-preview'>
+            {blogDetails.blog_img && (
+              <img src={blogDetails.blog_img} alt='blog' />
+            )}
+          </div>
           <input type='submit' value='Post' />
         </form>
       </section>
