@@ -94,9 +94,6 @@ router.put(
     [
       check("name", "Name is required").not().isEmpty(),
       check("email", "Enter a Valid Email Id").isEmail(),
-      check("password", "Enter a Password with 6 or more characters").isLength({
-        min: 6,
-      }),
     ],
   ],
   async (req, res) => {
@@ -107,16 +104,15 @@ router.put(
     }
     // Get the details of the user
     try {
-      const { name, email, password, bio, profile_img } = req.body;
+      const { name, email, bio, profile_img } = req.body;
 
-      let newPassword = md5(password);
       let check = await db.query("SELECT * FROM USERS WHERE userid=$1", [
         req.user.userid,
       ]);
       if (check.rows.length !== 0) {
         let results = await db.query(
-          "UPDATE USERS SET name=$1, email=$2, password=$3, bio=$4, profile_img=$5 WHERE userid=$6 RETURNING *",
-          [name, email, newPassword, bio, profile_img, req.user.userid]
+          "UPDATE USERS SET name=$1, email=$2 , bio=$3, profile_img=$4 WHERE userid=$5 RETURNING *",
+          [name, email, bio, profile_img, req.user.userid]
         );
 
         res.json(results.rows[0]);

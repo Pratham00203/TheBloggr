@@ -3,6 +3,7 @@ const router = express.Router();
 const { check, validationResult } = require("express-validator");
 const db = require("../db/db");
 const auth = require("../middleware/auth");
+
 // @route POST /blogs/create
 // @description Create a Blog
 // @access Private
@@ -251,13 +252,17 @@ router.put("/:blogid/like", auth, async (req, res) => {
     );
 
     if (check.rows.length === 0) {
-      let results = await db.query(
+      await db.query(
         "INSERT INTO LIKES (userid,username,blogid) VALUES ($1,$2,$3) RETURNING *",
         [req.user.userid, user.rows[0].name, req.params.blogid]
       );
-      res.json(results.rows[0]);
+
+      let likes = await db.query("SELECT * FROM LIKES WHERE blogid=$1", [
+        req.params.blogid,
+      ]);
+      res.json({ msg: "Liked", likes: likes.rows });
     } else {
-      res.json("Already Liked");
+      res.json({ msg: "Already Liked" });
     }
   } catch (err) {
     console.log(err.message);
@@ -276,12 +281,16 @@ router.delete("/:blogid/unlike", auth, async (req, res) => {
     );
 
     if (check.rows.length !== 0) {
-      let results = await db.query(
-        "DELETE FROM LIKES WHERE userid=$1 AND blogid=$2",
-        [req.user.userid, req.params.blogid]
-      );
+      await db.query("DELETE FROM LIKES WHERE userid=$1 AND blogid=$2", [
+        req.user.userid,
+        req.params.blogid,
+      ]);
 
-      res.json("Unliked");
+      let likes = await db.query("SELECT * FROM LIKES WHERE  blogid=$1", [
+        req.params.blogid,
+      ]);
+
+      res.json({ msg: "Unliked", likes: likes.rows });
     } else {
       res.json("Not liked yet");
     }

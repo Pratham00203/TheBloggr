@@ -139,4 +139,20 @@ router.post(
   }
 );
 
+// @route GET /auth/check-email
+// @description Check if user exists by email
+// @access Public
+router.get("/check-email", async (req, res) => {
+  try {
+    const { email } = req.body;
+    let check = await db.query("SELECT * FROM USERS WHERE email=$1", [email]);
+    if (check.rows.length === 0) {
+      res.json("User Doesn't Exist");
+    }
+  } catch (err) {
+    console.log(err.message);
+    res.status(500).send("Server Error");
+  }
+});
+
 module.exports = router;

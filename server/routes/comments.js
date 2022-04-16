@@ -36,7 +36,11 @@ router.put(
         ]
       );
 
-      res.json("Added Comment");
+      let comments = await db.query("SELECT * FROM COMMENTS WHERE blogid=$1", [
+        req.params.blogid,
+      ]);
+
+      res.json({ msg: "Comment Added", comments: comments.rows });
     } catch (err) {
       console.log(err.message);
       res.status(500).send("Server Error");
@@ -58,7 +62,11 @@ router.delete("/:commentid/:blogid/delete", auth, async (req, res) => {
         req.params.commentid,
       ]);
 
-      res.json("Comment Deleted");
+      let comments = await db.query("SELECT * FROM COMMENTS WHERE blogid=$1", [
+        req.params.blogid,
+      ]);
+
+      res.json({ msg: "Comment Deleted", comments: comments.rows });
     } else {
       res.json("Not authorized to delete comment");
     }
