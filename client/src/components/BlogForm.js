@@ -13,8 +13,9 @@ export default function BlogForm({ type, previousBlogDetails }) {
   });
 
   useEffect(() => {
+    document.title = `${type} Blog`;
     previousBlogDetails && setBlogDetails(previousBlogDetails);
-  }, [previousBlogDetails]);
+  }, [type, previousBlogDetails]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;

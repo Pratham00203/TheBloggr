@@ -3,7 +3,10 @@
 // import BlogForm from "./components/BlogForm";
 // import UpdateUserForm from "./components/UpdateUserForm";
 // import Register from "./components/Register";
-import Homepage from "./components/Homepage";
+// import NoResult from "./components/NoResult";
+// import Blog from "./components/Blog";
+import ResetPassword from "./components/ResetPassword";
+// import Homepage from "./components/Homepage";
 import Login from "./components/Login";
 import "./App.css";
 
@@ -51,5 +54,66 @@ export default function App() {
   //   bio: "Student Developer",
   //   profile_img: "data",
   // };
-  return <>{isAuthenticated ? <Homepage /> : <Login />}</>;
+
+  // const blogDetails = {
+  //   authorDetails: {
+  //     name: "Pratham Shelar",
+  //     profile_img:
+  //       "https://cdn.pixabay.com/photo/2016/04/04/14/12/monitor-1307227__480.jpg",
+  //   },
+  //   blogDetails: {
+  //     title: "Is WEB 3.0 the new technology revolution?",
+  //     postedon: "11/2/22",
+  //     blog_img:
+  //       "https://cdn.pixabay.com/photo/2016/04/04/14/12/monitor-1307227__480.jpg",
+  //     description:
+  //       "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Soluta libero tenetur at fugiat consequuntur quidem minima quaerat, ipsum placeat dolores ullam eum porro dolorem alias, voluptas quo maiores molestiae perspiciatis. Sunt cupiditate enim non dolorum ut ipsa obcaecati! Possimus odio impedit eum amet porro est eius quaerat illum modi animi.",
+  //   },
+  //   comments: [
+  //     {
+  //       username: "Pratham Shelar",
+  //       user_img:
+  //         "https://cdn.pixabay.com/photo/2016/04/04/14/12/monitor-1307227__480.jpg",
+  //       postedon: new Date().toLocaleDateString(),
+  //       commentbody: "Cool!",
+  //     },
+  //     {
+  //       username: "Prathamesh Gurgule",
+  //       user_img:
+  //         "https://cdn.pixabay.com/photo/2016/04/04/14/12/monitor-1307227__480.jpg",
+  //       postedon: new Date().toLocaleDateString(),
+  //       commentbody: "For sure.",
+  //     },
+  //     {
+  //       username: "Rohan Shrotri",
+  //       user_img:
+  //         "https://cdn.pixabay.com/photo/2016/04/04/14/12/monitor-1307227__480.jpg",
+  //       postedon: new Date().toLocaleDateString(),
+  //       commentbody: "Indeed!",
+  //     },
+  //     {
+  //       username: "Pratik Kapse",
+  //       user_img:
+  //         "https://cdn.pixabay.com/photo/2016/04/04/14/12/monitor-1307227__480.jpg",
+  //       postedon: new Date().toLocaleDateString(),
+  //       commentbody: "Very Good",
+  //     },
+  //   ],
+  //   likes: [
+  //     {
+  //       username: "Pratham Shelar",
+  //     },
+  //     {
+  //       username: "Rohan Shrotri",
+  //     },
+  //     {
+  //       username: "Pratik Kapse",
+  //     },
+  //     {
+  //       username: "Piyush Kale",
+  //     },
+  //   ],
+  //   likeStatus: true,
+  // };
+  return <>{isAuthenticated ? <ResetPassword /> : <Login />}</>;
 }

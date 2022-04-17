@@ -689,8 +689,8 @@ label[for="password"] .toggle-password {
 }
 
 .blog-img-preview img {
-  width: 100%;
-  height: 100%;
+  width: 80%;
+  height: 80%;
   margin: 30px 0;
 }
 
@@ -827,11 +827,11 @@ label[for="password"] .toggle-password {
 /* ------------------------------------ */
 /*              BLOG PAGE                */
 /* ------------------------------------ */
-#main > .blog {
+/* #main > .blog {
   display: grid;
   grid-template-columns: 1fr;
-  /* text-align: center; */
-}
+  text-align: center;
+} */
 
 #main > .blog .title {
   font-size: 3.5em;
@@ -840,12 +840,14 @@ label[for="password"] .toggle-password {
 }
 
 #main > .blog > img {
-  width: 100%;
+  width: 80%;
+  height: 80%;
   margin-top: 40px;
 }
 
 #main > .blog .blog-author a {
   color: blueviolet;
+  gap: 10px;
 }
 
 #main > .blog .blog-author a:hover {
@@ -1217,6 +1219,16 @@ footer .brand a {
 
   #main .report-form select {
     width: 100%;
+  }
+
+  #main > .blog > img,
+  .blog-img-preview img {
+    width: 100%;
+    height: 100%;
+  }
+
+  #main > .blog .blog-desc {
+    margin: 30px 0;
   }
 }
 
