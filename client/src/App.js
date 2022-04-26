@@ -5,8 +5,11 @@
 // import Register from "./components/Register";
 // import NoResult from "./components/NoResult";
 // import Blog from "./components/Blog";
-import ResetPassword from "./components/ResetPassword";
-// import Homepage from "./components/Homepage";
+// import ResetPassword from "./components/ResetPassword";
+// import Profile from "./components/Profile";
+// import Feed from "./components/Feed";
+// import Dashboard from "./components/Dashboard";
+import Homepage from "./components/Homepage";
 import Login from "./components/Login";
 import "./App.css";
 
@@ -115,5 +118,6 @@ export default function App() {
   //   ],
   //   likeStatus: true,
   // };
-  return <>{isAuthenticated ? <ResetPassword /> : <Login />}</>;
+
+  return <>{isAuthenticated ? <Homepage /> : <Login />}</>;
 }

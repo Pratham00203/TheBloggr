@@ -64,7 +64,7 @@ router.get("/", auth, async (req, res) => {
   try {
     let blogs = await db.query("SELECT * FROM BLOGS");
     let randomBlogs = [];
-    for (let i = 0; i < 5; i++) {
+    for (let i = 0; i < 7; i++) {
       let randomNumberIndex = Math.round(Math.random() * blogs.rows.length - 1);
       if (randomBlogs.indexOf(blogs.rows[randomNumberIndex]) === -1)
         randomBlogs.push(blogs.rows[randomNumberIndex]);

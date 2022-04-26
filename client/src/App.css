@@ -83,7 +83,7 @@ a {
 #delete-blog,
 #delete-user,
 #foll-modal {
-  transform: scale(0);
+  /* transform: scale(0); */
   transition: all 0.4s ease;
 }
 
@@ -1229,6 +1229,10 @@ footer .brand a {
 
   #main > .blog .blog-desc {
     margin: 30px 0;
+  }
+
+  .forgot-p .container {
+    width: 100%;
   }
 }
 

@@ -3,6 +3,7 @@ import Footer from "./Footer";
 import likeImg from "../images/liked.png";
 import unLikeImg from "../images/unliked.png";
 import redFlag from "../images/red-flag.png";
+import bin from "../images/bin.png";
 import { useState } from "react";
 
 export default function Blog({ blogDetails }) {
@@ -120,12 +121,15 @@ export default function Blog({ blogDetails }) {
                 </div>
               );
             })}
-            <div class='comment d-flex'>
-              <img src='images/profile.jpg' alt='' />
-              <div class='comment-det'>
+            <div className='comment d-flex'>
+              <img
+                src='https://cdn.pixabay.com/photo/2016/04/04/14/12/monitor-1307227__480.jpg'
+                alt=''
+              />
+              <div className='comment-det'>
                 <h2>Pratham Shelar</h2>
                 <p>Posted on : 11/2/22</p>
-                <p class='comment-body'>
+                <p className='comment-body'>
                   Lorem ipsum dolor sit amet consectetur adipisicing elit. Porro
                   aperiam obcaecati qui perspiciatis culpa eos minus dolores
                   accusantium, aliquam quibusdam fuga asperiores cum quisquam ea
@@ -136,8 +140,8 @@ export default function Blog({ blogDetails }) {
                   omnis.
                 </p>
               </div>
-              <button class='comment-delete'>
-                <img src='images/bin.png' alt='' />
+              <button className='comment-delete'>
+                <img src={bin} alt='' />
               </button>
             </div>
           </div>
