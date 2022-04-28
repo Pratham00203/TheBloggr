@@ -23,6 +23,7 @@ function Dashboard() {
         description:
           "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Soluta libero tenetur at fugiat consequuntur quidem minima quaerat, ipsum placeat dolores ullam eum porro dolorem alias, voluptas quo maiores molestiae perspiciatis. Sunt cupiditate enim non dolorum ut ipsa obcaecati! Possimus odio impedit eum amet porro est eius quaerat illum modi animi.",
         author: "Pratham Shelar",
+        category: "Technology",
       },
       {
         blog_img:
@@ -31,6 +32,7 @@ function Dashboard() {
         description:
           "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Soluta libero tenetur at fugiat consequuntur quidem minima quaerat, ipsum placeat dolores ullam eum porro dolorem alias, voluptas quo maiores molestiae perspiciatis. Sunt cupiditate enim non dolorum ut ipsa obcaecati! Possimus odio impedit eum amet porro est eius quaerat illum modi animi.",
         author: "Pratham Shelar",
+        category: "Technology",
       },
       {
         blog_img:
@@ -39,6 +41,7 @@ function Dashboard() {
         description:
           "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Soluta libero tenetur at fugiat consequuntur quidem minima quaerat, ipsum placeat dolores ullam eum porro dolorem alias, voluptas quo maiores molestiae perspiciatis. Sunt cupiditate enim non dolorum ut ipsa obcaecati! Possimus odio impedit eum amet porro est eius quaerat illum modi animi.",
         author: "Pratham Shelar",
+        category: "Technology",
       },
       {
         blog_img:
@@ -47,6 +50,7 @@ function Dashboard() {
         description:
           "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Soluta libero tenetur at fugiat consequuntur quidem minima quaerat, ipsum placeat dolores ullam eum porro dolorem alias, voluptas quo maiores molestiae perspiciatis. Sunt cupiditate enim non dolorum ut ipsa obcaecati! Possimus odio impedit eum amet porro est eius quaerat illum modi animi.",
         author: "Pratham Shelar",
+        category: "Technology",
       },
     ],
     followers: [
@@ -188,22 +192,20 @@ function Dashboard() {
                   <div className='blog d-flex align-center'>
                     <img src={blog.blog_img} alt='' />
                     <div className='blog-det'>
-                      <h1>{blog.title}</h1>
-                      <p>
-                        {`${blog.description.slice(0, 300)} ... `}
-                        <a
-                          href='/'
-                          style={{
-                            color: "blueviolet",
-                            textDecoration: "underline",
-                          }}>
-                          {" "}
-                          Read more
-                        </a>
+                      <p
+                        style={{
+                          margin: "10px 0",
+                          textTransform: "uppercase",
+                          color: "blueviolet",
+                        }}>
+                        {blog.category}
                       </p>
-
-                      <a href='/' className='blog-author'>
-                        By -{blog.author}
+                      <h1>{blog.title}</h1>
+                      <a
+                        href='/'
+                        className='blog-author'
+                        style={{ marginTop: "8px" }}>
+                        Author : {blog.author}
                       </a>
                     </div>
                     <div className='prof-buttons d-flex'>

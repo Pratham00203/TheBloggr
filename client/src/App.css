@@ -593,7 +593,7 @@ label[for="password"] .toggle-password {
 
 .main-blog .m-blog-author {
   opacity: 0.5;
-  margin-top: 30px;
+  /* margin-top: 30px; */
 }
 
 /* ------------------------------------ */
@@ -629,7 +629,7 @@ label[for="password"] .toggle-password {
 
 .f-blog .f-blog-det p {
   font-size: 1.5em;
-  color: #000 !important;
+  color: #000;
   margin-bottom: 20px;
   margin-top: 10px;
 }
@@ -805,7 +805,7 @@ label[for="password"] .toggle-password {
 
 .user-blogs .blogs .blog .blog-det p {
   font-size: 1.5em;
-  color: #000 !important;
+  color: #000;
   margin-bottom: 20px;
   margin-top: 10px;
 }

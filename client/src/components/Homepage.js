@@ -392,7 +392,7 @@ export default function Homepage() {
                 }}></div>
               <div className='t-blog-details'>
                 <h1>{homeDetails.trendingBlog.title}</h1>
-                <p>By -{homeDetails.trendingBlog.author}</p>
+                <p>Author : {homeDetails.trendingBlog.author}</p>
               </div>
             </div>
           </div>
@@ -407,7 +407,7 @@ export default function Homepage() {
                     <img src={blog.blog_img} alt='' />
                     <div className='c-blog-det'>
                       <h1>{blog.title}</h1>
-                      <p>By -{blog.author}</p>
+                      <p style={{ marginTop: "5px" }}>Author : {blog.author}</p>
                     </div>
                   </div>
                 );
@@ -442,13 +442,13 @@ export default function Homepage() {
                 <div className='main-blog d-flex flex-col'>
                   <img src={blog.blog_img} alt='' />
                   <h1>{blog.title}</h1>
-                  <p>
+                  {/* <p>
                     {`${blog.description.slice(0, 200)} ... `}
                     <a href='/' style={{ textDecoration: "underline" }}>
                       Read More
                     </a>{" "}
-                  </p>
-                  <p className='m-blog-author'>By -{blog.author}</p>
+                  </p> */}
+                  <p className='m-blog-author'>Author : {blog.author}</p>
                 </div>
               );
             })}
@@ -472,13 +472,13 @@ export default function Homepage() {
                     {blog.category}
                   </p>
                   <h1>{blog.title}</h1>
-                  <p>
+                  {/* <p>
                     {`${blog.description.slice(0, 200)} ... `}
                     <a href='/' style={{ textDecoration: "underline" }}>
                       Read More
                     </a>{" "}
-                  </p>
-                  <p className='m-blog-author'>By -{blog.author}</p>
+                  </p> */}
+                  <p className='m-blog-author'>Author : {blog.author}</p>
                 </div>
               );
             })}
@@ -502,13 +502,13 @@ export default function Homepage() {
                     {blog.category}
                   </p>
                   <h1>{blog.title}</h1>
-                  <p>
+                  {/* <p>
                     {`${blog.description.slice(0, 200)} ... `}
                     <a href='/' style={{ textDecoration: "underline" }}>
                       Read More
                     </a>{" "}
-                  </p>
-                  <p className='m-blog-author'>By -{blog.author}</p>
+                  </p> */}
+                  <p className='m-blog-author'>Author : {blog.author}</p>
                 </div>
               );
             })}
@@ -532,13 +532,13 @@ export default function Homepage() {
                     {blog.category}
                   </p>
                   <h1>{blog.title}</h1>
-                  <p>
+                  {/* <p>
                     {`${blog.description.slice(0, 200)} ... `}
                     <a href='/' style={{ textDecoration: "underline" }}>
                       Read More
                     </a>{" "}
-                  </p>
-                  <p className='m-blog-author'>By -{blog.author}</p>
+                  </p> */}
+                  <p className='m-blog-author'>Author : {blog.author}</p>
                 </div>
               );
             })}

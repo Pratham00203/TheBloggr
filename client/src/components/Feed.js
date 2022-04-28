@@ -20,6 +20,7 @@ export default function Feed({ type }) {
       author: "Pratham",
       blog_img:
         "https://cdn.pixabay.com/photo/2016/04/04/14/12/monitor-1307227__480.jpg",
+      category: "Technology",
     },
     {
       title: "Is WEB 3.0 the new technology revolution?",
@@ -28,6 +29,7 @@ export default function Feed({ type }) {
       author: "Pratham",
       blog_img:
         "https://cdn.pixabay.com/photo/2016/04/04/14/12/monitor-1307227__480.jpg",
+      category: "Technology",
     },
     {
       title: "Is WEB 3.0 the new technology revolution?",
@@ -36,6 +38,7 @@ export default function Feed({ type }) {
       author: "Pratham",
       blog_img:
         "https://cdn.pixabay.com/photo/2016/04/04/14/12/monitor-1307227__480.jpg",
+      category: "Technology",
     },
   ];
   const searchBlogs = [
@@ -46,6 +49,7 @@ export default function Feed({ type }) {
       author: "Pratham",
       blog_img:
         "https://cdn.pixabay.com/photo/2016/04/04/14/12/monitor-1307227__480.jpg",
+      category: "Technology",
     },
     {
       title: "Is WEB 3.0 the new technology revolution?",
@@ -54,6 +58,7 @@ export default function Feed({ type }) {
       author: "Pratham",
       blog_img:
         "https://cdn.pixabay.com/photo/2016/04/04/14/12/monitor-1307227__480.jpg",
+      category: "Technology",
     },
     {
       title: "Is WEB 3.0 the new technology revolution?",
@@ -62,6 +67,7 @@ export default function Feed({ type }) {
       author: "Pratham",
       blog_img:
         "https://cdn.pixabay.com/photo/2016/04/04/14/12/monitor-1307227__480.jpg",
+      category: "Technology",
     },
   ];
 
@@ -76,8 +82,16 @@ export default function Feed({ type }) {
               <div className='f-blog d-flex'>
                 <img src={blog.blog_img} alt='' />
                 <div className='f-blog-det'>
+                  <p
+                    style={{
+                      margin: "10px 0",
+                      textTransform: "uppercase",
+                      color: "blueviolet",
+                    }}>
+                    {blog.category}
+                  </p>
                   <h1>{blog.title}</h1>
-                  <p>
+                  {/* <p>
                     {`${blog.description.slice(0, 300)} ... `}
                     <a
                       href='/'
@@ -88,10 +102,13 @@ export default function Feed({ type }) {
                       {" "}
                       Read more
                     </a>
-                  </p>
+                  </p> */}
 
-                  <a href='/' className='f-blog-author'>
-                    By -{blog.author}
+                  <a
+                    href='/'
+                    className='f-blog-author'
+                    style={{ marginTop: "8px" }}>
+                    Author : {blog.author}
                   </a>
                 </div>
               </div>
