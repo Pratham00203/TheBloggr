@@ -2,15 +2,16 @@
 // import { useState } from "react";
 // import BlogForm from "./components/BlogForm";
 // import UpdateUserForm from "./components/UpdateUserForm";
-// import Register from "./components/Register";
+import Register from "./components/Register";
 // import NoResult from "./components/NoResult";
 // import Blog from "./components/Blog";
-// import ResetPassword from "./components/ResetPassword";
+import ResetPassword from "./components/ResetPassword";
 // import Profile from "./components/Profile";
 // import Feed from "./components/Feed";
 // import Dashboard from "./components/Dashboard";
 import Homepage from "./components/Homepage";
 import Login from "./components/Login";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import "./App.css";
 
 export default function App() {
@@ -46,9 +47,10 @@ export default function App() {
   //   title: "Is WEB 3.0 the new technology revolution?",
   //   category: "Technology",
   //   description:
-  //     "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Soluta libero tenetur at fugiat consequuntur quidem minima quaerat, ipsum placeat dolores ullam eum porro dolorem alias, voluptas quo maiores molestiae perspiciatis. Sunt cupiditate enim non dolorum ut ipsa obcaecati! Possimus odio impedit eum amet porro est eius quaerat illum modi animi.",
+  //     "<h1>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Soluta libero tenetur at fugiat consequuntur quidem minima quaerat, ipsum placeat dolores ullam eum porro dolorem alias, voluptas quo maiores molestiae perspiciatis. Sunt cupiditate enim non dolorum ut ipsa obcaecati! Possimus odio impedit eum amet porro est eius quaerat illum modi animi.</h1>",
   //   keywords: "tech,web,internet",
-  //   blog_img:"https://cdn.pixabay.com/photo/2016/04/04/14/12/monitor-1307227__480.jpg"
+  //   blog_img:
+  //     "https://cdn.pixabay.com/photo/2016/04/04/14/12/monitor-1307227__480.jpg",
   // };
 
   // const previousUserDetails = {
@@ -119,5 +121,18 @@ export default function App() {
   //   likeStatus: true,
   // };
 
-  return <>{isAuthenticated ? <Homepage /> : <Login />}</>;
+  return (
+    <Router>
+      <Routes>
+        <Route
+          exact
+          path='/'
+          element={isAuthenticated ? <Homepage /> : <Login />}
+        />
+        <Route exact path='/login' element={<Login />} />
+        <Route exact path='/register' element={<Register />} />
+        <Route exact path='/reset-password' element={<ResetPassword />} />
+      </Routes>
+    </Router>
+  );
 }

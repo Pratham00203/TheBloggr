@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import Navbar from "./Navbar";
 import Footer from "./Footer";
+import SunEditor from "suneditor-react";
+import "suneditor/dist/css/suneditor.min.css";
 
 export default function BlogForm({ type, previousBlogDetails }) {
   const [blogDetails, setBlogDetails] = useState({
@@ -12,10 +14,14 @@ export default function BlogForm({ type, previousBlogDetails }) {
     blog_img: "",
   });
 
+  const previousBlogDescription = previousBlogDetails
+    ? previousBlogDetails.description
+    : "";
+
   useEffect(() => {
     document.title = `${type} Blog`;
     previousBlogDetails && setBlogDetails(previousBlogDetails);
-  }, [type, previousBlogDetails]);
+  }, []);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -46,11 +52,21 @@ export default function BlogForm({ type, previousBlogDetails }) {
     };
   };
 
+  const handleDescriptionChange = (e) => {
+    setBlogDetails((prev) => {
+      return {
+        ...prev,
+        description: e,
+      };
+    });
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!(await checkProfanity(blogDetails.description))) {
       if (type === "Update") {
         console.log("Updated the Blog");
+        console.log(blogDetails);
       } else {
         console.log(blogDetails);
       }
@@ -99,7 +115,55 @@ export default function BlogForm({ type, previousBlogDetails }) {
           </div>
           <label htmlFor='description' className='d-flex flex-col'>
             <span>Description:</span>
-            <textarea
+            <SunEditor
+              setDefaultStyle="font-family : 'Lato', sans-serif !important"
+              height='300px'
+              defaultValue={
+                previousBlogDetails
+                  ? previousBlogDescription
+                  : blogDetails.description
+              }
+              onChange={handleDescriptionChange}
+              setOptions={{
+                buttonList: [
+                  ["undo", "redo"],
+                  [
+                    ":p-More Paragraph-default.more_paragraph",
+                    // "font",
+                    "fontSize",
+                    "formatBlock",
+                    "paragraphStyle",
+                    "blockquote",
+                  ],
+                  [
+                    "link",
+                    "bold",
+                    "underline",
+                    "italic",
+                    "strike",
+                    "subscript",
+                    "superscript",
+                  ],
+
+                  ["fontColor", "hiliteColor", "textStyle"],
+                  ["removeFormat"],
+                  ["outdent", "indent"],
+                  ["align", "horizontalRule", "list", "lineHeight"],
+                  [
+                    "-right",
+                    ":i-More Misc-default.more_vertical",
+                    "fullScreen",
+                    "showBlocks",
+                    "codeView",
+                    "preview",
+                    "print",
+                    "save",
+                    "template",
+                  ],
+                ],
+              }}
+            />
+            {/* <textarea
               name='description'
               cols='30'
               rows='10'
@@ -111,9 +175,16 @@ export default function BlogForm({ type, previousBlogDetails }) {
               Total Words: ${
                 !blogDetails.description
                   ? 0
-                  : blogDetails.description.split(" ").length
+                  : blogDetails.description
+                      .trim()
+                      .split(" ")
+                      .filter((el) => {
+                        return el !== " ";
+                      }).length
+
+               
               }`}
-            </span>
+            </span> */}
           </label>
           <label htmlFor='keywords ' className='d-flex flex-col'>
             <span>Keywords:</span>

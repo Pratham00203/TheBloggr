@@ -11,6 +11,8 @@ export default function ResetPassword() {
     otp: "",
   });
 
+  document.title = "Forgot Password";
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setUserDetails((prev) => {
@@ -39,56 +41,58 @@ export default function ResetPassword() {
   };
 
   return (
-    <section
-      id='main'
-      className='forgot-p d-flex flex-col align-center justify-center'>
-      <div className='container'>
-        <h1>Reset Password.</h1>
-        <label htmlFor='email' className='d-flex flex-col'>
-          <span>Enter Your Email Id: </span>
-          <input
-            type='email'
-            onChange={handleChange}
-            name='email'
-            placeholder='Enter Your Email Id'
-          />
-        </label>
-        <button className='submit-email' onClick={checkEmail}>
-          Next
-        </button>
-        <div
-          className='otp-form'
-          style={enterOTP ? { display: "block" } : { display: "none" }}>
-          <label htmlFor='otp' className='d-flex flex-col'>
-            <span>Enter OTP:</span>
-            <input type='text' onChange={handleChange} name='otp' />
-          </label>
-          <button className='submit-otp' onClick={checkOTP}>
-            Proceed
-          </button>
-        </div>
-        <form
-          className='reset-password'
-          style={enterPassword ? { display: "block" } : { display: "none" }}
-          onSubmit={handleSubmit}>
-          <label htmlFor='password' className='d-flex flex-col'>
-            <span>Enter New Password: </span>
-            <img
-              className='toggle-password'
-              src={eyeIcon}
-              onClick={() => setShowPassword(!showPassword)}
-              alt=''
-            />
+    <div className='login-register-container'>
+      <section
+        id='main'
+        className='forgot-p d-flex flex-col align-center justify-center'>
+        <div className='container'>
+          <h1>Reset Password.</h1>
+          <label htmlFor='email' className='d-flex flex-col'>
+            <span>Enter Your Email Id: </span>
             <input
-              type={showPassword ? "text" : "password"}
-              name='password'
+              type='email'
               onChange={handleChange}
-              placeholder='Password'
+              name='email'
+              placeholder='Enter Your Email Id'
             />
           </label>
-          <input type='submit' value='Change Password' />
-        </form>
-      </div>
-    </section>
+          <button className='submit-email' onClick={checkEmail}>
+            Next
+          </button>
+          <div
+            className='otp-form'
+            style={enterOTP ? { display: "block" } : { display: "none" }}>
+            <label htmlFor='otp' className='d-flex flex-col'>
+              <span>Enter OTP:</span>
+              <input type='text' onChange={handleChange} name='otp' />
+            </label>
+            <button className='submit-otp' onClick={checkOTP}>
+              Proceed
+            </button>
+          </div>
+          <form
+            className='reset-password'
+            style={enterPassword ? { display: "block" } : { display: "none" }}
+            onSubmit={handleSubmit}>
+            <label htmlFor='password' className='d-flex flex-col'>
+              <span>Enter New Password: </span>
+              <img
+                className='toggle-password'
+                src={eyeIcon}
+                onClick={() => setShowPassword(!showPassword)}
+                alt=''
+              />
+              <input
+                type={showPassword ? "text" : "password"}
+                name='password'
+                onChange={handleChange}
+                placeholder='Password'
+              />
+            </label>
+            <input type='submit' value='Change Password' />
+          </form>
+        </div>
+      </section>
+    </div>
   );
 }

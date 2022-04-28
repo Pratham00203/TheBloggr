@@ -1,7 +1,10 @@
 import { useState } from "react";
 import eyeIcon from "../images/eye.png";
+import { Link } from "react-router-dom";
 
 export default function Login() {
+  document.title = "Login";
+
   const [showPassword, setShowPassword] = useState(false);
   const [loginDetails, setLoginDetails] = useState({
     email: "",
@@ -24,7 +27,7 @@ export default function Login() {
   };
 
   return (
-    <>
+    <div className='login-register-container'>
       <div className='l-container d-flex justify-center align-center'>
         <h1>
           Login to <br />
@@ -54,11 +57,13 @@ export default function Login() {
               onChange={handleChange}
             />
           </label>
-          <a href='forgotpassword.html'>Forgot Password</a>
-          <a href='register.html'>Not a User?</a>
+          <Link to='/reset-password'>Forgot Password</Link>
+          <Link to='/register'>Not a User?</Link>
+          {/* <a href='forgotpassword.html'>Forgot Password</a> */}
+          {/* <a href='register.html'>Not a User?</a> */}
           <input type='submit' value='Login' />
         </form>
       </div>
-    </>
+    </div>
   );
 }
