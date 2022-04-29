@@ -24,6 +24,8 @@ function Dashboard() {
           "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Soluta libero tenetur at fugiat consequuntur quidem minima quaerat, ipsum placeat dolores ullam eum porro dolorem alias, voluptas quo maiores molestiae perspiciatis. Sunt cupiditate enim non dolorum ut ipsa obcaecati! Possimus odio impedit eum amet porro est eius quaerat illum modi animi.",
         author: "Pratham Shelar",
         category: "Technology",
+        author_img:
+          "https://cdn.pixabay.com/photo/2016/04/04/14/12/monitor-1307227__480.jpg",
       },
       {
         blog_img:
@@ -33,6 +35,8 @@ function Dashboard() {
           "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Soluta libero tenetur at fugiat consequuntur quidem minima quaerat, ipsum placeat dolores ullam eum porro dolorem alias, voluptas quo maiores molestiae perspiciatis. Sunt cupiditate enim non dolorum ut ipsa obcaecati! Possimus odio impedit eum amet porro est eius quaerat illum modi animi.",
         author: "Pratham Shelar",
         category: "Technology",
+        author_img:
+          "https://cdn.pixabay.com/photo/2016/04/04/14/12/monitor-1307227__480.jpg",
       },
       {
         blog_img:
@@ -42,6 +46,8 @@ function Dashboard() {
           "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Soluta libero tenetur at fugiat consequuntur quidem minima quaerat, ipsum placeat dolores ullam eum porro dolorem alias, voluptas quo maiores molestiae perspiciatis. Sunt cupiditate enim non dolorum ut ipsa obcaecati! Possimus odio impedit eum amet porro est eius quaerat illum modi animi.",
         author: "Pratham Shelar",
         category: "Technology",
+        author_img:
+          "https://cdn.pixabay.com/photo/2016/04/04/14/12/monitor-1307227__480.jpg",
       },
       {
         blog_img:
@@ -51,6 +57,8 @@ function Dashboard() {
           "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Soluta libero tenetur at fugiat consequuntur quidem minima quaerat, ipsum placeat dolores ullam eum porro dolorem alias, voluptas quo maiores molestiae perspiciatis. Sunt cupiditate enim non dolorum ut ipsa obcaecati! Possimus odio impedit eum amet porro est eius quaerat illum modi animi.",
         author: "Pratham Shelar",
         category: "Technology",
+        author_img:
+          "https://cdn.pixabay.com/photo/2016/04/04/14/12/monitor-1307227__480.jpg",
       },
     ],
     followers: [
@@ -203,9 +211,18 @@ function Dashboard() {
                       <h1>{blog.title}</h1>
                       <a
                         href='/'
-                        className='blog-author'
-                        style={{ marginTop: "8px" }}>
-                        Author : {blog.author}
+                        className='blog-author d-flex align-center'
+                        style={{ marginTop: "8px", gap: "10px" }}>
+                        <img
+                          src={blog.author_img}
+                          style={{
+                            width: "20px",
+                            height: "20px",
+                            borderRadius: "50%",
+                          }}
+                          alt=''
+                        />
+                        {blog.author}
                       </a>
                     </div>
                     <div className='prof-buttons d-flex'>

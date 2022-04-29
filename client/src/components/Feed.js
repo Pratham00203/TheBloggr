@@ -21,6 +21,8 @@ export default function Feed({ type }) {
       blog_img:
         "https://cdn.pixabay.com/photo/2016/04/04/14/12/monitor-1307227__480.jpg",
       category: "Technology",
+      author_img:
+        "https://cdn.pixabay.com/photo/2016/04/04/14/12/monitor-1307227__480.jpg",
     },
     {
       title: "Is WEB 3.0 the new technology revolution?",
@@ -30,6 +32,8 @@ export default function Feed({ type }) {
       blog_img:
         "https://cdn.pixabay.com/photo/2016/04/04/14/12/monitor-1307227__480.jpg",
       category: "Technology",
+      author_img:
+        "https://cdn.pixabay.com/photo/2016/04/04/14/12/monitor-1307227__480.jpg",
     },
     {
       title: "Is WEB 3.0 the new technology revolution?",
@@ -39,6 +43,8 @@ export default function Feed({ type }) {
       blog_img:
         "https://cdn.pixabay.com/photo/2016/04/04/14/12/monitor-1307227__480.jpg",
       category: "Technology",
+      author_img:
+        "https://cdn.pixabay.com/photo/2016/04/04/14/12/monitor-1307227__480.jpg",
     },
   ];
   const searchBlogs = [
@@ -50,6 +56,8 @@ export default function Feed({ type }) {
       blog_img:
         "https://cdn.pixabay.com/photo/2016/04/04/14/12/monitor-1307227__480.jpg",
       category: "Technology",
+      author_img:
+        "https://cdn.pixabay.com/photo/2016/04/04/14/12/monitor-1307227__480.jpg",
     },
     {
       title: "Is WEB 3.0 the new technology revolution?",
@@ -59,6 +67,8 @@ export default function Feed({ type }) {
       blog_img:
         "https://cdn.pixabay.com/photo/2016/04/04/14/12/monitor-1307227__480.jpg",
       category: "Technology",
+      author_img:
+        "https://cdn.pixabay.com/photo/2016/04/04/14/12/monitor-1307227__480.jpg",
     },
     {
       title: "Is WEB 3.0 the new technology revolution?",
@@ -68,6 +78,8 @@ export default function Feed({ type }) {
       blog_img:
         "https://cdn.pixabay.com/photo/2016/04/04/14/12/monitor-1307227__480.jpg",
       category: "Technology",
+      author_img:
+        "https://cdn.pixabay.com/photo/2016/04/04/14/12/monitor-1307227__480.jpg",
     },
   ];
 
@@ -106,9 +118,23 @@ export default function Feed({ type }) {
 
                   <a
                     href='/'
-                    className='f-blog-author'
-                    style={{ marginTop: "8px" }}>
-                    Author : {blog.author}
+                    className='blog-author d-flex align-center'
+                    style={{
+                      marginTop: "8px",
+                      gap: "10px",
+                      color: "rgba(0, 0, 0, 0.5)",
+                      fontSize: "1.5em",
+                    }}>
+                    <img
+                      src={blog.author_img}
+                      style={{
+                        width: "20px",
+                        height: "20px",
+                        borderRadius: "50%",
+                      }}
+                      alt=''
+                    />
+                    {blog.author}
                   </a>
                 </div>
               </div>

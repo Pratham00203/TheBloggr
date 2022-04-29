@@ -27,6 +27,8 @@ export default function Homepage() {
       description:
         " Lorem, ipsum dolor sit amet consectetur adipisicing elit. Obcaecati, voluptas id fugit voluptatibus pariatur ab minus at inventore alias vero iusto, non explicabo perferendis tempore voluptatum perspiciatis blanditiis neque molestiae facilis officiis deserunt aut ad! Eligendi, tenetur numquam ratione voluptatum impedit assumenda quis cumque accusantium quidem dignissimos? Magni, quam quae.",
       category: "Travel",
+      author_img:
+        "https://cdn.pixabay.com/photo/2016/04/04/14/12/monitor-1307227__480.jpg",
     },
     {
       blog_img:
@@ -36,6 +38,8 @@ export default function Homepage() {
       description:
         " Lorem, ipsum dolor sit amet consectetur adipisicing elit. Obcaecati, voluptas id fugit voluptatibus pariatur ab minus at inventore alias vero iusto, non explicabo perferendis tempore voluptatum perspiciatis blanditiis neque molestiae facilis officiis deserunt aut ad! Eligendi, tenetur numquam ratione voluptatum impedit assumenda quis cumque accusantium quidem dignissimos? Magni, quam quae.",
       category: "Travel",
+      author_img:
+        "https://cdn.pixabay.com/photo/2016/04/04/14/12/monitor-1307227__480.jpg",
     },
     {
       blog_img:
@@ -45,6 +49,8 @@ export default function Homepage() {
       description:
         " Lorem, ipsum dolor sit amet consectetur adipisicing elit. Obcaecati, voluptas id fugit voluptatibus pariatur ab minus at inventore alias vero iusto, non explicabo perferendis tempore voluptatum perspiciatis blanditiis neque molestiae facilis officiis deserunt aut ad! Eligendi, tenetur numquam ratione voluptatum impedit assumenda quis cumque accusantium quidem dignissimos? Magni, quam quae.",
       category: "Travel",
+      author_img:
+        "https://cdn.pixabay.com/photo/2016/04/04/14/12/monitor-1307227__480.jpg",
     },
     {
       blog_img:
@@ -54,6 +60,8 @@ export default function Homepage() {
       description:
         " Lorem, ipsum dolor sit amet consectetur adipisicing elit. Obcaecati, voluptas id fugit voluptatibus pariatur ab minus at inventore alias vero iusto, non explicabo perferendis tempore voluptatum perspiciatis blanditiis neque molestiae facilis officiis deserunt aut ad! Eligendi, tenetur numquam ratione voluptatum impedit assumenda quis cumque accusantium quidem dignissimos? Magni, quam quae.",
       category: "Travel",
+      author_img:
+        "https://cdn.pixabay.com/photo/2016/04/04/14/12/monitor-1307227__480.jpg",
     },
     {
       blog_img:
@@ -63,6 +71,8 @@ export default function Homepage() {
       description:
         " Lorem, ipsum dolor sit amet consectetur adipisicing elit. Obcaecati, voluptas id fugit voluptatibus pariatur ab minus at inventore alias vero iusto, non explicabo perferendis tempore voluptatum perspiciatis blanditiis neque molestiae facilis officiis deserunt aut ad! Eligendi, tenetur numquam ratione voluptatum impedit assumenda quis cumque accusantium quidem dignissimos? Magni, quam quae.",
       category: "Travel",
+      author_img:
+        "https://cdn.pixabay.com/photo/2016/04/04/14/12/monitor-1307227__480.jpg",
     },
     {
       blog_img:
@@ -72,6 +82,8 @@ export default function Homepage() {
       description:
         " Lorem, ipsum dolor sit amet consectetur adipisicing elit. Obcaecati, voluptas id fugit voluptatibus pariatur ab minus at inventore alias vero iusto, non explicabo perferendis tempore voluptatum perspiciatis blanditiis neque molestiae facilis officiis deserunt aut ad! Eligendi, tenetur numquam ratione voluptatum impedit assumenda quis cumque accusantium quidem dignissimos? Magni, quam quae.",
       category: "Travel",
+      author_img:
+        "https://cdn.pixabay.com/photo/2016/04/04/14/12/monitor-1307227__480.jpg",
     },
   ];
 
@@ -84,6 +96,8 @@ export default function Homepage() {
       description:
         " Lorem, ipsum dolor sit amet consectetur adipisicing elit. Obcaecati, voluptas id fugit voluptatibus pariatur ab minus at inventore alias vero iusto, non explicabo perferendis tempore voluptatum perspiciatis blanditiis neque molestiae facilis officiis deserunt aut ad! Eligendi, tenetur numquam ratione voluptatum impedit assumenda quis cumque accusantium quidem dignissimos? Magni, quam quae.",
       category: "Technology",
+      author_img:
+        "https://cdn.pixabay.com/photo/2016/04/04/14/12/monitor-1307227__480.jpg",
     },
     {
       blog_img:
@@ -93,6 +107,8 @@ export default function Homepage() {
       description:
         " Lorem, ipsum dolor sit amet consectetur adipisicing elit. Obcaecati, voluptas id fugit voluptatibus pariatur ab minus at inventore alias vero iusto, non explicabo perferendis tempore voluptatum perspiciatis blanditiis neque molestiae facilis officiis deserunt aut ad! Eligendi, tenetur numquam ratione voluptatum impedit assumenda quis cumque accusantium quidem dignissimos? Magni, quam quae.",
       category: "Technology",
+      author_img:
+        "https://cdn.pixabay.com/photo/2016/04/04/14/12/monitor-1307227__480.jpg",
     },
     {
       blog_img:
@@ -102,6 +118,8 @@ export default function Homepage() {
       description:
         " Lorem, ipsum dolor sit amet consectetur adipisicing elit. Obcaecati, voluptas id fugit voluptatibus pariatur ab minus at inventore alias vero iusto, non explicabo perferendis tempore voluptatum perspiciatis blanditiis neque molestiae facilis officiis deserunt aut ad! Eligendi, tenetur numquam ratione voluptatum impedit assumenda quis cumque accusantium quidem dignissimos? Magni, quam quae.",
       category: "Technology",
+      author_img:
+        "https://cdn.pixabay.com/photo/2016/04/04/14/12/monitor-1307227__480.jpg",
     },
     {
       blog_img:
@@ -111,6 +129,8 @@ export default function Homepage() {
       description:
         " Lorem, ipsum dolor sit amet consectetur adipisicing elit. Obcaecati, voluptas id fugit voluptatibus pariatur ab minus at inventore alias vero iusto, non explicabo perferendis tempore voluptatum perspiciatis blanditiis neque molestiae facilis officiis deserunt aut ad! Eligendi, tenetur numquam ratione voluptatum impedit assumenda quis cumque accusantium quidem dignissimos? Magni, quam quae.",
       category: "Technology",
+      author_img:
+        "https://cdn.pixabay.com/photo/2016/04/04/14/12/monitor-1307227__480.jpg",
     },
     {
       blog_img:
@@ -120,6 +140,8 @@ export default function Homepage() {
       description:
         " Lorem, ipsum dolor sit amet consectetur adipisicing elit. Obcaecati, voluptas id fugit voluptatibus pariatur ab minus at inventore alias vero iusto, non explicabo perferendis tempore voluptatum perspiciatis blanditiis neque molestiae facilis officiis deserunt aut ad! Eligendi, tenetur numquam ratione voluptatum impedit assumenda quis cumque accusantium quidem dignissimos? Magni, quam quae.",
       category: "Technology",
+      author_img:
+        "https://cdn.pixabay.com/photo/2016/04/04/14/12/monitor-1307227__480.jpg",
     },
     {
       blog_img:
@@ -129,6 +151,8 @@ export default function Homepage() {
       description:
         " Lorem, ipsum dolor sit amet consectetur adipisicing elit. Obcaecati, voluptas id fugit voluptatibus pariatur ab minus at inventore alias vero iusto, non explicabo perferendis tempore voluptatum perspiciatis blanditiis neque molestiae facilis officiis deserunt aut ad! Eligendi, tenetur numquam ratione voluptatum impedit assumenda quis cumque accusantium quidem dignissimos? Magni, quam quae.",
       category: "Technology",
+      author_img:
+        "https://cdn.pixabay.com/photo/2016/04/04/14/12/monitor-1307227__480.jpg",
     },
     {
       blog_img:
@@ -138,6 +162,8 @@ export default function Homepage() {
       description:
         " Lorem, ipsum dolor sit amet consectetur adipisicing elit. Obcaecati, voluptas id fugit voluptatibus pariatur ab minus at inventore alias vero iusto, non explicabo perferendis tempore voluptatum perspiciatis blanditiis neque molestiae facilis officiis deserunt aut ad! Eligendi, tenetur numquam ratione voluptatum impedit assumenda quis cumque accusantium quidem dignissimos? Magni, quam quae.",
       category: "Technology",
+      author_img:
+        "https://cdn.pixabay.com/photo/2016/04/04/14/12/monitor-1307227__480.jpg",
     },
     {
       blog_img:
@@ -147,6 +173,8 @@ export default function Homepage() {
       description:
         " Lorem, ipsum dolor sit amet consectetur adipisicing elit. Obcaecati, voluptas id fugit voluptatibus pariatur ab minus at inventore alias vero iusto, non explicabo perferendis tempore voluptatum perspiciatis blanditiis neque molestiae facilis officiis deserunt aut ad! Eligendi, tenetur numquam ratione voluptatum impedit assumenda quis cumque accusantium quidem dignissimos? Magni, quam quae.",
       category: "Technology",
+      author_img:
+        "https://cdn.pixabay.com/photo/2016/04/04/14/12/monitor-1307227__480.jpg",
     },
     {
       blog_img:
@@ -156,6 +184,8 @@ export default function Homepage() {
       description:
         " Lorem, ipsum dolor sit amet consectetur adipisicing elit. Obcaecati, voluptas id fugit voluptatibus pariatur ab minus at inventore alias vero iusto, non explicabo perferendis tempore voluptatum perspiciatis blanditiis neque molestiae facilis officiis deserunt aut ad! Eligendi, tenetur numquam ratione voluptatum impedit assumenda quis cumque accusantium quidem dignissimos? Magni, quam quae.",
       category: "Technology",
+      author_img:
+        "https://cdn.pixabay.com/photo/2016/04/04/14/12/monitor-1307227__480.jpg",
     },
     {
       blog_img:
@@ -165,82 +195,8 @@ export default function Homepage() {
       description:
         " Lorem, ipsum dolor sit amet consectetur adipisicing elit. Obcaecati, voluptas id fugit voluptatibus pariatur ab minus at inventore alias vero iusto, non explicabo perferendis tempore voluptatum perspiciatis blanditiis neque molestiae facilis officiis deserunt aut ad! Eligendi, tenetur numquam ratione voluptatum impedit assumenda quis cumque accusantium quidem dignissimos? Magni, quam quae.",
       category: "Technology",
-    },
-  ];
-
-  let worldBlogs = [
-    {
-      blog_img:
+      author_img:
         "https://cdn.pixabay.com/photo/2016/04/04/14/12/monitor-1307227__480.jpg",
-      title: "Is WEB 3.0 the new technology revolution?",
-      author: "Pratham",
-      description:
-        " Lorem, ipsum dolor sit amet consectetur adipisicing elit. Obcaecati, voluptas id fugit voluptatibus pariatur ab minus at inventore alias vero iusto, non explicabo perferendis tempore voluptatum perspiciatis blanditiis neque molestiae facilis officiis deserunt aut ad! Eligendi, tenetur numquam ratione voluptatum impedit assumenda quis cumque accusantium quidem dignissimos? Magni, quam quae.",
-      category: "World",
-    },
-    {
-      blog_img:
-        "https://cdn.pixabay.com/photo/2016/04/04/14/12/monitor-1307227__480.jpg",
-      title: "Is WEB 3.0 the new technology revolution?",
-      author: "Pratham",
-      description:
-        " Lorem, ipsum dolor sit amet consectetur adipisicing elit. Obcaecati, voluptas id fugit voluptatibus pariatur ab minus at inventore alias vero iusto, non explicabo perferendis tempore voluptatum perspiciatis blanditiis neque molestiae facilis officiis deserunt aut ad! Eligendi, tenetur numquam ratione voluptatum impedit assumenda quis cumque accusantium quidem dignissimos? Magni, quam quae.",
-      category: "World",
-    },
-
-    {
-      blog_img:
-        "https://cdn.pixabay.com/photo/2016/04/04/14/12/monitor-1307227__480.jpg",
-      title: "Is WEB 3.0 the new technology revolution?",
-      author: "Pratham",
-      description:
-        " Lorem, ipsum dolor sit amet consectetur adipisicing elit. Obcaecati, voluptas id fugit voluptatibus pariatur ab minus at inventore alias vero iusto, non explicabo perferendis tempore voluptatum perspiciatis blanditiis neque molestiae facilis officiis deserunt aut ad! Eligendi, tenetur numquam ratione voluptatum impedit assumenda quis cumque accusantium quidem dignissimos? Magni, quam quae.",
-      category: "World",
-    },
-    {
-      blog_img:
-        "https://cdn.pixabay.com/photo/2016/04/04/14/12/monitor-1307227__480.jpg",
-      title: "Is WEB 3.0 the new technology revolution?",
-      author: "Pratham",
-      description:
-        " Lorem, ipsum dolor sit amet consectetur adipisicing elit. Obcaecati, voluptas id fugit voluptatibus pariatur ab minus at inventore alias vero iusto, non explicabo perferendis tempore voluptatum perspiciatis blanditiis neque molestiae facilis officiis deserunt aut ad! Eligendi, tenetur numquam ratione voluptatum impedit assumenda quis cumque accusantium quidem dignissimos? Magni, quam quae.",
-      category: "World",
-    },
-    {
-      blog_img:
-        "https://cdn.pixabay.com/photo/2016/04/04/14/12/monitor-1307227__480.jpg",
-      title: "Is WEB 3.0 the new technology revolution?",
-      author: "Pratham",
-      description:
-        " Lorem, ipsum dolor sit amet consectetur adipisicing elit. Obcaecati, voluptas id fugit voluptatibus pariatur ab minus at inventore alias vero iusto, non explicabo perferendis tempore voluptatum perspiciatis blanditiis neque molestiae facilis officiis deserunt aut ad! Eligendi, tenetur numquam ratione voluptatum impedit assumenda quis cumque accusantium quidem dignissimos? Magni, quam quae.",
-      category: "World",
-    },
-    {
-      blog_img:
-        "https://cdn.pixabay.com/photo/2016/04/04/14/12/monitor-1307227__480.jpg",
-      title: "Is WEB 3.0 the new technology revolution?",
-      author: "Pratham",
-      description:
-        " Lorem, ipsum dolor sit amet consectetur adipisicing elit. Obcaecati, voluptas id fugit voluptatibus pariatur ab minus at inventore alias vero iusto, non explicabo perferendis tempore voluptatum perspiciatis blanditiis neque molestiae facilis officiis deserunt aut ad! Eligendi, tenetur numquam ratione voluptatum impedit assumenda quis cumque accusantium quidem dignissimos? Magni, quam quae.",
-      category: "World",
-    },
-    {
-      blog_img:
-        "https://cdn.pixabay.com/photo/2016/04/04/14/12/monitor-1307227__480.jpg",
-      title: "Is WEB 3.0 the new technology revolution?",
-      author: "Pratham",
-      description:
-        " Lorem, ipsum dolor sit amet consectetur adipisicing elit. Obcaecati, voluptas id fugit voluptatibus pariatur ab minus at inventore alias vero iusto, non explicabo perferendis tempore voluptatum perspiciatis blanditiis neque molestiae facilis officiis deserunt aut ad! Eligendi, tenetur numquam ratione voluptatum impedit assumenda quis cumque accusantium quidem dignissimos? Magni, quam quae.",
-      category: "World",
-    },
-    {
-      blog_img:
-        "https://cdn.pixabay.com/photo/2016/04/04/14/12/monitor-1307227__480.jpg",
-      title: "Is WEB 3.0 the new technology revolution?",
-      author: "Pratham",
-      description:
-        " Lorem, ipsum dolor sit amet consectetur adipisicing elit. Obcaecati, voluptas id fugit voluptatibus pariatur ab minus at inventore alias vero iusto, non explicabo perferendis tempore voluptatum perspiciatis blanditiis neque molestiae facilis officiis deserunt aut ad! Eligendi, tenetur numquam ratione voluptatum impedit assumenda quis cumque accusantium quidem dignissimos? Magni, quam quae.",
-      category: "World",
     },
   ];
 
@@ -253,6 +209,8 @@ export default function Homepage() {
         author: "Pratham",
         description:
           " Lorem, ipsum dolor sit amet consectetur adipisicing elit. Obcaecati, voluptas id fugit voluptatibus pariatur ab minus at inventore alias vero iusto, non explicabo perferendis tempore voluptatum perspiciatis blanditiis neque molestiae facilis officiis deserunt aut ad! Eligendi, tenetur numquam ratione voluptatum impedit assumenda quis cumque accusantium quidem dignissimos? Magni, quam quae.",
+        author_img:
+          "https://cdn.pixabay.com/photo/2016/04/04/14/12/monitor-1307227__480.jpg",
       },
       {
         blog_img:
@@ -261,6 +219,8 @@ export default function Homepage() {
         author: "Pratham",
         description:
           " Lorem, ipsum dolor sit amet consectetur adipisicing elit. Obcaecati, voluptas id fugit voluptatibus pariatur ab minus at inventore alias vero iusto, non explicabo perferendis tempore voluptatum perspiciatis blanditiis neque molestiae facilis officiis deserunt aut ad! Eligendi, tenetur numquam ratione voluptatum impedit assumenda quis cumque accusantium quidem dignissimos? Magni, quam quae.",
+        author_img:
+          "https://cdn.pixabay.com/photo/2016/04/04/14/12/monitor-1307227__480.jpg",
       },
       {
         blog_img:
@@ -269,6 +229,8 @@ export default function Homepage() {
         author: "Pratham",
         description:
           " Lorem, ipsum dolor sit amet consectetur adipisicing elit. Obcaecati, voluptas id fugit voluptatibus pariatur ab minus at inventore alias vero iusto, non explicabo perferendis tempore voluptatum perspiciatis blanditiis neque molestiae facilis officiis deserunt aut ad! Eligendi, tenetur numquam ratione voluptatum impedit assumenda quis cumque accusantium quidem dignissimos? Magni, quam quae.",
+        author_img:
+          "https://cdn.pixabay.com/photo/2016/04/04/14/12/monitor-1307227__480.jpg",
       },
       {
         blog_img:
@@ -277,6 +239,8 @@ export default function Homepage() {
         author: "Pratham",
         description:
           " Lorem, ipsum dolor sit amet consectetur adipisicing elit. Obcaecati, voluptas id fugit voluptatibus pariatur ab minus at inventore alias vero iusto, non explicabo perferendis tempore voluptatum perspiciatis blanditiis neque molestiae facilis officiis deserunt aut ad! Eligendi, tenetur numquam ratione voluptatum impedit assumenda quis cumque accusantium quidem dignissimos? Magni, quam quae.",
+        author_img:
+          "https://cdn.pixabay.com/photo/2016/04/04/14/12/monitor-1307227__480.jpg",
       },
       {
         blog_img:
@@ -285,6 +249,8 @@ export default function Homepage() {
         author: "Pratham",
         description:
           " Lorem, ipsum dolor sit amet consectetur adipisicing elit. Obcaecati, voluptas id fugit voluptatibus pariatur ab minus at inventore alias vero iusto, non explicabo perferendis tempore voluptatum perspiciatis blanditiis neque molestiae facilis officiis deserunt aut ad! Eligendi, tenetur numquam ratione voluptatum impedit assumenda quis cumque accusantium quidem dignissimos? Magni, quam quae.",
+        author_img:
+          "https://cdn.pixabay.com/photo/2016/04/04/14/12/monitor-1307227__480.jpg",
       },
       {
         blog_img:
@@ -293,6 +259,8 @@ export default function Homepage() {
         author: "Pratham",
         description:
           " Lorem, ipsum dolor sit amet consectetur adipisicing elit. Obcaecati, voluptas id fugit voluptatibus pariatur ab minus at inventore alias vero iusto, non explicabo perferendis tempore voluptatum perspiciatis blanditiis neque molestiae facilis officiis deserunt aut ad! Eligendi, tenetur numquam ratione voluptatum impedit assumenda quis cumque accusantium quidem dignissimos? Magni, quam quae.",
+        author_img:
+          "https://cdn.pixabay.com/photo/2016/04/04/14/12/monitor-1307227__480.jpg",
       },
       {
         blog_img:
@@ -301,6 +269,8 @@ export default function Homepage() {
         author: "Pratham",
         description:
           " Lorem, ipsum dolor sit amet consectetur adipisicing elit. Obcaecati, voluptas id fugit voluptatibus pariatur ab minus at inventore alias vero iusto, non explicabo perferendis tempore voluptatum perspiciatis blanditiis neque molestiae facilis officiis deserunt aut ad! Eligendi, tenetur numquam ratione voluptatum impedit assumenda quis cumque accusantium quidem dignissimos? Magni, quam quae.",
+        author_img:
+          "https://cdn.pixabay.com/photo/2016/04/04/14/12/monitor-1307227__480.jpg",
       },
       {
         blog_img:
@@ -309,6 +279,8 @@ export default function Homepage() {
         author: "Pratham",
         description:
           " Lorem, ipsum dolor sit amet consectetur adipisicing elit. Obcaecati, voluptas id fugit voluptatibus pariatur ab minus at inventore alias vero iusto, non explicabo perferendis tempore voluptatum perspiciatis blanditiis neque molestiae facilis officiis deserunt aut ad! Eligendi, tenetur numquam ratione voluptatum impedit assumenda quis cumque accusantium quidem dignissimos? Magni, quam quae.",
+        author_img:
+          "https://cdn.pixabay.com/photo/2016/04/04/14/12/monitor-1307227__480.jpg",
       },
       {
         blog_img:
@@ -317,6 +289,8 @@ export default function Homepage() {
         author: "Pratham",
         description:
           " Lorem, ipsum dolor sit amet consectetur adipisicing elit. Obcaecati, voluptas id fugit voluptatibus pariatur ab minus at inventore alias vero iusto, non explicabo perferendis tempore voluptatum perspiciatis blanditiis neque molestiae facilis officiis deserunt aut ad! Eligendi, tenetur numquam ratione voluptatum impedit assumenda quis cumque accusantium quidem dignissimos? Magni, quam quae.",
+        author_img:
+          "https://cdn.pixabay.com/photo/2016/04/04/14/12/monitor-1307227__480.jpg",
       },
       {
         blog_img:
@@ -325,6 +299,8 @@ export default function Homepage() {
         author: "Pratham",
         description:
           " Lorem, ipsum dolor sit amet consectetur adipisicing elit. Obcaecati, voluptas id fugit voluptatibus pariatur ab minus at inventore alias vero iusto, non explicabo perferendis tempore voluptatum perspiciatis blanditiis neque molestiae facilis officiis deserunt aut ad! Eligendi, tenetur numquam ratione voluptatum impedit assumenda quis cumque accusantium quidem dignissimos? Magni, quam quae.",
+        author_img:
+          "https://cdn.pixabay.com/photo/2016/04/04/14/12/monitor-1307227__480.jpg",
       },
     ],
     trendingBlog: {
@@ -332,6 +308,8 @@ export default function Homepage() {
         "https://cdn.pixabay.com/photo/2016/04/04/14/12/monitor-1307227__480.jpg",
       title: "Is WEB 3.0 the new technology revolution?",
       author: "Pratham",
+      author_img:
+        "https://cdn.pixabay.com/photo/2016/04/04/14/12/monitor-1307227__480.jpg",
     },
     randomBlogs: [
       {
@@ -339,36 +317,48 @@ export default function Homepage() {
           "https://cdn.pixabay.com/photo/2016/04/04/14/12/monitor-1307227__480.jpg",
         title: "Is WEB 3.0 the new technology revolution?",
         author: "Pratham",
+        author_img:
+          "https://cdn.pixabay.com/photo/2016/04/04/14/12/monitor-1307227__480.jpg",
       },
       {
         blog_img:
           "https://cdn.pixabay.com/photo/2016/04/04/14/12/monitor-1307227__480.jpg",
         title: "Is WEB 3.0 the new technology revolution?",
         author: "Pratham",
+        author_img:
+          "https://cdn.pixabay.com/photo/2016/04/04/14/12/monitor-1307227__480.jpg",
       },
       {
         blog_img:
           "https://cdn.pixabay.com/photo/2016/04/04/14/12/monitor-1307227__480.jpg",
         title: "Is WEB 3.0 the new technology revolution?",
         author: "Pratham",
+        author_img:
+          "https://cdn.pixabay.com/photo/2016/04/04/14/12/monitor-1307227__480.jpg",
       },
       {
         blog_img:
           "https://cdn.pixabay.com/photo/2016/04/04/14/12/monitor-1307227__480.jpg",
         title: "Is WEB 3.0 the new technology revolution?",
         author: "Pratham",
+        author_img:
+          "https://cdn.pixabay.com/photo/2016/04/04/14/12/monitor-1307227__480.jpg",
       },
       {
         blog_img:
           "https://cdn.pixabay.com/photo/2016/04/04/14/12/monitor-1307227__480.jpg",
         title: "Is WEB 3.0 the new technology revolution?",
         author: "Pratham",
+        author_img:
+          "https://cdn.pixabay.com/photo/2016/04/04/14/12/monitor-1307227__480.jpg",
       },
       {
         blog_img:
           "https://cdn.pixabay.com/photo/2016/04/04/14/12/monitor-1307227__480.jpg",
         title: "Is WEB 3.0 the new technology revolution?",
         author: "Pratham",
+        author_img:
+          "https://cdn.pixabay.com/photo/2016/04/04/14/12/monitor-1307227__480.jpg",
       },
     ],
   };
@@ -407,7 +397,27 @@ export default function Homepage() {
                     <img src={blog.blog_img} alt='' />
                     <div className='c-blog-det'>
                       <h1>{blog.title}</h1>
-                      <p style={{ marginTop: "5px" }}>Author : {blog.author}</p>
+                      <a
+                        href='/'
+                        style={{
+                          marginTop: "8px",
+                          gap: "10px",
+                          color: "rgba(0, 0, 0, 0.5)",
+                          fontSize: "1.4em",
+                        }}
+                        className='d-flex align-items'>
+                        {" "}
+                        <img
+                          src={blog.author_img}
+                          style={{
+                            width: "20px",
+                            height: "20px",
+                            borderRadius: "50%",
+                          }}
+                          alt=''
+                        />{" "}
+                        {blog.author}
+                      </a>
                     </div>
                   </div>
                 );
@@ -448,7 +458,26 @@ export default function Homepage() {
                       Read More
                     </a>{" "}
                   </p> */}
-                  <p className='m-blog-author'>Author : {blog.author}</p>
+                  <a
+                    href='/'
+                    className='m-blog-author d-flex align-center'
+                    style={{
+                      marginTop: "8px",
+                      gap: "10px",
+                      color: "rgba(0, 0, 0, 0.5)",
+                      fontSize: "1.5em",
+                    }}>
+                    <img
+                      src={blog.author_img}
+                      style={{
+                        width: "20px",
+                        height: "20px",
+                        borderRadius: "50%",
+                      }}
+                      alt=''
+                    />{" "}
+                    {blog.author}
+                  </a>
                 </div>
               );
             })}
@@ -478,7 +507,26 @@ export default function Homepage() {
                       Read More
                     </a>{" "}
                   </p> */}
-                  <p className='m-blog-author'>Author : {blog.author}</p>
+                  <a
+                    href='/'
+                    className='m-blog-author d-flex align-center'
+                    style={{
+                      marginTop: "8px",
+                      gap: "10px",
+                      color: "rgba(0, 0, 0, 0.5)",
+                      fontSize: "1.5em",
+                    }}>
+                    <img
+                      src={blog.author_img}
+                      style={{
+                        width: "20px",
+                        height: "20px",
+                        borderRadius: "50%",
+                      }}
+                      alt=''
+                    />{" "}
+                    {blog.author}
+                  </a>
                 </div>
               );
             })}
@@ -502,43 +550,27 @@ export default function Homepage() {
                     {blog.category}
                   </p>
                   <h1>{blog.title}</h1>
-                  {/* <p>
-                    {`${blog.description.slice(0, 200)} ... `}
-                    <a href='/' style={{ textDecoration: "underline" }}>
-                      Read More
-                    </a>{" "}
-                  </p> */}
-                  <p className='m-blog-author'>Author : {blog.author}</p>
-                </div>
-              );
-            })}
-          </div>
-        </div>
 
-        {/* World Blogs */}
-        <div className='main-blogs-container'>
-          <div className='main-blog-header d-flex'>
-            <p>World</p>
-            <a href='/'>More</a>
-          </div>
-          <div className='main-blogs'>
-            {worldBlogs.map((blog) => {
-              return (
-                <div className='main-blog d-flex flex-col'>
-                  <img src={blog.blog_img} alt='' />
-                  <p
-                    className='m-blog-category'
-                    style={{ textTransform: "uppercase" }}>
-                    {blog.category}
-                  </p>
-                  <h1>{blog.title}</h1>
-                  {/* <p>
-                    {`${blog.description.slice(0, 200)} ... `}
-                    <a href='/' style={{ textDecoration: "underline" }}>
-                      Read More
-                    </a>{" "}
-                  </p> */}
-                  <p className='m-blog-author'>Author : {blog.author}</p>
+                  <a
+                    href='/'
+                    className='m-blog-author d-flex align-center'
+                    style={{
+                      marginTop: "8px",
+                      gap: "10px",
+                      color: "rgba(0, 0, 0, 0.5)",
+                      fontSize: "1.5em",
+                    }}>
+                    <img
+                      src={blog.author_img}
+                      style={{
+                        width: "20px",
+                        height: "20px",
+                        borderRadius: "50%",
+                      }}
+                      alt=''
+                    />{" "}
+                    {blog.author}
+                  </a>
                 </div>
               );
             })}

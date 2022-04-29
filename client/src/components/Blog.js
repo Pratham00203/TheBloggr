@@ -8,6 +8,7 @@ import { useState } from "react";
 
 export default function Blog({ blogDetails }) {
   const [likeStatus, setLikeStatus] = useState(blogDetails.likeStatus);
+  const [followStatus, setFollowStatus] = useState(blogDetails.followStatus);
   const [comments, setComments] = useState(blogDetails.comments);
   const [likes, setLikes] = useState(blogDetails.likes);
   const [reportForm, setReportForm] = useState(false);
@@ -44,6 +45,13 @@ export default function Blog({ blogDetails }) {
     setLikeStatus(!likeStatus);
   };
 
+  const handleFollow = () => {
+    if (followStatus) {
+    } else {
+    }
+    setFollowStatus(!followStatus);
+  };
+
   return (
     <>
       <Navbar />
@@ -51,11 +59,26 @@ export default function Blog({ blogDetails }) {
         <div className='blog'>
           <h1 className='title'>{blogDetails.blogDetails.title}</h1>
           <p className='blog-author d-flex align-center'>
-            Author :
-            <a href='profile.html' className='d-flex align-center'>
-              <img src={blogDetails.authorDetails.profile_img} alt='' />{" "}
+            <a
+              href='profile.html'
+              className='d-flex align-center'
+              style={{ marginBottom: "8px" }}>
+              <img src={blogDetails.blogDetails.author_img} alt='' />{" "}
               {blogDetails.authorDetails.name}
             </a>
+            <button
+              className='d-flex align-center'
+              onClick={handleFollow}
+              style={{
+                border: "none",
+                padding: "5px 10px",
+                color: "#ffff",
+                backgroundColor: "blueviolet",
+                borderRadius: "20px",
+                marginTop: "-8px",
+              }}>
+              {followStatus ? "Following" : "Follow"}
+            </button>
           </p>
           <p className='blog-create'>
             Posted On : {blogDetails.blogDetails.postedon}
