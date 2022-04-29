@@ -2,13 +2,14 @@ import hamburgerIcon from "../images/icons8-hamburger-menu-60.png";
 import closeIcon from "../images/close.png";
 import defaultProfileIcon from "../images/profile.jpg";
 import { useState } from "react";
+import { Link } from "react-router-dom";
 
 export default function Navbar() {
   const [showMenu, setShowMenu] = useState(false);
 
   return (
     <nav className='d-flex align-center'>
-      <a href='index.html'>TheBloggr.</a>
+      <Link to='/'>TheBloggr.</Link>
       <img
         src={hamburgerIcon}
         onClick={() => setShowMenu(!showMenu)}
@@ -26,16 +27,16 @@ export default function Navbar() {
           alt=''
         />
         <li>
-          <a href='index.html'>Home</a>
+          <Link to='/'>Home</Link>
         </li>
         <li>
-          <a href='myfeed.html'>My Feed</a>
+          <Link to='/my-feed'>My Feed</Link>
         </li>
         <li>
-          <a href='createblog.html'>Create a Blog</a>
+          <Link to='/create-blog'>Create a Blog</Link>
         </li>
         <li>
-          <a href='dashboard.html'>
+          <a href='/dashboard'>
             <img src={defaultProfileIcon} alt='dashboard' />
           </a>
         </li>

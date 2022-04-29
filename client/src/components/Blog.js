@@ -6,7 +6,71 @@ import redFlag from "../images/red-flag.png";
 import bin from "../images/bin.png";
 import { useState } from "react";
 
-export default function Blog({ blogDetails }) {
+export default function Blog() {
+  const blogDetails = {
+    authorDetails: {
+      name: "Pratham Shelar",
+      profile_img:
+        "https://cdn.pixabay.com/photo/2016/04/04/14/12/monitor-1307227__480.jpg",
+    },
+    blogDetails: {
+      title: "Is WEB 3.0 the new technology revolution?",
+      postedon: new Date().toLocaleDateString(),
+      blog_img:
+        "https://cdn.pixabay.com/photo/2016/04/04/14/12/monitor-1307227__480.jpg",
+      description:
+        "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Soluta libero tenetur at fugiat consequuntur quidem minima quaerat, ipsum placeat dolores ullam eum porro dolorem alias, voluptas quo maiores molestiae perspiciatis. Sunt cupiditate enim non dolorum ut ipsa obcaecati! Possimus odio impedit eum amet porro est eius quaerat illum modi animi.",
+      author_img:
+        "https://cdn.pixabay.com/photo/2016/04/04/14/12/monitor-1307227__480.jpg",
+    },
+    comments: [
+      {
+        username: "Pratham Shelar",
+        user_img:
+          "https://cdn.pixabay.com/photo/2016/04/04/14/12/monitor-1307227__480.jpg",
+        postedon: new Date().toLocaleDateString(),
+        commentbody: "Cool!",
+      },
+      {
+        username: "Prathamesh Gurgule",
+        user_img:
+          "https://cdn.pixabay.com/photo/2016/04/04/14/12/monitor-1307227__480.jpg",
+        postedon: new Date().toLocaleDateString(),
+        commentbody: "For sure.",
+      },
+      {
+        username: "Rohan Shrotri",
+        user_img:
+          "https://cdn.pixabay.com/photo/2016/04/04/14/12/monitor-1307227__480.jpg",
+        postedon: new Date().toLocaleDateString(),
+        commentbody: "Indeed!",
+      },
+      {
+        username: "Pratik Kapse",
+        user_img:
+          "https://cdn.pixabay.com/photo/2016/04/04/14/12/monitor-1307227__480.jpg",
+        postedon: new Date().toLocaleDateString(),
+        commentbody: "Very Good",
+      },
+    ],
+    likes: [
+      {
+        username: "Pratham Shelar",
+      },
+      {
+        username: "Rohan Shrotri",
+      },
+      {
+        username: "Pratik Kapse",
+      },
+      {
+        username: "Piyush Kale",
+      },
+    ],
+    likeStatus: true,
+    followStatus: false,
+  };
+
   const [likeStatus, setLikeStatus] = useState(blogDetails.likeStatus);
   const [followStatus, setFollowStatus] = useState(blogDetails.followStatus);
   const [comments, setComments] = useState(blogDetails.comments);

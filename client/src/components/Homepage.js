@@ -2,6 +2,7 @@ import Navbar from "./Navbar";
 import Footer from "./Footer";
 import trendImg from "../images/trend.png";
 import { useState } from "react";
+import { Link } from "react-router-dom";
 
 export default function Homepage() {
   const [searchQuery, setSearchQuery] = useState("");
@@ -368,24 +369,49 @@ export default function Homepage() {
       <Navbar />
       <section id='main'>
         <div className='top-blog'>
-          <div className='trending'>
-            <p className='d-flex align-center'>
-              <img src={trendImg} alt='' /> Trending
-            </p>
+          <Link
+            to={`/blog/${homeDetails.trendingBlog.title.split(" ").join("-")}`}>
+            <div className='trending'>
+              <p className='d-flex align-center'>
+                <img src={trendImg} alt='' /> Trending
+              </p>
 
-            {/* Trending Blog */}
-            <div className='t-blog d-flex flex-col'>
-              <div
-                className='t-bg-img'
-                style={{
-                  backgroundImage: `url(${homeDetails.trendingBlog.blog_img})`,
-                }}></div>
-              <div className='t-blog-details'>
-                <h1>{homeDetails.trendingBlog.title}</h1>
-                <p>Author : {homeDetails.trendingBlog.author}</p>
+              {/* Trending Blog */}
+              <div className='t-blog d-flex flex-col'>
+                <div
+                  className='t-bg-img'
+                  style={{
+                    backgroundImage: `url(${homeDetails.trendingBlog.blog_img})`,
+                  }}></div>
+                <div className='t-blog-details'>
+                  <h1>{homeDetails.trendingBlog.title}</h1>
+                  <Link
+                    to={`/author/${homeDetails.trendingBlog.author
+                      .split(" ")
+                      .join("-")}`}
+                    style={{
+                      marginTop: "8px",
+                      gap: "10px",
+                      color: "rgba(255,255,255,0.7)",
+                      fontSize: "1.4em",
+                    }}
+                    className='d-flex align-items'>
+                    {" "}
+                    <img
+                      src={homeDetails.trendingBlog.author_img}
+                      style={{
+                        width: "20px",
+                        height: "20px",
+                        borderRadius: "50%",
+                      }}
+                      alt=''
+                    />{" "}
+                    {homeDetails.trendingBlog.author}
+                  </Link>
+                </div>
               </div>
             </div>
-          </div>
+          </Link>
 
           {/* Check out More Section */}
           <div className='check-more'>
@@ -393,33 +419,35 @@ export default function Homepage() {
             <div className='c-blogs'>
               {homeDetails.randomBlogs.map((blog) => {
                 return (
-                  <div className='c-blog d-flex align-center'>
-                    <img src={blog.blog_img} alt='' />
-                    <div className='c-blog-det'>
-                      <h1>{blog.title}</h1>
-                      <a
-                        href='/'
-                        style={{
-                          marginTop: "8px",
-                          gap: "10px",
-                          color: "rgba(0, 0, 0, 0.5)",
-                          fontSize: "1.4em",
-                        }}
-                        className='d-flex align-items'>
-                        {" "}
-                        <img
-                          src={blog.author_img}
+                  <Link to={`/blog/${blog.title.split(" ").join("-")}`}>
+                    <div className='c-blog d-flex align-center'>
+                      <img src={blog.blog_img} alt='' />
+                      <div className='c-blog-det'>
+                        <h1>{blog.title}</h1>
+                        <Link
+                          to={`/author/${blog.author.split(" ").join("-")}`}
                           style={{
-                            width: "20px",
-                            height: "20px",
-                            borderRadius: "50%",
+                            marginTop: "8px",
+                            gap: "10px",
+                            color: "rgba(0, 0, 0, 0.5)",
+                            fontSize: "1.4em",
                           }}
-                          alt=''
-                        />{" "}
-                        {blog.author}
-                      </a>
+                          className='d-flex align-items'>
+                          {" "}
+                          <img
+                            src={blog.author_img}
+                            style={{
+                              width: "20px",
+                              height: "20px",
+                              borderRadius: "50%",
+                            }}
+                            alt=''
+                          />{" "}
+                          {blog.author}
+                        </Link>
+                      </div>
                     </div>
-                  </div>
+                  </Link>
                 );
               })}
             </div>
@@ -449,36 +477,38 @@ export default function Homepage() {
           <div className='main-blogs'>
             {homeDetails.blogs.map((blog) => {
               return (
-                <div className='main-blog d-flex flex-col'>
-                  <img src={blog.blog_img} alt='' />
-                  <h1>{blog.title}</h1>
-                  {/* <p>
+                <Link to={`/blog/${blog.title.split(" ").join("-")}`}>
+                  <div className='main-blog d-flex flex-col'>
+                    <img src={blog.blog_img} alt='' />
+                    <h1>{blog.title}</h1>
+                    {/* <p>
                     {`${blog.description.slice(0, 200)} ... `}
                     <a href='/' style={{ textDecoration: "underline" }}>
                       Read More
                     </a>{" "}
                   </p> */}
-                  <a
-                    href='/'
-                    className='m-blog-author d-flex align-center'
-                    style={{
-                      marginTop: "8px",
-                      gap: "10px",
-                      color: "rgba(0, 0, 0, 0.5)",
-                      fontSize: "1.5em",
-                    }}>
-                    <img
-                      src={blog.author_img}
+                    <Link
+                      to={`/author/${blog.author.split(" ").join("-")}`}
+                      className='m-blog-author d-flex align-center'
                       style={{
-                        width: "20px",
-                        height: "20px",
-                        borderRadius: "50%",
-                      }}
-                      alt=''
-                    />{" "}
-                    {blog.author}
-                  </a>
-                </div>
+                        marginTop: "8px",
+                        gap: "10px",
+                        color: "rgba(0, 0, 0, 0.5)",
+                        fontSize: "1.5em",
+                      }}>
+                      <img
+                        src={blog.author_img}
+                        style={{
+                          width: "20px",
+                          height: "20px",
+                          borderRadius: "50%",
+                        }}
+                        alt=''
+                      />{" "}
+                      {blog.author}
+                    </Link>
+                  </div>
+                </Link>
               );
             })}
           </div>
@@ -493,41 +523,43 @@ export default function Homepage() {
           <div className='main-blogs'>
             {travelBlogs.map((blog) => {
               return (
-                <div className='main-blog d-flex flex-col'>
-                  <img src={blog.blog_img} alt='' />
-                  <p
-                    className='m-blog-category'
-                    style={{ textTransform: "uppercase" }}>
-                    {blog.category}
-                  </p>
-                  <h1>{blog.title}</h1>
-                  {/* <p>
+                <Link to={`/blog/${blog.title.split(" ").join("-")}`}>
+                  <div className='main-blog d-flex flex-col'>
+                    <img src={blog.blog_img} alt='' />
+                    <p
+                      className='m-blog-category'
+                      style={{ textTransform: "uppercase" }}>
+                      {blog.category}
+                    </p>
+                    <h1>{blog.title}</h1>
+                    {/* <p>
                     {`${blog.description.slice(0, 200)} ... `}
                     <a href='/' style={{ textDecoration: "underline" }}>
                       Read More
                     </a>{" "}
                   </p> */}
-                  <a
-                    href='/'
-                    className='m-blog-author d-flex align-center'
-                    style={{
-                      marginTop: "8px",
-                      gap: "10px",
-                      color: "rgba(0, 0, 0, 0.5)",
-                      fontSize: "1.5em",
-                    }}>
-                    <img
-                      src={blog.author_img}
+                    <Link
+                      to={`/author/${blog.author.split(" ").join("-")}`}
+                      className='m-blog-author d-flex align-center'
                       style={{
-                        width: "20px",
-                        height: "20px",
-                        borderRadius: "50%",
-                      }}
-                      alt=''
-                    />{" "}
-                    {blog.author}
-                  </a>
-                </div>
+                        marginTop: "8px",
+                        gap: "10px",
+                        color: "rgba(0, 0, 0, 0.5)",
+                        fontSize: "1.5em",
+                      }}>
+                      <img
+                        src={blog.author_img}
+                        style={{
+                          width: "20px",
+                          height: "20px",
+                          borderRadius: "50%",
+                        }}
+                        alt=''
+                      />{" "}
+                      {blog.author}
+                    </Link>
+                  </div>
+                </Link>
               );
             })}
           </div>
@@ -542,36 +574,38 @@ export default function Homepage() {
           <div className='main-blogs'>
             {techBlogs.map((blog) => {
               return (
-                <div className='main-blog d-flex flex-col'>
-                  <img src={blog.blog_img} alt='' />
-                  <p
-                    className='m-blog-category'
-                    style={{ textTransform: "uppercase" }}>
-                    {blog.category}
-                  </p>
-                  <h1>{blog.title}</h1>
+                <Link to={`/blog/${blog.title.split(" ").join("-")}`}>
+                  <div className='main-blog d-flex flex-col'>
+                    <img src={blog.blog_img} alt='' />
+                    <p
+                      className='m-blog-category'
+                      style={{ textTransform: "uppercase" }}>
+                      {blog.category}
+                    </p>
+                    <h1>{blog.title}</h1>
 
-                  <a
-                    href='/'
-                    className='m-blog-author d-flex align-center'
-                    style={{
-                      marginTop: "8px",
-                      gap: "10px",
-                      color: "rgba(0, 0, 0, 0.5)",
-                      fontSize: "1.5em",
-                    }}>
-                    <img
-                      src={blog.author_img}
+                    <Link
+                      to={`/author/${blog.author.split(" ").join("-")}`}
+                      className='m-blog-author d-flex align-center'
                       style={{
-                        width: "20px",
-                        height: "20px",
-                        borderRadius: "50%",
-                      }}
-                      alt=''
-                    />{" "}
-                    {blog.author}
-                  </a>
-                </div>
+                        marginTop: "8px",
+                        gap: "10px",
+                        color: "rgba(0, 0, 0, 0.5)",
+                        fontSize: "1.5em",
+                      }}>
+                      <img
+                        src={blog.author_img}
+                        style={{
+                          width: "20px",
+                          height: "20px",
+                          borderRadius: "50%",
+                        }}
+                        alt=''
+                      />{" "}
+                      {blog.author}
+                    </Link>
+                  </div>
+                </Link>
               );
             })}
           </div>

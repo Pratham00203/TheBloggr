@@ -33,7 +33,7 @@ router.post(
       let { title, description, category, keywords, blog_img } = req.body;
 
       let result = await db.query(
-        "INSERT INTO BLOGS (userid,title,description,author,category,createdon,totalviews,keywords,blog_img) VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9) RETURNING *",
+        "INSERT INTO BLOGS (userid,title,description,author,category,createdon,totalviews,keywords,blog_img,author_img) VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9) RETURNING *",
         [
           req.user.userid,
           title,
@@ -42,8 +42,9 @@ router.post(
           category.toLocaleLowerCase(),
           createdon,
           0,
-          keywords,
+          keywords.toLocaleLowerCase(),
           blog_img,
+          user.rows[0].profile_img,
         ]
       );
 
@@ -74,10 +75,17 @@ router.get("/", auth, async (req, res) => {
       "SELECT * FROM BLOGS WHERE totalviews = (SELECT MAX(totalviews) FROM BLOGS)"
     );
 
+    let technologyBlogs = blogs.rows.filter(
+      (blog) => blog.category === "technology"
+    );
+    let travelBlogs = blogs.rows.filter((blog) => blog.category === "travel");
+
     res.json({
       blogs: blogs.rows,
       trendingBlog: trendingBlog.rows[0],
       randomBlogs: randomBlogs,
+      technologyBlogs: technologyBlogs,
+      travelBlogs: travelBlogs,
     });
   } catch (err) {
     console.log(err.message);
@@ -91,6 +99,7 @@ router.get("/", auth, async (req, res) => {
 router.get("/:blogid", auth, async (req, res) => {
   try {
     let likeStatus = false;
+    let followStatus = false;
     let blog = await db.query("SELECT * FROM BLOGS WHERE blogid=$1", [
       req.params.blogid,
     ]);
@@ -120,6 +129,15 @@ router.get("/:blogid", auth, async (req, res) => {
       [req.params.blogid, req.user.userid]
     );
 
+    let followCheck = await db.query(
+      "SELECT * FROM FOLLOWS WHERE follower_id=$1 AND following_id=$2",
+      [req.user.userid, result.rows[0].userid]
+    );
+
+    if (followCheck.rows.length !== 0) {
+      followStatus = true;
+    }
+
     if (checkLike.rows.length !== 0) {
       likeStatus = true;
     }
@@ -130,6 +148,7 @@ router.get("/:blogid", auth, async (req, res) => {
       comments: comments.rows,
       likes: likes.rows,
       likeStatus: likeStatus,
+      followStatus: followStatus,
     });
   } catch (err) {
     console.log(err.message);
@@ -152,7 +171,8 @@ router.post("/search/:keyword", auth, async (req, res) => {
         blog.keywords.toLocaleLowerCase().includes(keyword) ||
         blog.author.toLocaleLowerCase().includes(keyword) ||
         blog.title.toLocaleLowerCase().includes(keyword) ||
-        blog.description.toLocaleLowerCase().includes(keyword)
+        blog.description.toLocaleLowerCase().includes(keyword) ||
+        blog.category.toLocaleLowerCase().includes(keyword)
       ) {
         resultBlogArray.push(blog);
       }

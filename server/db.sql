@@ -4,7 +4,7 @@ CREATE TABLE USERS(userid uuid DEFAULT uuid_generate_v1(), name TEXT NOT NULL, e
 
 SELECT (userid,name,email,password,bio) FROM USERS;
 
-CREATE TABLE BLOGS(blogid uuid DEFAULT uuid_generate_v1(), userid uuid NOT NULL, title TEXT NOT NULL, description TEXT NOT NULL, author TEXT NOT NULL, category TEXT NOT NULL, createdon TEXT NOT NULL, totalviews INT NOT NULL, blog_img TEXT, keywords TEXT NOT NULL,PRIMARY KEY(blogid));
+CREATE TABLE BLOGS(blogid uuid DEFAULT uuid_generate_v1(), userid uuid NOT NULL, title TEXT NOT NULL, description TEXT NOT NULL, author TEXT NOT NULL, category TEXT NOT NULL, createdon TEXT NOT NULL, totalviews INT NOT NULL, blog_img TEXT, keywords TEXT NOT NULL,author_img TEXT,PRIMARY KEY(blogid));
 
 CREATE TABLE COMMENTS(commentid uuid DEFAULT uuid_generate_v1(), userid uuid NOT NULL,username TEXT NOT NULL, blogid uuid NOT NULL, commentbody TEXT NOT NULL,postedon TEXT NOT NULL,PRIMARY KEY(commentid), user_img TEXT);
 

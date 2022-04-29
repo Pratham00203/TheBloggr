@@ -1,15 +1,16 @@
 // import axios from "axios";
 // import { useState } from "react";
-// import BlogForm from "./components/BlogForm";
-// import UpdateUserForm from "./components/UpdateUserForm";
+import BlogForm from "./components/BlogForm";
+import UpdateUserForm from "./components/UpdateUserForm";
 import Register from "./components/Register";
-// import NoResult from "./components/NoResult";
-// import Blog from "./components/Blog";
+import NoResult from "./components/NoResult";
+import Blog from "./components/Blog";
 import ResetPassword from "./components/ResetPassword";
-// import Profile from "./components/Profile";
-// import Feed from "./components/Feed";
-// import Dashboard from "./components/Dashboard";
+import Profile from "./components/Profile";
+import Feed from "./components/Feed";
+import Dashboard from "./components/Dashboard";
 import Homepage from "./components/Homepage";
+import HomepageRoutes from "./components/HomepageRoutes";
 import Login from "./components/Login";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import "./App.css";
@@ -135,6 +136,17 @@ export default function App() {
         <Route exact path='/login' element={<Login />} />
         <Route exact path='/register' element={<Register />} />
         <Route exact path='/reset-password' element={<ResetPassword />} />
+        <Route exact path='/' element={<Homepage />} />
+        <Route exact path='/my-feed' element={<Feed type='feed' />} />
+        <Route exact path='/create-blog' element={<BlogForm type='Create' />} />
+        <Route
+          exact
+          path='/update-blog/:blog-name'
+          element={<BlogForm type='Update' />}
+        />
+        <Route exact path='/dashboard' element={<Dashboard />} />
+        <Route exact path='/blog/:blogname' element={<Blog />} />
+        <Route exact path='/author/:authorname' element={<Profile />} />
       </Routes>
     </Router>
   );
