@@ -207,24 +207,26 @@ router.put(
       let loggedUser = req.user.userid;
       let { title, description, category, keywords, blog_img } = req.body;
 
-      let blog = await db.query("SELECT * FROM BLOGS WHERE userid=$1", [
-        loggedUser,
+      let blog = await db.query("SELECT * FROM BLOGS WHERE blogid=$1", [
+        req.params.blogid,
       ]);
 
-      if (blog.rows.length != 0) {
-        let result = await db.query(
-          "UPDATE BLOGS SET title=$1, description=$2, category=$3 , keywords=$4, blog_img=$5 WHERE blogid=$6 RETURNING *",
-          [
-            title,
-            description,
-            category.toLocaleLowerCase(),
-            keywords,
-            blog_img,
-            blog.rows[0].blogid,
-          ]
-        );
+      if (blog.rows[0].userid === loggedUser) {
+        if (blog.rows.length != 0) {
+          let result = await db.query(
+            "UPDATE BLOGS SET title=$1, description=$2, category=$3 , keywords=$4, blog_img=$5 WHERE blogid=$6 RETURNING *",
+            [
+              title,
+              description,
+              category.toLocaleLowerCase(),
+              keywords,
+              blog_img,
+              blog.rows[0].blogid,
+            ]
+          );
 
-        res.json(result.rows[0]);
+          res.json(result.rows[0]);
+        }
       } else {
         res.status(400).json("Not Authorized to Update this Blog");
       }
@@ -242,18 +244,25 @@ router.delete("/:blogid/delete", auth, async (req, res) => {
   try {
     let loggedUser = req.user.userid;
 
-    let blog = await db.query("SELECT * FROM BLOGS WHERE userid=$1", [
-      loggedUser,
+    let blog = await db.query("SELECT * FROM BLOGS WHERE blogid=$1", [
+      req.params.blogid,
     ]);
 
     if (blog.rows.length != 0) {
-      await db.query("DELETE FROM BLOGS WHERE blogid=$1", [
-        blog.rows[0].blogid,
-      ]);
+      if (loggedUser === blog.rows[0].user_id) {
+        await db.query("DELETE FROM BLOGS WHERE blogid=$1", [
+          blog.rows[0].blogid,
+        ]);
 
-      res.json("Blog Deleted");
-    } else {
-      res.status(400).json("Not Authorized to Delete this Blog");
+        let updatedBlogs = await db.query(
+          "SELECT * FROM BLOGS WHERE blogid=$1",
+          [req.params.blogid]
+        );
+
+        res.json({ msg: "Blog Deleted", blogs: updatedBlogs.rows });
+      } else {
+        res.status(400).json("Not Authorized to Delete this Blog");
+      }
     }
   } catch (err) {
     console.log(err.message);
