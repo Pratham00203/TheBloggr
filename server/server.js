@@ -7,6 +7,13 @@ const { check, validationResult } = require("express-validator");
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+app.use((req, res, next) => {
+  res.setHeader("Access-Control-Allow-Origin", "http://localhost:3000");
+  res.setHeader("Access-Control-Allow-Headers", "*");
+  res.header("Access-Control-Allow-Credentials", true);
+  next();
+});
+
 // Define Routes
 // Using the js files in the routes/api
 app.use("/users", require("./routes/users"));

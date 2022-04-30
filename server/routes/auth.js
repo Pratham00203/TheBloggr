@@ -67,11 +67,9 @@ router.post(
 router.get("/login", auth, async (req, res) => {
   try {
     let userid = req.user.userid;
-    let user = await db.query("SELECT * FROM USERS WHERE userid=$1", [
-      userid,
-    ]);
+    let user = await db.query("SELECT * FROM USERS WHERE userid=$1", [userid]);
     if (user.rows.length != 0) {
-      return res.json(user : user.rows[0]);
+      return res.json({ user: user.rows[0] });
     }
   } catch (err) {
     return res.status.json({ msg: "Server Error" });

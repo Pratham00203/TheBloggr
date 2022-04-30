@@ -1,6 +1,7 @@
 import { useState } from "react";
 import eyeIcon from "../images/eye.png";
 import { Link, Navigate } from "react-router-dom";
+import axios from "axios";
 
 export default function Login() {
   document.title = "Login";
@@ -24,8 +25,20 @@ export default function Login() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(loginDetails);
-    setIsLoggedIn(true);
+    login();
+  };
+
+  const login = async () => {
+    try {
+      const res = await axios.post("/auth/login", loginDetails);
+      localStorage.setItem("token", res.data);
+      // setIsLoggedIn(true);
+    } catch (err) {
+      const errors = err.response.data.errors;
+      errors.forEach((err) => {
+        alert(err.msg);
+      });
+    }
   };
 
   return (
@@ -61,8 +74,6 @@ export default function Login() {
           </label>
           <Link to='/reset-password'>Forgot Password</Link>
           <Link to='/register'>Not a User?</Link>
-          {/* <a href='forgotpassword.html'>Forgot Password</a> */}
-          {/* <a href='register.html'>Not a User?</a> */}
           <input type='submit' value='Login' />
           {isLoggedIn && <Navigate to='/home' />}
         </form>

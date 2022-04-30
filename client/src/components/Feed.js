@@ -1,7 +1,7 @@
 import Navbar from "./Navbar";
 import Footer from "./Footer";
 import React, { useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, Navigate, useParams } from "react-router-dom";
 export default function Feed({ type }) {
   const { query } = useParams();
   const [feedBlogs, setFeedBlogs] = useState([]);
@@ -92,23 +92,24 @@ export default function Feed({ type }) {
       <section id='main' className='myfeed'>
         <h1>{type === "feed" ? "My Feed" : "Results"}</h1>
         <div className='my-feed-blogs d-flex flex-col'>
-          {React.Children.toArray(
-            feedBlogs.map((blog) => {
-              return (
-                <Link to={`/blog/${blog.title.split(" ").join("-")}`}>
-                  <div className='f-blog d-flex'>
-                    <img src={blog.blog_img} alt='' />
-                    <div className='f-blog-det'>
-                      <p
-                        style={{
-                          margin: "10px 0",
-                          textTransform: "uppercase",
-                          color: "blueviolet",
-                        }}>
-                        {blog.category}
-                      </p>
-                      <h1>{blog.title}</h1>
-                      {/* <p>
+          {feedBlogs.length !== 0 ? (
+            React.Children.toArray(
+              feedBlogs.map((blog) => {
+                return (
+                  <Link to={`/blog/${blog.title.split(" ").join("-")}`}>
+                    <div className='f-blog d-flex'>
+                      <img src={blog.blog_img} alt='' />
+                      <div className='f-blog-det'>
+                        <p
+                          style={{
+                            margin: "10px 0",
+                            textTransform: "uppercase",
+                            color: "blueviolet",
+                          }}>
+                          {blog.category}
+                        </p>
+                        <h1>{blog.title}</h1>
+                        {/* <p>
                       {`${blog.description.slice(0, 300)} ... `}
                       <a
                         href='/'
@@ -121,31 +122,34 @@ export default function Feed({ type }) {
                       </a>
                     </p> */}
 
-                      <Link
-                        to={`/user/${blog.author.split(" ").join("-")}`}
-                        className='blog-author d-flex align-center'
-                        style={{
-                          marginTop: "8px",
-                          gap: "10px",
-                          color: "rgba(0, 0, 0, 0.5)",
-                          fontSize: "1.5em",
-                        }}>
-                        <img
-                          src={blog.author_img}
+                        <Link
+                          to={`/user/${blog.author.split(" ").join("-")}`}
+                          className='blog-author d-flex align-center'
                           style={{
-                            width: "20px",
-                            height: "20px",
-                            borderRadius: "50%",
-                          }}
-                          alt=''
-                        />
-                        {blog.author}
-                      </Link>
+                            marginTop: "8px",
+                            gap: "10px",
+                            color: "rgba(0, 0, 0, 0.5)",
+                            fontSize: "1.5em",
+                          }}>
+                          <img
+                            src={blog.author_img}
+                            style={{
+                              width: "20px",
+                              height: "20px",
+                              borderRadius: "50%",
+                            }}
+                            alt=''
+                          />
+                          {blog.author}
+                        </Link>
+                      </div>
                     </div>
-                  </div>
-                </Link>
-              );
-            })
+                  </Link>
+                );
+              })
+            )
+          ) : (
+            <Navigate to='/no-results' />
           )}
         </div>
       </section>

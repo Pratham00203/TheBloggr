@@ -5,6 +5,7 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 
 export default function Homepage() {
+  document.title = "TheBloggr";
   const [searchQuery, setSearchQuery] = useState("");
   // const [travelBlogs, setTravelBlogs] = useState({});
   // const [techBlogs, setTechBlogs] = useState({});

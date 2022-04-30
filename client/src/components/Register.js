@@ -1,8 +1,10 @@
 import { useState } from "react";
 import eyeIcon from "../images/eye.png";
-import { Link } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
+import axios from "axios";
 
 export default function Register() {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [registerDetails, setRegisterDetails] = useState({
     name: "",
@@ -45,7 +47,21 @@ export default function Register() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(registerDetails);
+    register();
+  };
+
+  const register = async () => {
+    try {
+      const res = await axios.post("/auth/register", registerDetails);
+      localStorage.setItem("token", res.data);
+      console.log(res.data);
+      // setIsLoggedIn(true);
+    } catch (err) {
+      const errors = err.response.data.errors;
+      errors.forEach((err) => {
+        alert(err.msg);
+      });
+    }
   };
 
   return (
@@ -116,6 +132,7 @@ export default function Register() {
           </div>
           <Link to='/login'>Already a User?</Link>
           <input type='submit' value='Register' />
+          {isLoggedIn && <Navigate to='/home' />}
         </form>
       </div>
     </div>
