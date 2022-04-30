@@ -4,16 +4,19 @@ import likeImg from "../images/liked.png";
 import unLikeImg from "../images/unliked.png";
 import redFlag from "../images/red-flag.png";
 import bin from "../images/bin.png";
-import { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { Link, useParams } from "react-router-dom";
 
 export default function Blog() {
+  const { blogid } = useParams();
+
+  useEffect(() => {
+    console.log(blogid);
+  }, []);
+
   const blogDetails = {
-    authorDetails: {
-      name: "Pratham Shelar",
-      profile_img:
-        "https://cdn.pixabay.com/photo/2016/04/04/14/12/monitor-1307227__480.jpg",
-    },
     blogDetails: {
+      author: "Pratham Shelar",
       title: "Is WEB 3.0 the new technology revolution?",
       postedon: new Date().toLocaleDateString(),
       blog_img:
@@ -123,13 +126,15 @@ export default function Blog() {
         <div className='blog'>
           <h1 className='title'>{blogDetails.blogDetails.title}</h1>
           <p className='blog-author d-flex align-center'>
-            <a
-              href='profile.html'
+            <Link
+              to={`/user/${blogDetails.blogDetails.author
+                .split(" ")
+                .join("-")}`}
               className='d-flex align-center'
               style={{ marginBottom: "8px" }}>
               <img src={blogDetails.blogDetails.author_img} alt='' />{" "}
-              {blogDetails.authorDetails.name}
-            </a>
+              {blogDetails.blogDetails.author}
+            </Link>
             <button
               className='d-flex align-center'
               onClick={handleFollow}
@@ -179,6 +184,14 @@ export default function Blog() {
           <select name='reason' id='' onChange={handleChange}>
             <option value='Misleading'>Misleading</option>
             <option value='Spam'>Spam</option>
+            <option value='Violent or Repulsive Content'>
+              Violent or Repulsive Content
+            </option>
+            <option value='Harrasment or Bullying'>
+              Harrasment or Bullying
+            </option>
+            <option value='Harmful'>Harmful</option>
+            <option value='Promotes Terrorism'>Promotes Terrorism</option>
           </select>
           <input type='submit' value='Report' />
         </form>
@@ -196,18 +209,24 @@ export default function Blog() {
             <input type='submit' value='Comment' />
           </form>
           <div className='comments'>
-            {comments.map((comment) => {
-              return (
-                <div className='comment d-flex'>
-                  <img src={comment.user_img} alt='' />
-                  <div className='comment-det'>
-                    <h2>{comment.username}</h2>
-                    <p>{comment.postedon}</p>
-                    <p className='comment-body'>{comment.commentbody}</p>
+            {React.Children.toArray(
+              comments.map((comment) => {
+                return (
+                  <div className='comment d-flex'>
+                    <img src={comment.user_img} alt='' />
+                    <div className='comment-det'>
+                      <Link
+                        to={`/user/${comment.username.split(" ").join("-")}`}
+                        style={{ color: "blueviolet" }}>
+                        <h2>{comment.username}</h2>
+                      </Link>
+                      <p>{comment.postedon}</p>
+                      <p className='comment-body'>{comment.commentbody}</p>
+                    </div>
                   </div>
-                </div>
-              );
-            })}
+                );
+              })
+            )}
             <div className='comment d-flex'>
               <img
                 src='https://cdn.pixabay.com/photo/2016/04/04/14/12/monitor-1307227__480.jpg'

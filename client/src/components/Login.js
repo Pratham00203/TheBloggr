@@ -1,6 +1,6 @@
 import { useState } from "react";
 import eyeIcon from "../images/eye.png";
-import { Link } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 
 export default function Login() {
   document.title = "Login";
@@ -10,6 +10,7 @@ export default function Login() {
     email: "",
     password: "",
   });
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -24,6 +25,7 @@ export default function Login() {
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log(loginDetails);
+    setIsLoggedIn(true);
   };
 
   return (
@@ -62,6 +64,7 @@ export default function Login() {
           {/* <a href='forgotpassword.html'>Forgot Password</a> */}
           {/* <a href='register.html'>Not a User?</a> */}
           <input type='submit' value='Login' />
+          {isLoggedIn && <Navigate to='/home' />}
         </form>
       </div>
     </div>

@@ -1,7 +1,8 @@
 import Navbar from "./Navbar";
 import Footer from "./Footer";
 import profileImg from "../images/profile.jpg";
-import { useState } from "react";
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
 
 export default function Profile() {
   const [isFollowing, setIsFollowing] = useState(false);
@@ -74,57 +75,61 @@ export default function Profile() {
         <div className='user-blogs'>
           <h1>Blogs by {profileDetails.userDetails.name}</h1>
           <div className='blogs d-flex flex-col'>
-            {profileDetails.profileBlogs.map((blog) => {
-              return (
-                <div className='blog d-flex align-center'>
-                  <img src={blog.blog_img} alt='' />
-                  <div className='blog-det'>
-                    <p
-                      style={{
-                        margin: "10px 0",
-                        textTransform: "uppercase",
-                        color: "blueviolet",
-                      }}>
-                      {blog.category}
-                    </p>
-                    <h1>{blog.title}</h1>
-                    {/* <p>
-                      {`${blog.description.slice(0, 300)} ... `}
-                      <a
-                        href='/'
-                        style={{
-                          color: "blueviolet",
-                          textDecoration: "underline",
-                        }}>
-                        {" "}
-                        Read more
-                      </a>
-                    </p> */}
+            {React.Children.toArray(
+              profileDetails.profileBlogs.map((blog) => {
+                return (
+                  <Link to={`/blog/${blog.title}`}>
+                    <div className='blog d-flex align-center'>
+                      <img src={blog.blog_img} alt='' />
+                      <div className='blog-det'>
+                        <p
+                          style={{
+                            margin: "10px 0",
+                            textTransform: "uppercase",
+                            color: "blueviolet",
+                          }}>
+                          {blog.category}
+                        </p>
+                        <h1>{blog.title}</h1>
+                        {/* <p>
+                        {`${blog.description.slice(0, 300)} ... `}
+                        <a
+                          href='/'
+                          style={{
+                            color: "blueviolet",
+                            textDecoration: "underline",
+                          }}>
+                          {" "}
+                          Read more
+                        </a>
+                      </p> */}
 
-                    <a
-                      href='/'
-                      className='blog-author d-flex align-center'
-                      style={{
-                        marginTop: "8px",
-                        gap: "10px",
-                        color: "rgba(0, 0, 0, 0.5)",
-                        fontSize: "1.5em",
-                      }}>
-                      <img
-                        src={blog.author_img}
-                        style={{
-                          width: "20px",
-                          height: "20px",
-                          borderRadius: "50%",
-                        }}
-                        alt=''
-                      />
-                      {blog.author}
-                    </a>
-                  </div>
-                </div>
-              );
-            })}
+                        <Link
+                          to={`/user/${blog.author}`}
+                          className='blog-author d-flex align-center'
+                          style={{
+                            marginTop: "8px",
+                            gap: "10px",
+                            color: "rgba(0, 0, 0, 0.5)",
+                            fontSize: "1.5em",
+                          }}>
+                          <img
+                            src={blog.author_img}
+                            style={{
+                              width: "20px",
+                              height: "20px",
+                              borderRadius: "50%",
+                            }}
+                            alt=''
+                          />
+                          {blog.author}
+                        </Link>
+                      </div>
+                    </div>
+                  </Link>
+                );
+              })
+            )}
           </div>
         </div>
       </section>

@@ -736,6 +736,7 @@ label[for="password"] .toggle-password {
   flex-wrap: wrap;
 }
 
+.prof-buttons a,
 .prof-buttons button {
   font-size: 1.3em;
   background-color: blueviolet;
@@ -746,6 +747,7 @@ label[for="password"] .toggle-password {
   cursor: pointer;
 }
 
+.prof-buttons a img,
 .prof-buttons button img {
   width: 15px;
   height: 15px;
@@ -1233,6 +1235,10 @@ footer .brand a {
 
   .forgot-p .container {
     width: 100%;
+  }
+
+  .search-div {
+    flex-direction: column;
   }
 }
 

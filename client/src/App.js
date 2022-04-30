@@ -10,7 +10,6 @@ import Profile from "./components/Profile";
 import Feed from "./components/Feed";
 import Dashboard from "./components/Dashboard";
 import Homepage from "./components/Homepage";
-import HomepageRoutes from "./components/HomepageRoutes";
 import Login from "./components/Login";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import "./App.css";
@@ -43,7 +42,7 @@ export default function App() {
   // });
 
   // const [isAuthenticated, setIsAuthenticated] = useState(false);
-  let isAuthenticated = true;
+  let isAuthenticated = false;
   // const previousBlogDetails = {
   //   title: "Is WEB 3.0 the new technology revolution?",
   //   category: "Technology",
@@ -136,17 +135,19 @@ export default function App() {
         <Route exact path='/login' element={<Login />} />
         <Route exact path='/register' element={<Register />} />
         <Route exact path='/reset-password' element={<ResetPassword />} />
-        <Route exact path='/' element={<Homepage />} />
+        <Route exact path='/home' element={<Homepage />} />
         <Route exact path='/my-feed' element={<Feed type='feed' />} />
         <Route exact path='/create-blog' element={<BlogForm type='Create' />} />
         <Route
           exact
-          path='/update-blog/:blog-name'
+          path='/update-blog/:blogid'
           element={<BlogForm type='Update' />}
         />
         <Route exact path='/dashboard' element={<Dashboard />} />
-        <Route exact path='/blog/:blogname' element={<Blog />} />
-        <Route exact path='/author/:authorname' element={<Profile />} />
+        <Route exact path='/blog/:blogid' element={<Blog />} />
+        <Route exact path='/user/:userid' element={<Profile />} />
+        <Route exact path='/search/:query' element={<Feed type='search' />} />
+        <Route exact path='/update-user/:userid' element={<UpdateUserForm />} />
       </Routes>
     </Router>
   );

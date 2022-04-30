@@ -5,9 +5,11 @@ import Modal from "./Modal";
 import bin from "../images/bin.png";
 import profileImg from "../images/profile.jpg";
 import pencil from "../images/pencil.png";
+import { Link, Navigate } from "react-router-dom";
 
 function Dashboard() {
   const [showModal, setShowModal] = useState(false);
+  const [isLoggedOut, setIsLoggedOut] = useState(false);
   const [modalOption, setModalOption] = useState("");
   const myDetails = {
     userDetails: {
@@ -163,6 +165,7 @@ function Dashboard() {
         />
       )}
       <section id='main'>
+        {isLoggedOut && <Navigate to='/login' />}
         <div style={{ filter: `${showModal ? "blur(10px)" : "blur(0px)"}` }}>
           <div className='profile-details d-flex flex-col'>
             <div className='col-1 d-flex'>
@@ -171,15 +174,23 @@ function Dashboard() {
                 <h1>{myDetails.userDetails.name}</h1>
                 <p>{myDetails.userDetails.bio}</p>
                 <div className='prof-buttons d-flex'>
-                  <button className='d-flex align-center'>
+                  <Link
+                    to={`/update-user/${myDetails.userDetails.name
+                      .split(" ")
+                      .join("-")}`}
+                    className='d-flex align-center'>
                     <img src={pencil} alt='' />
                     Update Profile
-                  </button>
+                  </Link>
                   <button className='d-flex align-center'>
                     <img src={bin} alt='' />
                     Delete Profile
                   </button>
-                  <button className='d-flex align-center'>Logout</button>
+                  <button
+                    className='d-flex align-center'
+                    onClick={() => setIsLoggedOut(!isLoggedOut)}>
+                    Logout
+                  </button>
                 </div>
               </div>
             </div>
@@ -195,49 +206,57 @@ function Dashboard() {
           <div className='user-blogs'>
             <h1>My Blogs</h1>
             <div className='blogs d-flex flex-col'>
-              {myDetails.blogs.map((blog) => {
-                return (
-                  <div className='blog d-flex align-center'>
-                    <img src={blog.blog_img} alt='' />
-                    <div className='blog-det'>
-                      <p
-                        style={{
-                          margin: "10px 0",
-                          textTransform: "uppercase",
-                          color: "blueviolet",
-                        }}>
-                        {blog.category}
-                      </p>
-                      <h1>{blog.title}</h1>
-                      <a
-                        href='/'
-                        className='blog-author d-flex align-center'
-                        style={{ marginTop: "8px", gap: "10px" }}>
-                        <img
-                          src={blog.author_img}
-                          style={{
-                            width: "20px",
-                            height: "20px",
-                            borderRadius: "50%",
-                          }}
-                          alt=''
-                        />
-                        {blog.author}
-                      </a>
-                    </div>
-                    <div className='prof-buttons d-flex'>
-                      <button className='d-flex align-center'>
-                        <img src={pencil} alt='' />
-                        Update Blog
-                      </button>
-                      <button className='d-flex align-center'>
-                        <img src={bin} alt='' />
-                        Delete Blog
-                      </button>
-                    </div>
-                  </div>
-                );
-              })}
+              {React.Children.toArray(
+                myDetails.blogs.map((blog) => {
+                  return (
+                    <Link to={`/blog/${blog.title.split(" ").join("-")}`}>
+                      <div className='blog d-flex align-center'>
+                        <img src={blog.blog_img} alt='' />
+                        <div className='blog-det'>
+                          <p
+                            style={{
+                              margin: "10px 0",
+                              textTransform: "uppercase",
+                              color: "blueviolet",
+                            }}>
+                            {blog.category}
+                          </p>
+                          <h1>{blog.title}</h1>
+                          <Link
+                            to={`/user/${blog.author.split(" ").join("-")}`}
+                            className='blog-author d-flex align-center'
+                            style={{ marginTop: "8px", gap: "10px" }}>
+                            <img
+                              src={blog.author_img}
+                              style={{
+                                width: "20px",
+                                height: "20px",
+                                borderRadius: "50%",
+                              }}
+                              alt=''
+                            />
+                            {blog.author}
+                          </Link>
+                        </div>
+                        <div className='prof-buttons d-flex'>
+                          <Link
+                            to={`/update-blog/${blog.title
+                              .split(" ")
+                              .join("-")}`}
+                            className='d-flex align-center'>
+                            <img src={pencil} alt='' />
+                            Update Blog
+                          </Link>
+                          <button className='d-flex align-center'>
+                            <img src={bin} alt='' />
+                            Delete Blog
+                          </button>
+                        </div>
+                      </div>
+                    </Link>
+                  );
+                })
+              )}
             </div>
           </div>
         </div>

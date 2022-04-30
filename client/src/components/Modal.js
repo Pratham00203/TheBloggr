@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 function Modal({ option, closeModal, followDetails }) {
   return (
@@ -7,17 +8,23 @@ function Modal({ option, closeModal, followDetails }) {
         <div className='modal f-modal'>
           <h1>{option === "followers" ? "Followers" : "Following"}</h1>
           <div className='f-user-container d-flex flex-col'>
-            {followDetails.map((user) => {
-              return (
-                <>
-                  <div className='f-user d-flex align-center'>
-                    <img src={user.user_img} alt='' />
-                    <h1>{user.name}</h1>
-                  </div>
-                  <hr />
-                </>
-              );
-            })}
+            {React.Children.toArray(
+              followDetails.map((user) => {
+                return (
+                  <>
+                    <Link
+                      to={`/user/${user.name.split(" ").join("-")}`}
+                      style={{ color: "#000" }}>
+                      <div className='f-user d-flex align-center'>
+                        <img src={user.user_img} alt='' />
+                        <h1>{user.name}</h1>
+                      </div>
+                    </Link>
+                    <hr />
+                  </>
+                );
+              })
+            )}
           </div>
 
           <button

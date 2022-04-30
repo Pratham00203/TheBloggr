@@ -104,9 +104,9 @@ router.get("/:blogid", auth, async (req, res) => {
       req.params.blogid,
     ]);
 
-    let user = await db.query("SELECT * FROM USERS WHERE userid=$1", [
-      blog.rows[0].userid,
-    ]);
+    // let user = await db.query("SELECT * FROM USERS WHERE userid=$1", [
+    //   blog.rows[0].userid,
+    // ]);
 
     let totalviews = blog.rows[0].totalviews;
     totalviews += 1;
@@ -143,7 +143,6 @@ router.get("/:blogid", auth, async (req, res) => {
     }
 
     res.json({
-      authorDetails: user.rows[0],
       blogDetails: result.rows[0],
       comments: comments.rows,
       likes: likes.rows,

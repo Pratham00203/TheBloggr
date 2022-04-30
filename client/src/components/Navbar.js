@@ -9,7 +9,7 @@ export default function Navbar() {
 
   return (
     <nav className='d-flex align-center'>
-      <Link to='/'>TheBloggr.</Link>
+      <Link to='/home'>TheBloggr.</Link>
       <img
         src={hamburgerIcon}
         onClick={() => setShowMenu(!showMenu)}
@@ -27,7 +27,7 @@ export default function Navbar() {
           alt=''
         />
         <li>
-          <Link to='/'>Home</Link>
+          <Link to='/home'>Home</Link>
         </li>
         <li>
           <Link to='/my-feed'>My Feed</Link>
