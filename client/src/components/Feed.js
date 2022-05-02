@@ -1,7 +1,7 @@
 import Navbar from "./Navbar";
 import Footer from "./Footer";
 import React, { useEffect, useState } from "react";
-import { Link, Navigate, useParams } from "react-router-dom";
+import { Link, Redirect, useParams } from "react-router-dom";
 export default function Feed({ type }) {
   const { query } = useParams();
   const [feedBlogs, setFeedBlogs] = useState([]);
@@ -149,7 +149,7 @@ export default function Feed({ type }) {
               })
             )
           ) : (
-            <Navigate to='/no-results' />
+            <Redirect to='/no-results' />
           )}
         </div>
       </section>

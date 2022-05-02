@@ -1,6 +1,6 @@
 import { useState } from "react";
 import eyeIcon from "../images/eye.png";
-import { Link, Navigate } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 import axios from "axios";
 
 export default function Login() {
@@ -75,7 +75,7 @@ export default function Login() {
           <Link to='/reset-password'>Forgot Password</Link>
           <Link to='/register'>Not a User?</Link>
           <input type='submit' value='Login' />
-          {isLoggedIn && <Navigate to='/home' />}
+          {isLoggedIn && <Redirect to='/home' />}
         </form>
       </div>
     </div>

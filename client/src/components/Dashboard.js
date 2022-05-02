@@ -5,7 +5,7 @@ import Modal from "./Modal";
 import bin from "../images/bin.png";
 import profileImg from "../images/profile.jpg";
 import pencil from "../images/pencil.png";
-import { Link, Navigate } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 
 function Dashboard() {
   const [showModal, setShowModal] = useState(false);
@@ -165,7 +165,7 @@ function Dashboard() {
         />
       )}
       <section id='main'>
-        {isLoggedOut && <Navigate to='/login' />}
+        {isLoggedOut && <Redirect to='/login' />}
         <div style={{ filter: `${showModal ? "blur(10px)" : "blur(0px)"}` }}>
           <div className='profile-details d-flex flex-col'>
             <div className='col-1 d-flex'>

@@ -1,6 +1,6 @@
 import { useState } from "react";
 import eyeIcon from "../images/eye.png";
-import { Link, Navigate } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 import axios from "axios";
 
 export default function Register() {
@@ -132,7 +132,7 @@ export default function Register() {
           </div>
           <Link to='/login'>Already a User?</Link>
           <input type='submit' value='Register' />
-          {isLoggedIn && <Navigate to='/home' />}
+          {isLoggedIn && <Redirect to='/home' />}
         </form>
       </div>
     </div>
