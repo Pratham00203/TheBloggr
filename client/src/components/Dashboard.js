@@ -1,16 +1,28 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Navbar from "./Navbar";
 import Footer from "./Footer";
 import Modal from "./Modal";
 import bin from "../images/bin.png";
 import profileImg from "../images/profile.jpg";
 import pencil from "../images/pencil.png";
-import { Link, Redirect } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
+import auth from "../auth";
+import { logout, checkAuth } from "../helpers/helpers";
 
 function Dashboard() {
+  document.title = "Dashboard";
+  const history = useHistory();
   const [showModal, setShowModal] = useState(false);
-  const [isLoggedOut, setIsLoggedOut] = useState(false);
   const [modalOption, setModalOption] = useState("");
+
+  useEffect(() => {
+    if (!checkAuth()) {
+      auth.logout(() => {
+        history.push("/login");
+      });
+    }
+  }, []);
+
   const myDetails = {
     userDetails: {
       name: "Pratham Shelar",
@@ -150,6 +162,13 @@ function Dashboard() {
     setShowModal(true);
   };
 
+  const handleLogout = () => {
+    logout();
+    auth.logout(() => {
+      history.push("/");
+    });
+  };
+
   return (
     <>
       <Navbar />
@@ -165,7 +184,6 @@ function Dashboard() {
         />
       )}
       <section id='main'>
-        {isLoggedOut && <Redirect to='/login' />}
         <div style={{ filter: `${showModal ? "blur(10px)" : "blur(0px)"}` }}>
           <div className='profile-details d-flex flex-col'>
             <div className='col-1 d-flex'>
@@ -188,7 +206,7 @@ function Dashboard() {
                   </button>
                   <button
                     className='d-flex align-center'
-                    onClick={() => setIsLoggedOut(!isLoggedOut)}>
+                    onClick={() => handleLogout()}>
                     Logout
                   </button>
                 </div>

@@ -36,9 +36,9 @@ export default function Navbar() {
           <Link to='/create-blog'>Create a Blog</Link>
         </li>
         <li>
-          <a href='/dashboard'>
+          <Link to='/dashboard'>
             <img src={defaultProfileIcon} alt='dashboard' />
-          </a>
+          </Link>
         </li>
       </ul>
     </nav>

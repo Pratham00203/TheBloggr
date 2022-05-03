@@ -1,11 +1,24 @@
 import Navbar from "./Navbar";
 import Footer from "./Footer";
 import profileImg from "../images/profile.jpg";
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
-
+import { Link, useHistory, useParams } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { checkAuth } from "../helpers/helpers";
+import auth from "../auth";
 export default function Profile() {
+  const history = useHistory();
+
+  const { userid } = useParams();
+
   const [isFollowing, setIsFollowing] = useState(false);
+
+  useEffect(() => {
+    if (!checkAuth()) {
+      auth.logout(() => {
+        history.push("/login");
+      });
+    }
+  }, []);
 
   const profileDetails = {
     userDetails: {
@@ -49,6 +62,8 @@ export default function Profile() {
       },
     ],
   };
+
+  document.title = `${profileDetails.userDetails.name}`;
 
   const handleFollow = () => {
     setIsFollowing(!isFollowing);

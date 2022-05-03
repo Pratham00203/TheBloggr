@@ -1,8 +1,13 @@
 import Navbar from "./Navbar";
 import Footer from "./Footer";
 import { useState, useEffect } from "react";
+import { checkAuth } from "../helpers/helpers";
+import auth from "../auth";
+import { useHistory } from "react-router-dom";
 
 export default function UpdateUserForm({ previousUserDetails }) {
+  document.title = "Update User";
+  const history = useHistory();
   const [userDetails, setUserDetails] = useState({
     name: "",
     email: "",
@@ -11,8 +16,13 @@ export default function UpdateUserForm({ previousUserDetails }) {
   });
 
   useEffect(() => {
+    if (!checkAuth()) {
+      auth.logout(() => {
+        history.push("/login");
+      });
+    }
     previousUserDetails && setUserDetails(previousUserDetails);
-  }, [previousUserDetails]);
+  }, []);
 
   const handleChange = (e) => {
     const { name, value } = e.target;

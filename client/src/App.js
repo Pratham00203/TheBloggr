@@ -13,11 +13,25 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import "./App.css";
 import { useState, useEffect } from "react";
 import NoResult from "./components/NoResult";
+import ProtectedRoute from "./components/ProtectedRoute";
+import auth from "./auth";
+import { checkAuth } from "./helpers/helpers";
+import PublicRoute from "./components/PublicRoute";
 
 axios.defaults.headers.common["Authorization"] = localStorage.getItem("token");
 axios.defaults.baseURL = "http://localhost:5000";
 export default function App() {
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [isAuthenticated, setIsAuthenticated] = useState(
+    auth.isAuthenticated()
+  );
+
+  useEffect(() => {
+    if (checkAuth) {
+      auth.login(() => {
+        setIsAuthenticated(true);
+      });
+    }
+  }, []);
 
   return (
     <Router>
@@ -25,63 +39,40 @@ export default function App() {
         <Route exact path='/'>
           {isAuthenticated ? <Homepage /> : <Login />}
         </Route>
-        <Route exact path='/login'>
-          <Login />
-        </Route>
-        <Route exact path='/register'>
-          <Register />
-        </Route>
-        <Route exact path='/reset-password'>
-          <ResetPassword />
-        </Route>
-        <Route exact path='/home'>
-          <Homepage />
-        </Route>
-        <Route exact path='/create-blog'>
-          <BlogForm type='Create' />
-        </Route>
-        <Route exact path='/update-blog/:blogid'>
-          <BlogForm type='Update' />
-        </Route>
-        <Route exact path='/dashboard'>
-          <Dashboard />
-        </Route>
-        <Route exact path='/my-feed'>
-          <Feed type='feed' />
-        </Route>
-        <Route exact path='/blog/:blogid'>
-          <Blog />
-        </Route>
-        <Route exact path='/user/user:id'>
-          <Profile />
-        </Route>
-        <Route exact path='/search/:query'>
-          <Feed type='search' />
-        </Route>
-        <Route exact path='/update-user/:user-id'>
-          <UpdateUserForm />
-        </Route>
-        <Route exact path='/no-results'>
-          <NoResult />
-        </Route>
-
-        {/* <Route exact path='/login' element={<Login />} />
-        <Route exact path='/register' element={<Register />} />
-        <Route exact path='/reset-password' element={<ResetPassword />} />
-        <Route exact path='/home' element={<Homepage />} />
-        <Route exact path='/my-feed' element={<Feed type='feed' />} />
-        <Route exact path='/create-blog' element={<BlogForm type='Create' />} />
-        <Route
+        <PublicRoute exact path='/login' component={Login} />
+        <PublicRoute exact path='/register' component={Register} />
+        <PublicRoute exact path='/reset-password' component={ResetPassword} />
+        <ProtectedRoute exact path='/home' component={Homepage} />
+        <ProtectedRoute
+          exact
+          path='/create-blog'
+          component={() => <BlogForm type='Create' />}
+        />
+        <ProtectedRoute
           exact
           path='/update-blog/:blogid'
-          element={<BlogForm type='Update' />}
+          component={() => <BlogForm type='Update' />}
         />
-        <Route exact path='/dashboard' element={<Dashboard />} />
-        <Route exact path='/blog/:blogid' element={<Blog />} />
-        <Route exact path='/user/:userid' element={<Profile />} />
-        <Route exact path='/search/:query' element={<Feed type='search' />} />
-        <Route exact path='/update-user/:userid' element={<UpdateUserForm />} />
-        <Route exact path='/no-results' element={<NoResult />} /> */}
+        <ProtectedRoute exact path='/dashboard' component={Dashboard} />
+        <ProtectedRoute
+          exact
+          path='/my-feed'
+          component={() => <Feed type='feed' />}
+        />
+        <ProtectedRoute exact path='/blog/:blogid' component={Blog} />
+        <ProtectedRoute exact path='/user/:userid' component={Profile} />
+        <ProtectedRoute
+          exact
+          path='/search/:query'
+          component={() => <Feed type='search' />}
+        />
+        <ProtectedRoute
+          exact
+          path='/update-user/:userid'
+          component={UpdateUserForm}
+        />
+        <ProtectedRoute exact path='/no-results' component={NoResult} />
+        <Route path='*' component={() => "404 NOT FOUND"} />
       </Switch>
     </Router>
   );

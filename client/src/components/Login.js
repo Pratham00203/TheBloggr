@@ -1,9 +1,12 @@
 import { useState } from "react";
 import eyeIcon from "../images/eye.png";
-import { Link, Redirect } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import axios from "axios";
+import auth from "../auth";
+import { checkAuth } from "../helpers/helpers";
 
 export default function Login() {
+  const history = useHistory();
   document.title = "Login";
 
   const [showPassword, setShowPassword] = useState(false);
@@ -11,7 +14,6 @@ export default function Login() {
     email: "",
     password: "",
   });
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -23,7 +25,7 @@ export default function Login() {
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleLogin = (e) => {
     e.preventDefault();
     login();
   };
@@ -32,9 +34,14 @@ export default function Login() {
     try {
       const res = await axios.post("/auth/login", loginDetails);
       localStorage.setItem("token", res.data);
-      // setIsLoggedIn(true);
+      if (checkAuth()) {
+        auth.login(() => {
+          history.push("/home");
+        });
+      }
     } catch (err) {
       const errors = err.response.data.errors;
+      console.log(errors);
       errors.forEach((err) => {
         alert(err.msg);
       });
@@ -49,7 +56,7 @@ export default function Login() {
           Your <br />
           Account <span>.</span>
         </h1>
-        <form className='d-flex flex-col' onSubmit={handleSubmit}>
+        <form className='d-flex flex-col' onSubmit={handleLogin}>
           <input
             type='email'
             name='email'
@@ -75,7 +82,6 @@ export default function Login() {
           <Link to='/reset-password'>Forgot Password</Link>
           <Link to='/register'>Not a User?</Link>
           <input type='submit' value='Login' />
-          {isLoggedIn && <Redirect to='/home' />}
         </form>
       </div>
     </div>

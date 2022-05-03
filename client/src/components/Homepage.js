@@ -1,15 +1,23 @@
 import Navbar from "./Navbar";
 import Footer from "./Footer";
 import trendImg from "../images/trend.png";
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { Link, useHistory } from "react-router-dom";
+import auth from "../auth";
+import { checkAuth } from "../helpers/helpers";
 
 export default function Homepage() {
+  const history = useHistory();
   document.title = "TheBloggr";
   const [searchQuery, setSearchQuery] = useState("");
-  // const [travelBlogs, setTravelBlogs] = useState({});
-  // const [techBlogs, setTechBlogs] = useState({});
-  // const [worldBlogs, setWordBlogs] = useState({});
+
+  useEffect(() => {
+    if (!checkAuth()) {
+      auth.logout(() => {
+        history.push("/login");
+      });
+    }
+  }, []);
 
   const handleChange = (e) => {
     setSearchQuery(e.target.value);

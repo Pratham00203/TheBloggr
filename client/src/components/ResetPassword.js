@@ -1,7 +1,9 @@
 import { useState } from "react";
+import { useHistory } from "react-router-dom";
 import eyeIcon from "../images/eye.png";
 
 export default function ResetPassword() {
+  const history = useHistory();
   const [showPassword, setShowPassword] = useState(false);
   const [enterOTP, setEnterOTP] = useState(false);
   const [enterPassword, setEnterPassword] = useState(false);
@@ -38,6 +40,7 @@ export default function ResetPassword() {
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log(userDetails);
+    history.push("/login");
   };
 
   return (

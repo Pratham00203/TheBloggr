@@ -4,6 +4,9 @@ import Navbar from "./Navbar";
 import Footer from "./Footer";
 import SunEditor from "suneditor-react";
 import "suneditor/dist/css/suneditor.min.css";
+import { useHistory, useParams } from "react-router-dom";
+import { checkAuth } from "../helpers/helpers";
+import auth from "../auth";
 
 export default function BlogForm({ type, previousBlogDetails }) {
   const [blogDetails, setBlogDetails] = useState({
@@ -14,13 +17,22 @@ export default function BlogForm({ type, previousBlogDetails }) {
     blog_img: "",
   });
 
+  const { blogid } = useParams();
+  const history = useHistory();
+
   const previousBlogDescription = previousBlogDetails
     ? previousBlogDetails.description
     : "";
 
   useEffect(() => {
+    if (!checkAuth()) {
+      auth.logout(() => {
+        history.push("/login");
+      });
+    }
     document.title = `${type} Blog`;
     previousBlogDetails && setBlogDetails(previousBlogDetails);
+    console.log(blogid);
   }, []);
 
   const handleChange = (e) => {

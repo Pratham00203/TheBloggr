@@ -5,12 +5,20 @@ import unLikeImg from "../images/unliked.png";
 import redFlag from "../images/red-flag.png";
 import bin from "../images/bin.png";
 import React, { useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useHistory, useParams } from "react-router-dom";
+import auth from "../auth";
+import { checkAuth } from "../helpers/helpers";
 
 export default function Blog() {
+  const history = useHistory();
   const { blogid } = useParams();
 
   useEffect(() => {
+    if (!checkAuth()) {
+      auth.logout(() => {
+        history.push("/login");
+      });
+    }
     console.log(blogid);
   }, []);
 
@@ -73,6 +81,8 @@ export default function Blog() {
     likeStatus: true,
     followStatus: false,
   };
+
+  document.title = `${blogDetails.blogDetails.title}`;
 
   const [likeStatus, setLikeStatus] = useState(blogDetails.likeStatus);
   const [followStatus, setFollowStatus] = useState(blogDetails.followStatus);

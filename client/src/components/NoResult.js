@@ -1,9 +1,24 @@
 import Navbar from "./Navbar";
 import Footer from "./Footer";
 import noResultIcon from "../images/search-magnifier-with-a-cross.png";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { checkAuth } from "../helpers/helpers";
+import auth from "../auth";
 
 export default function NoResult() {
+  const history = useHistory();
+  document.title = "No Results Found";
+  const [searchQuery, setSearchQuery] = useState("");
+
+  useEffect(() => {
+    if (!checkAuth()) {
+      auth.logout(() => {
+        history.push("/login");
+      });
+    }
+  }, []);
+
   return (
     <>
       <Navbar />

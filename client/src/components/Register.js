@@ -1,10 +1,12 @@
 import { useState } from "react";
 import eyeIcon from "../images/eye.png";
-import { Link, Redirect } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import axios from "axios";
+import auth from "../auth";
+import { checkAuth } from "../helpers/helpers";
 
 export default function Register() {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const history = useHistory();
   const [showPassword, setShowPassword] = useState(false);
   const [registerDetails, setRegisterDetails] = useState({
     name: "",
@@ -54,8 +56,11 @@ export default function Register() {
     try {
       const res = await axios.post("/auth/register", registerDetails);
       localStorage.setItem("token", res.data);
-      console.log(res.data);
-      // setIsLoggedIn(true);
+      if (checkAuth()) {
+        auth.login(() => {
+          history.push("/home");
+        });
+      }
     } catch (err) {
       const errors = err.response.data.errors;
       errors.forEach((err) => {
@@ -132,7 +137,6 @@ export default function Register() {
           </div>
           <Link to='/login'>Already a User?</Link>
           <input type='submit' value='Register' />
-          {isLoggedIn && <Redirect to='/home' />}
         </form>
       </div>
     </div>

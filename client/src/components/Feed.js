@@ -1,18 +1,20 @@
 import Navbar from "./Navbar";
 import Footer from "./Footer";
 import React, { useEffect, useState } from "react";
-import { Link, Redirect, useParams } from "react-router-dom";
+import { Link, Redirect, useHistory, useParams } from "react-router-dom";
+import { checkAuth } from "../helpers/helpers";
+import auth from "../auth";
+
 export default function Feed({ type }) {
   const { query } = useParams();
-  const [feedBlogs, setFeedBlogs] = useState([]);
+  const history = useHistory();
 
   useEffect(() => {
-    if (type === "feed") {
-      setFeedBlogs(userFeedBlogs);
-    } else {
-      setFeedBlogs(searchBlogs);
+    if (!checkAuth()) {
+      auth.logout(() => {
+        history.push("/login");
+      });
     }
-    console.log(query);
   }, []);
 
   const userFeedBlogs = [
@@ -85,6 +87,11 @@ export default function Feed({ type }) {
         "https://cdn.pixabay.com/photo/2016/04/04/14/12/monitor-1307227__480.jpg",
     },
   ];
+  const [feedBlogs, setFeedBlogs] = useState(
+    type === "feed" ? userFeedBlogs : searchBlogs
+  );
+
+  document.title = type === "feed" ? "My Feed" : "Results";
 
   return (
     <>
@@ -109,19 +116,6 @@ export default function Feed({ type }) {
                           {blog.category}
                         </p>
                         <h1>{blog.title}</h1>
-                        {/* <p>
-                      {`${blog.description.slice(0, 300)} ... `}
-                      <a
-                        href='/'
-                        style={{
-                          color: "blueviolet",
-                          textDecoration: "underline",
-                        }}>
-                        {" "}
-                        Read more
-                      </a>
-                    </p> */}
-
                         <Link
                           to={`/user/${blog.author.split(" ").join("-")}`}
                           className='blog-author d-flex align-center'
