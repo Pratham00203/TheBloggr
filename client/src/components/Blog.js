@@ -163,7 +163,11 @@ export default function Blog() {
             Posted On : {blogDetails.blogDetails.postedon}
           </p>
           <img src={blogDetails.blogDetails.blog_img} alt='' />
-          <p className='blog-desc'>{blogDetails.blogDetails.description}</p>
+          <div
+            className='blog-desc'
+            dangerouslySetInnerHTML={{
+              __html: blogDetails.blogDetails.description,
+            }}></div>
         </div>
 
         <div className='social-options d-flex'>

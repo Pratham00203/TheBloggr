@@ -19,16 +19,14 @@ import { checkAuth } from "./helpers/helpers";
 import PublicRoute from "./components/PublicRoute";
 
 axios.defaults.headers.common["Authorization"] = localStorage.getItem("token");
-axios.defaults.baseURL = "http://localhost:5000";
+axios.defaults.baseURL = "http://192.168.0.153:5000";
 export default function App() {
-  const [isAuthenticated, setIsAuthenticated] = useState(
-    auth.isAuthenticated()
-  );
+  const [isAuthenticated, setIsAuthenticated] = useState(null);
 
   useEffect(() => {
     if (checkAuth) {
       auth.login(() => {
-        setIsAuthenticated(true);
+        setIsAuthenticated(Boolean(localStorage.getItem("token")));
       });
     }
   }, []);
