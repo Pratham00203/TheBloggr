@@ -4,9 +4,11 @@ import { Link, useHistory } from "react-router-dom";
 import axios from "axios";
 import auth from "../auth";
 import { checkAuth } from "../helpers/helpers";
+import { useToasts } from "react-toast-notifications";
 
 export default function Login() {
   const history = useHistory();
+  const { addToast } = useToasts();
   document.title = "Login";
 
   const [showPassword, setShowPassword] = useState(false);
@@ -34,6 +36,7 @@ export default function Login() {
     try {
       const res = await axios.post("/auth/login", loginDetails);
       localStorage.setItem("token", res.data);
+      addToast("Login Successful", { appearance: "success" });
       if (checkAuth()) {
         auth.login(() => {
           history.push("/home");
@@ -43,7 +46,8 @@ export default function Login() {
       const errors = err.response.data.errors;
       console.log(errors);
       errors.forEach((err) => {
-        alert(err.msg);
+        addToast(err.msg, { appearance: "error" });
+        // alert(err.msg);
       });
     }
   };

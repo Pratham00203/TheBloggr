@@ -4,9 +4,11 @@ import { Link, useHistory } from "react-router-dom";
 import axios from "axios";
 import auth from "../auth";
 import { checkAuth } from "../helpers/helpers";
+import { useToasts } from "react-toast-notifications";
 
 export default function Register() {
   const history = useHistory();
+  const { addToast } = useToasts();
   const [showPassword, setShowPassword] = useState(false);
   const [registerDetails, setRegisterDetails] = useState({
     name: "",
@@ -56,6 +58,7 @@ export default function Register() {
     try {
       const res = await axios.post("/auth/register", registerDetails);
       localStorage.setItem("token", res.data);
+      addToast("Register Successfully", { appearance: "success" });
       if (checkAuth()) {
         auth.login(() => {
           history.push("/home");
@@ -64,7 +67,8 @@ export default function Register() {
     } catch (err) {
       const errors = err.response.data.errors;
       errors.forEach((err) => {
-        alert(err.msg);
+        // alert(err.msg);
+        addToast(err.msg, { appearance: "error" });
       });
     }
   };

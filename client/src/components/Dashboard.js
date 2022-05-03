@@ -8,10 +8,12 @@ import pencil from "../images/pencil.png";
 import { Link, useHistory } from "react-router-dom";
 import auth from "../auth";
 import { logout, checkAuth } from "../helpers/helpers";
+import { useToasts } from "react-toast-notifications";
 
 function Dashboard() {
   document.title = "Dashboard";
   const history = useHistory();
+  const { addToast } = useToasts();
   const [showModal, setShowModal] = useState(false);
   const [modalOption, setModalOption] = useState("");
 
@@ -164,6 +166,7 @@ function Dashboard() {
 
   const handleLogout = () => {
     logout();
+    addToast("Logged Out Successfully", { appearance: "success" });
     auth.logout(() => {
       history.push("/");
     });

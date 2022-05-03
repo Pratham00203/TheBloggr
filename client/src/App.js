@@ -17,6 +17,7 @@ import ProtectedRoute from "./components/ProtectedRoute";
 import auth from "./auth";
 import { checkAuth } from "./helpers/helpers";
 import PublicRoute from "./components/PublicRoute";
+import { ToastProvider } from "react-toast-notifications";
 
 axios.defaults.headers.common["Authorization"] = localStorage.getItem("token");
 axios.defaults.baseURL = "http://192.168.0.153:5000";
@@ -32,46 +33,48 @@ export default function App() {
   }, []);
 
   return (
-    <Router>
-      <Switch>
-        <Route exact path='/'>
-          {isAuthenticated ? <Homepage /> : <Login />}
-        </Route>
-        <PublicRoute exact path='/login' component={Login} />
-        <PublicRoute exact path='/register' component={Register} />
-        <PublicRoute exact path='/reset-password' component={ResetPassword} />
-        <ProtectedRoute exact path='/home' component={Homepage} />
-        <ProtectedRoute
-          exact
-          path='/create-blog'
-          component={() => <BlogForm type='Create' />}
-        />
-        <ProtectedRoute
-          exact
-          path='/update-blog/:blogid'
-          component={() => <BlogForm type='Update' />}
-        />
-        <ProtectedRoute exact path='/dashboard' component={Dashboard} />
-        <ProtectedRoute
-          exact
-          path='/my-feed'
-          component={() => <Feed type='feed' />}
-        />
-        <ProtectedRoute exact path='/blog/:blogid' component={Blog} />
-        <ProtectedRoute exact path='/user/:userid' component={Profile} />
-        <ProtectedRoute
-          exact
-          path='/search/:query'
-          component={() => <Feed type='search' />}
-        />
-        <ProtectedRoute
-          exact
-          path='/update-user/:userid'
-          component={UpdateUserForm}
-        />
-        <ProtectedRoute exact path='/no-results' component={NoResult} />
-        <Route path='*' component={() => "404 NOT FOUND"} />
-      </Switch>
-    </Router>
+    <ToastProvider autoDismiss={true} autoDismissTimeout={3000}>
+      <Router>
+        <Switch>
+          <Route exact path='/'>
+            {isAuthenticated ? <Homepage /> : <Login />}
+          </Route>
+          <PublicRoute exact path='/login' component={Login} />
+          <PublicRoute exact path='/register' component={Register} />
+          <PublicRoute exact path='/reset-password' component={ResetPassword} />
+          <ProtectedRoute exact path='/home' component={Homepage} />
+          <ProtectedRoute
+            exact
+            path='/create-blog'
+            component={() => <BlogForm type='Create' />}
+          />
+          <ProtectedRoute
+            exact
+            path='/update-blog/:blogid'
+            component={() => <BlogForm type='Update' />}
+          />
+          <ProtectedRoute exact path='/dashboard' component={Dashboard} />
+          <ProtectedRoute
+            exact
+            path='/my-feed'
+            component={() => <Feed type='feed' />}
+          />
+          <ProtectedRoute exact path='/blog/:blogid' component={Blog} />
+          <ProtectedRoute exact path='/user/:userid' component={Profile} />
+          <ProtectedRoute
+            exact
+            path='/search/:query'
+            component={() => <Feed type='search' />}
+          />
+          <ProtectedRoute
+            exact
+            path='/update-user/:userid'
+            component={UpdateUserForm}
+          />
+          <ProtectedRoute exact path='/no-results' component={NoResult} />
+          <Route path='*' component={() => "404 NOT FOUND"} />
+        </Switch>
+      </Router>
+    </ToastProvider>
   );
 }
