@@ -7,8 +7,10 @@ import "suneditor/dist/css/suneditor.min.css";
 import { useHistory, useParams } from "react-router-dom";
 import { checkAuth } from "../helpers/helpers";
 import auth from "../auth";
+import { useToasts } from "react-toast-notifications";
 
-export default function BlogForm({ type, previousBlogDetails }) {
+export default function BlogForm({ type }) {
+  const { addToast } = useToasts();
   const [blogDetails, setBlogDetails] = useState({
     title: "",
     category: "",
@@ -20,10 +22,6 @@ export default function BlogForm({ type, previousBlogDetails }) {
   const { blogid } = useParams();
   const history = useHistory();
 
-  const previousBlogDescription = previousBlogDetails
-    ? previousBlogDetails.description
-    : "";
-
   useEffect(() => {
     if (!checkAuth()) {
       auth.logout(() => {
@@ -31,16 +29,29 @@ export default function BlogForm({ type, previousBlogDetails }) {
       });
     }
     document.title = `${type} Blog`;
-    previousBlogDetails && setBlogDetails(previousBlogDetails);
-    console.log(blogid);
+    type === "Update" && loadPreviousDetails();
   }, []);
+
+  const loadPreviousDetails = async () => {
+    try {
+      const res = await axios.get(`/blogs/${blogid}`);
+      setBlogDetails(res.data.blogDetails);
+    } catch (err) {}
+  };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
 
     if (name === "blog_img") {
       const file = e.target.files[0];
-      previewFile(file);
+      const fileSize = Math.round(file.size / 1024);
+      if (fileSize < 75) {
+        previewFile(file);
+      } else {
+        addToast("File Size to Large, upload a image less than 75kb", {
+          appearance: "error",
+        });
+      }
     }
 
     setBlogDetails((prev) => {
@@ -73,25 +84,29 @@ export default function BlogForm({ type, previousBlogDetails }) {
     });
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
-    if (!(await checkProfanity(blogDetails.description))) {
-      if (type === "Update") {
-        console.log("Updated the Blog");
-        console.log(blogDetails);
-      } else {
-        console.log(blogDetails);
-      }
+    if (type === "Update") {
+      updateBlog();
     } else {
-      alert("There are some offensive words in your blog. Please Change them.");
+      createBlog();
     }
   };
 
-  const checkProfanity = async (text) => {
-    const res = await axios.get(
-      `https://www.purgomalum.com/service/containsprofanity?text=${text}`
-    );
-    return res.data; //Returns False if there is nothing offensive //Returns True if there are soffensive words;
+  const updateBlog = async () => {
+    try {
+      await axios.put(`/blogs/${blogid}/update`, blogDetails);
+      addToast("Blog Updated", { appearance: "success" });
+      history.push("/dashboard");
+    } catch (err) {}
+  };
+
+  const createBlog = async () => {
+    try {
+      await axios.post(`/blogs/create`, blogDetails);
+      addToast("Blog Created", { appearance: "success" });
+      history.push("/dashboard");
+    } catch (err) {}
   };
 
   return (
@@ -128,13 +143,10 @@ export default function BlogForm({ type, previousBlogDetails }) {
           <label htmlFor='description' className='d-flex flex-col'>
             <span>Description:</span>
             <SunEditor
+              setContents={blogDetails.description}
               setDefaultStyle="font-family : 'Lato', sans-serif !important"
               height='300px'
-              defaultValue={
-                previousBlogDetails
-                  ? previousBlogDescription
-                  : blogDetails.description
-              }
+              defaultValue={blogDetails.description}
               onChange={handleDescriptionChange}
               setOptions={{
                 buttonList: [

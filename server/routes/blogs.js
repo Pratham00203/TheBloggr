@@ -159,7 +159,7 @@ router.get("/:blogid", auth, async (req, res) => {
 // @route POST /blogs/search/:keyword
 // @description Search for Blogs by keyword
 // @access Public
-router.post("/search/:keyword", auth, async (req, res) => {
+router.get("/search/:keyword", auth, async (req, res) => {
   try {
     let results = await db.query("SELECT * FROM BLOGS");
     let blogs = results.rows;
@@ -250,20 +250,22 @@ router.delete("/:blogid/delete", auth, async (req, res) => {
     ]);
 
     if (blog.rows.length != 0) {
-      if (loggedUser === blog.rows[0].user_id) {
+      if (loggedUser === blog.rows[0].userid) {
         await db.query("DELETE FROM BLOGS WHERE blogid=$1", [
           blog.rows[0].blogid,
         ]);
 
         let updatedBlogs = await db.query(
-          "SELECT * FROM BLOGS WHERE blogid=$1",
-          [req.params.blogid]
+          "SELECT * FROM BLOGS WHERE userid=$1",
+          [loggedUser]
         );
 
         res.json({ msg: "Blog Deleted", blogs: updatedBlogs.rows });
       } else {
         res.status(400).json("Not Authorized to Delete this Blog");
       }
+    } else {
+      res.json("Blog doesn't exist");
     }
   } catch (err) {
     console.log(err.message);

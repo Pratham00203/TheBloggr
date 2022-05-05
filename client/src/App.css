@@ -1026,7 +1026,7 @@ select:focus {
   margin-top: 30px;
 }
 
-#main .no-results-found button {
+#main .no-results-found a {
   font-size: 1.5em;
   background-color: blueviolet;
   color: #fff;

@@ -25,7 +25,7 @@ export default function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(null);
 
   useEffect(() => {
-    if (checkAuth) {
+    if (checkAuth()) {
       auth.login(() => {
         setIsAuthenticated(Boolean(localStorage.getItem("token")));
       });

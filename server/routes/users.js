@@ -66,11 +66,7 @@ router.get("/:userid", auth, async (req, res) => {
       followStatus = true;
     }
     res.json({
-      userDetails: {
-        name: user.rows[0].name,
-        bio: user.rows[0].bio,
-        profile_img: user.rows[0].profile_img,
-      },
+      userDetails: user.rows[0],
       followStatus: followStatus,
       blogs: blogs.rows,
     });

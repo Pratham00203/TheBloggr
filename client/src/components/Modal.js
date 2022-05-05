@@ -13,11 +13,18 @@ function Modal({ option, closeModal, followDetails }) {
                 return (
                   <>
                     <Link
-                      to={`/user/${user.name.split(" ").join("-")}`}
+                      to={
+                        option === "followers"
+                          ? `/user/${user.follower_id}`
+                          : `/user/${user.following_id}`
+                      }
                       style={{ color: "#000" }}>
                       <div className='f-user d-flex align-center'>
-                        <img src={user.user_img} alt='' />
-                        <h1>{user.name}</h1>
+                        <h1>
+                          {option === "followers"
+                            ? user.follower_name
+                            : user.following_name}
+                        </h1>
                       </div>
                     </Link>
                     <hr />

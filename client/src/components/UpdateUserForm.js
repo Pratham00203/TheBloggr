@@ -3,9 +3,12 @@ import Footer from "./Footer";
 import { useState, useEffect } from "react";
 import { checkAuth } from "../helpers/helpers";
 import auth from "../auth";
+import axios from "axios";
 import { useHistory } from "react-router-dom";
+import { useToasts } from "react-toast-notifications";
 
-export default function UpdateUserForm({ previousUserDetails }) {
+export default function UpdateUserForm() {
+  const { addToast } = useToasts();
   document.title = "Update User";
   const history = useHistory();
   const [userDetails, setUserDetails] = useState({
@@ -21,15 +24,31 @@ export default function UpdateUserForm({ previousUserDetails }) {
         history.push("/login");
       });
     }
-    previousUserDetails && setUserDetails(previousUserDetails);
+    loadPreviousDetails();
   }, []);
+
+  const loadPreviousDetails = async () => {
+    try {
+      const res = await axios.get("/users/me");
+      setUserDetails(res.data.userDetails);
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
 
     if (name === "profile_img") {
       const file = e.target.files[0];
-      previewFile(file);
+      const fileSize = Math.round(file.size / 1024);
+      if (fileSize < 75) {
+        previewFile(file);
+      } else {
+        addToast("File Size to Large, upload a image less than 75kb", {
+          appearance: "error",
+        });
+      }
     }
 
     setUserDetails((prev) => {
@@ -55,7 +74,20 @@ export default function UpdateUserForm({ previousUserDetails }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(userDetails);
+    updateUser();
+  };
+
+  const updateUser = async () => {
+    try {
+      await axios.put("/users/me/update", userDetails);
+      addToast("Profile Updated", { appearance: "success" });
+      history.push("/dashboard");
+    } catch (err) {
+      const errors = err.response.data.errors;
+      errors.forEach((err) => {
+        addToast(err.msg, { appearance: "error" });
+      });
+    }
   };
 
   return (

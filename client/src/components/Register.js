@@ -25,7 +25,8 @@ export default function Register() {
 
     if (name === "profile_img") {
       const file = e.target.files[0];
-      if (file.size < 75) {
+      const fileSize = Math.round(file.size / 1024);
+      if (fileSize < 75) {
         previewFile(file);
       } else {
         addToast("File Size to Large, upload a image less than 75kb", {
