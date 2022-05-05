@@ -34,7 +34,12 @@ export default function Blog() {
 
   const getUserDetails = async () => {
     try {
-      const res = await axios.get("/users/me");
+      const config = {
+        headers: {
+          Authorization: localStorage.getItem("token"),
+        },
+      };
+      const res = await axios.get("/users/me", config);
       setCurrentUser(res.data.userDetails);
     } catch (err) {
       console.log(err);
@@ -43,7 +48,12 @@ export default function Blog() {
 
   const getBlogDetails = async () => {
     try {
-      const res = await axios.get(`/blogs/${blogid}`);
+      const config = {
+        headers: {
+          Authorization: localStorage.getItem("token"),
+        },
+      };
+      const res = await axios.get(`/blogs/${blogid}`, config);
       setDetails(res.data);
     } catch (err) {
       const errors = err.response.data.errors;
@@ -78,8 +88,13 @@ export default function Blog() {
     const body = {
       reason: reason,
     };
+    const config = {
+      headers: {
+        Authorization: localStorage.getItem("token"),
+      },
+    };
     try {
-      const res = await axios.post(`/blogs/${blogid}/report`, body);
+      const res = await axios.post(`/blogs/${blogid}/report`, body, config);
       addToast(res.data, { appearance: "success" });
     } catch (err) {
       const errors = err.response.data.errors;
@@ -94,10 +109,15 @@ export default function Blog() {
 
   const comment = async () => {
     try {
+      const config = {
+        headers: {
+          Authorization: localStorage.getItem("token"),
+        },
+      };
       const body = {
         commentbody: commentText,
       };
-      const res = await axios.put(`/comments/${blogid}`, body);
+      const res = await axios.put(`/comments/${blogid}`, body, config);
       addToast(res.data.msg, { appearance: "success" });
       setComments(res.data.comments);
     } catch (err) {
@@ -117,7 +137,12 @@ export default function Blog() {
 
   const like = async () => {
     try {
-      const res = await axios.put(`/blogs/${blogid}/like`);
+      const config = {
+        headers: {
+          Authorization: localStorage.getItem("token"),
+        },
+      };
+      const res = await axios.put(`/blogs/${blogid}/like`, config);
       setLikes(res.data.likes);
     } catch (err) {
       const errors = err.response.data.errors;
@@ -127,7 +152,12 @@ export default function Blog() {
 
   const unLike = async () => {
     try {
-      const res = await axios.delete(`/blogs/${blogid}/unlike`);
+      const config = {
+        headers: {
+          Authorization: localStorage.getItem("token"),
+        },
+      };
+      const res = await axios.delete(`/blogs/${blogid}/unlike`, config);
       setLikes(res.data.likes);
     } catch (err) {
       const errors = err.response.data.errors;
@@ -148,7 +178,12 @@ export default function Blog() {
 
   const unfollow = async () => {
     try {
-      await axios.post(`/users/unfollow/${blogDetails.userid}`);
+      const config = {
+        headers: {
+          Authorization: localStorage.getItem("token"),
+        },
+      };
+      await axios.post(`/users/unfollow/${blogDetails.userid}`, config);
     } catch (err) {
       const errors = err.response.data.errors;
       console.log(errors);
@@ -157,7 +192,15 @@ export default function Blog() {
 
   const follow = async () => {
     try {
-      const res = await axios.post(`/users/follow/${blogDetails.userid}`);
+      const config = {
+        headers: {
+          Authorization: localStorage.getItem("token"),
+        },
+      };
+      const res = await axios.post(
+        `/users/follow/${blogDetails.userid}`,
+        config
+      );
       res.data === "You can't Follow yourself" &&
         addToast(res.data, { appearance: "error" });
     } catch (err) {
@@ -168,7 +211,15 @@ export default function Blog() {
 
   const deleteComment = async (commentid) => {
     try {
-      const res = await axios.delete(`/comments/${commentid}/${blogid}/delete`);
+      const config = {
+        headers: {
+          Authorization: localStorage.getItem("token"),
+        },
+      };
+      const res = await axios.delete(
+        `/comments/${commentid}/${blogid}/delete`,
+        config
+      );
       setComments(res.data.comments);
       addToast(res.data.msg, { appearance: "warning" });
     } catch (err) {

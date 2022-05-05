@@ -29,7 +29,12 @@ function Dashboard() {
 
   const getUserDetails = async () => {
     try {
-      const res = await axios.get("/users/me");
+      const config = {
+        headers: {
+          Authorization: localStorage.getItem("token"),
+        },
+      };
+      const res = await axios.get("/users/me", config);
       setCurrentUser(res.data);
     } catch (err) {
       console.log(err);
@@ -52,7 +57,12 @@ function Dashboard() {
 
   const deleteProfile = async () => {
     try {
-      const res = await axios.delete("/users/me/delete");
+      const config = {
+        headers: {
+          Authorization: localStorage.getItem("token"),
+        },
+      };
+      const res = await axios.delete("/users/me/delete", config);
       addToast(res.data, { appearance: "success" });
       auth.logout(() => {
         history.push("/");
@@ -62,7 +72,12 @@ function Dashboard() {
 
   const deleteBlog = async (blogid) => {
     try {
-      const res = await axios.delete(`/blogs/${blogid}/delete`);
+      const config = {
+        headers: {
+          Authorization: localStorage.getItem("token"),
+        },
+      };
+      const res = await axios.delete(`/blogs/${blogid}/delete`, config);
       setCurrentUser((prev) => {
         return {
           ...prev,

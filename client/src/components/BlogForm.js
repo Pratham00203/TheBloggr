@@ -34,7 +34,12 @@ export default function BlogForm({ type }) {
 
   const loadPreviousDetails = async () => {
     try {
-      const res = await axios.get(`/blogs/${blogid}`);
+      const config = {
+        headers: {
+          Authorization: localStorage.getItem("token"),
+        },
+      };
+      const res = await axios.get(`/blogs/${blogid}`, config);
       setBlogDetails(res.data.blogDetails);
     } catch (err) {}
   };
@@ -95,7 +100,12 @@ export default function BlogForm({ type }) {
 
   const updateBlog = async () => {
     try {
-      await axios.put(`/blogs/${blogid}/update`, blogDetails);
+      const config = {
+        headers: {
+          Authorization: localStorage.getItem("token"),
+        },
+      };
+      await axios.put(`/blogs/${blogid}/update`, blogDetails, config);
       addToast("Blog Updated", { appearance: "success" });
       history.push("/dashboard");
     } catch (err) {}
@@ -103,7 +113,12 @@ export default function BlogForm({ type }) {
 
   const createBlog = async () => {
     try {
-      await axios.post(`/blogs/create`, blogDetails);
+      const config = {
+        headers: {
+          Authorization: localStorage.getItem("token"),
+        },
+      };
+      await axios.post(`/blogs/create`, blogDetails, config);
       addToast("Blog Created", { appearance: "success" });
       history.push("/dashboard");
     } catch (err) {}

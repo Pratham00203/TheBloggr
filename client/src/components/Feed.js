@@ -23,7 +23,12 @@ export default function Feed({ type }) {
 
   const getFeedBlogs = async () => {
     try {
-      const res = await axios.get("/blogs/me/my-feed");
+      const config = {
+        headers: {
+          Authorization: localStorage.getItem("token"),
+        },
+      };
+      const res = await axios.get("/blogs/me/my-feed", config);
       setLoaded(true);
       setFeedBlogs(res.data);
     } catch (err) {}
@@ -31,8 +36,13 @@ export default function Feed({ type }) {
 
   const getResults = async () => {
     try {
+      const config = {
+        headers: {
+          Authorization: localStorage.getItem("token"),
+        },
+      };
       if (query === "all") {
-        const res = await axios.get("/blogs");
+        const res = await axios.get("/blogs", config);
         setLoaded(true);
         setFeedBlogs(res.data.blogs);
       } else {

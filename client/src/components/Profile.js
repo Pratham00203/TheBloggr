@@ -28,7 +28,12 @@ export default function Profile() {
 
   const getUserDetails = async () => {
     try {
-      const res = await axios.get(`/users/${userid}`);
+      const config = {
+        headers: {
+          Authorization: localStorage.getItem("token"),
+        },
+      };
+      const res = await axios.get(`/users/${userid}`, config);
       setProfileDetails(res.data);
       setIsFollowing(res.data.followStatus);
       document.title = `${res.data.userDetails.name}`;
@@ -37,7 +42,12 @@ export default function Profile() {
 
   const getCurrentUserDetails = async () => {
     try {
-      const res = await axios.get("/users/me");
+      const config = {
+        headers: {
+          Authorization: localStorage.getItem("token"),
+        },
+      };
+      const res = await axios.get("/users/me", config);
       setCurrentUser(res.data.userDetails);
     } catch (err) {
       console.log(err);
@@ -57,7 +67,15 @@ export default function Profile() {
 
   const unfollow = async () => {
     try {
-      await axios.post(`/users/unfollow/${profileDetails.userDetails.userid}`);
+      const config = {
+        headers: {
+          Authorization: localStorage.getItem("token"),
+        },
+      };
+      await axios.post(
+        `/users/unfollow/${profileDetails.userDetails.userid}`,
+        config
+      );
     } catch (err) {
       const errors = err.response.data.errors;
       console.log(errors);
@@ -66,8 +84,14 @@ export default function Profile() {
 
   const follow = async () => {
     try {
+      const config = {
+        headers: {
+          Authorization: localStorage.getItem("token"),
+        },
+      };
       const res = await axios.post(
-        `/users/follow/${profileDetails.userDetails.userid}`
+        `/users/follow/${profileDetails.userDetails.userid}`,
+        config
       );
       res.data === "You can't Follow yourself" &&
         addToast(res.data, { appearance: "error" });

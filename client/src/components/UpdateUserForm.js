@@ -29,7 +29,12 @@ export default function UpdateUserForm() {
 
   const loadPreviousDetails = async () => {
     try {
-      const res = await axios.get("/users/me");
+      const config = {
+        headers: {
+          Authorization: localStorage.getItem("token"),
+        },
+      };
+      const res = await axios.get("/users/me", config);
       setUserDetails(res.data.userDetails);
     } catch (err) {
       console.log(err);
@@ -79,7 +84,12 @@ export default function UpdateUserForm() {
 
   const updateUser = async () => {
     try {
-      await axios.put("/users/me/update", userDetails);
+      const config = {
+        headers: {
+          Authorization: localStorage.getItem("token"),
+        },
+      };
+      await axios.put("/users/me/update", userDetails, config);
       addToast("Profile Updated", { appearance: "success" });
       history.push("/dashboard");
     } catch (err) {
