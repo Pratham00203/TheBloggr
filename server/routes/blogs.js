@@ -25,7 +25,7 @@ router.post(
     }
 
     try {
-      let user = await db.query("SELECT (name) FROM USERS WHERE userid=$1", [
+      let user = await db.query("SELECT * FROM USERS WHERE userid=$1", [
         req.user.userid,
       ]);
       let createdon = new Date().toLocaleDateString();
@@ -33,7 +33,7 @@ router.post(
       let { title, description, category, keywords, blog_img } = req.body;
 
       let result = await db.query(
-        "INSERT INTO BLOGS (userid,title,description,author,category,createdon,totalviews,keywords,blog_img,author_img) VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9) RETURNING *",
+        "INSERT INTO BLOGS (userid,title,description,author,category,createdon,totalviews,keywords,blog_img,author_img) VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10) RETURNING *",
         [
           req.user.userid,
           title,
@@ -107,14 +107,15 @@ router.get("/:blogid", auth, async (req, res) => {
     // let user = await db.query("SELECT * FROM USERS WHERE userid=$1", [
     //   blog.rows[0].userid,
     // ]);
+    if (blog.rows[0].userid !== req.user.userid) {
+      let totalviews = blog.rows[0].totalviews;
+      totalviews += 1;
 
-    let totalviews = blog.rows[0].totalviews;
-    totalviews += 1;
-
-    let result = await db.query(
-      "UPDATE BLOGS SET totalviews = $1 WHERE blogid=$2 RETURNING *",
-      [totalviews, req.params.blogid]
-    );
+      await db.query(
+        "UPDATE BLOGS SET totalviews = $1 WHERE blogid=$2 RETURNING *",
+        [totalviews, req.params.blogid]
+      );
+    }
 
     let comments = await db.query("SELECT * FROM COMMENTS where blogid=$1", [
       req.params.blogid,
@@ -131,7 +132,7 @@ router.get("/:blogid", auth, async (req, res) => {
 
     let followCheck = await db.query(
       "SELECT * FROM FOLLOWS WHERE follower_id=$1 AND following_id=$2",
-      [req.user.userid, result.rows[0].userid]
+      [req.user.userid, blog.rows[0].userid]
     );
 
     if (followCheck.rows.length !== 0) {
@@ -143,7 +144,7 @@ router.get("/:blogid", auth, async (req, res) => {
     }
 
     res.json({
-      blogDetails: result.rows[0],
+      blogDetails: blog.rows[0],
       comments: comments.rows,
       likes: likes.rows,
       likeStatus: likeStatus,
@@ -363,7 +364,7 @@ router.get("/me/my-feed", auth, async (req, res) => {
 // @route POST /blogs/:blogid/report
 // @description Report a Blog
 // @access Private
-router.get("/:blogid/report", auth, async (req, res) => {
+router.post("/:blogid/report", auth, async (req, res) => {
   const { reason } = req.body;
   let blog = await db.query("SELECT * FROM BLOGS WHERE blogid=$1", [
     req.params.blogid,
@@ -390,8 +391,7 @@ router.get("/:blogid/report", auth, async (req, res) => {
     );
 
     res.json("Report Added");
-  }
-  res.json("Already Reported the Blog");
+  } else res.json("Already Reported the Blog");
 });
 
 module.exports = router;

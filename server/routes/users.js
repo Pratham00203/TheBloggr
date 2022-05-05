@@ -30,11 +30,7 @@ router.get("/me", auth, async (req, res) => {
       );
 
       res.json({
-        userDetails: {
-          name: user.rows[0].name,
-          bio: user.rows[0].bio,
-          profile_img: user.rows[0].profile_img,
-        },
+        userDetails: user.rows[0],
         blogs: blogs.rows,
         followers: followers.rows,
         following: following.rows,
@@ -131,20 +127,24 @@ router.put(
 // @access Private
 router.delete("/me/delete", auth, async (req, res) => {
   try {
-    let results = await db.query("DELETE FROM LIKES WHERE userid=$1", [
+    let user = await db.query("SELECT * FROM USERS WHERE userid=$1", [
       req.user.userid,
     ]);
-    // results = await db.query(
-    //   "DELETE FROM FOLLOWS WHERE follower_id=$1 OR following_id=$2",
-    //   [req.user.userid, req.user.userid]
-    // );
-    results = await db.query("DELETE FROM COMMENTS WHERE userid=$1", [
-      req.user.userid,
-    ]);
+    if (user.rows.length !== 0) {
+      await db.query("DELETE FROM LIKES WHERE userid=$1", [req.user.userid]);
+      await db.query(
+        "DELETE FROM FOLLOWS WHERE follower_id=$1 OR following_id=$2",
+        [req.user.userid, req.user.userid]
+      );
+      await db.query("DELETE FROM COMMENTS WHERE userid=$1", [req.user.userid]);
+      await db.query("DELETE FROM REPORTS WHERE userid=$1", [req.user.userid]);
 
-    await db.query("DELETE FROM BLOGS WHERE userid=$1", [req.user.userid]);
-    await db.query("DELETE FROM USERS WHERE userid=$1", [req.user.userid]);
-    res.json("User Deleted");
+      await db.query("DELETE FROM BLOGS WHERE userid=$1", [req.user.userid]);
+      await db.query("DELETE FROM USERS WHERE userid=$1", [req.user.userid]);
+      res.json("User Deleted");
+    } else {
+      res.json("User doesn't exists");
+    }
   } catch (err) {
     console.log(err.message);
     res.status(500).send("Server Error");
