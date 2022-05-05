@@ -8,10 +8,19 @@ import React, { useEffect, useState } from "react";
 import { Link, useHistory, useParams } from "react-router-dom";
 import auth from "../auth";
 import { checkAuth } from "../helpers/helpers";
+import axios from "axios";
+import { useToasts } from "react-toast-notifications";
 
 export default function Blog() {
   const history = useHistory();
   const { blogid } = useParams();
+  const { addToast } = useToasts();
+  const [blogDetails, setBlogDetails] = useState();
+  const [comments, setComments] = useState([]);
+  const [likes, setLikes] = useState([]);
+  const [isLiked, setIsLiked] = useState();
+  const [isFollowing, setIsFollowing] = useState();
+  const [currentUser, setCurrentUser] = useState();
 
   useEffect(() => {
     if (!checkAuth()) {
@@ -19,254 +28,300 @@ export default function Blog() {
         history.push("/login");
       });
     }
-    console.log(blogid);
+    getBlogDetails();
+    getUserDetails();
   }, []);
 
-  const blogDetails = {
-    blogDetails: {
-      author: "Pratham Shelar",
-      title: "Is WEB 3.0 the new technology revolution?",
-      postedon: new Date().toLocaleDateString(),
-      blog_img:
-        "https://cdn.pixabay.com/photo/2016/04/04/14/12/monitor-1307227__480.jpg",
-      description:
-        "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Soluta libero tenetur at fugiat consequuntur quidem minima quaerat, ipsum placeat dolores ullam eum porro dolorem alias, voluptas quo maiores molestiae perspiciatis. Sunt cupiditate enim non dolorum ut ipsa obcaecati! Possimus odio impedit eum amet porro est eius quaerat illum modi animi.",
-      author_img:
-        "https://cdn.pixabay.com/photo/2016/04/04/14/12/monitor-1307227__480.jpg",
-    },
-    comments: [
-      {
-        username: "Pratham Shelar",
-        user_img:
-          "https://cdn.pixabay.com/photo/2016/04/04/14/12/monitor-1307227__480.jpg",
-        postedon: new Date().toLocaleDateString(),
-        commentbody: "Cool!",
-      },
-      {
-        username: "Prathamesh Gurgule",
-        user_img:
-          "https://cdn.pixabay.com/photo/2016/04/04/14/12/monitor-1307227__480.jpg",
-        postedon: new Date().toLocaleDateString(),
-        commentbody: "For sure.",
-      },
-      {
-        username: "Rohan Shrotri",
-        user_img:
-          "https://cdn.pixabay.com/photo/2016/04/04/14/12/monitor-1307227__480.jpg",
-        postedon: new Date().toLocaleDateString(),
-        commentbody: "Indeed!",
-      },
-      {
-        username: "Pratik Kapse",
-        user_img:
-          "https://cdn.pixabay.com/photo/2016/04/04/14/12/monitor-1307227__480.jpg",
-        postedon: new Date().toLocaleDateString(),
-        commentbody: "Very Good",
-      },
-    ],
-    likes: [
-      {
-        username: "Pratham Shelar",
-      },
-      {
-        username: "Rohan Shrotri",
-      },
-      {
-        username: "Pratik Kapse",
-      },
-      {
-        username: "Piyush Kale",
-      },
-    ],
-    likeStatus: true,
-    followStatus: false,
+  const getUserDetails = async () => {
+    try {
+      const res = await axios.get("/users/me");
+      setCurrentUser(res.data.userDetails);
+    } catch (err) {
+      console.log(err);
+    }
   };
 
-  document.title = `${blogDetails.blogDetails.title}`;
+  const getBlogDetails = async () => {
+    try {
+      const res = await axios.get(`/blogs/${blogid}`);
+      setDetails(res.data);
+    } catch (err) {
+      const errors = err.response.data.errors;
+      console.log(errors);
+    }
+  };
 
-  const [likeStatus, setLikeStatus] = useState(blogDetails.likeStatus);
-  const [followStatus, setFollowStatus] = useState(blogDetails.followStatus);
-  const [comments, setComments] = useState(blogDetails.comments);
-  const [likes, setLikes] = useState(blogDetails.likes);
+  const setDetails = (data) => {
+    document.title = `${data.blogDetails.title}`;
+    setBlogDetails(data.blogDetails);
+    setComments(data.comments);
+    setLikes(data.likes);
+    setIsFollowing(data.followStatus);
+    setIsLiked(data.likeStatus);
+  };
+
   const [reportForm, setReportForm] = useState(false);
   const [commentText, setCommentText] = useState("");
-  const [reportReason, setReportReason] = useState("");
+  const [reason, setReason] = useState("");
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    name === "reason" ? setReportReason(value) : setCommentText(value);
+    name === "reason" ? setReason(value) : setCommentText(value);
   };
 
   const handleReportSubmit = (e) => {
     e.preventDefault();
-    console.log(reportReason);
+    reportBlog();
+  };
+
+  const reportBlog = async () => {
+    const body = {
+      reason: reason,
+    };
+    try {
+      const res = await axios.post(`/blogs/${blogid}/report`, body);
+      addToast(res.data, { appearance: "success" });
+    } catch (err) {
+      const errors = err.response.data.errors;
+      console.log(errors);
+    }
   };
 
   const handleCommentSubmit = (e) => {
     e.preventDefault();
-    console.log(commentText);
-    //Send a request to add comment
-    // setComments(res.data);
+    comment();
+  };
+
+  const comment = async () => {
+    try {
+      const body = {
+        commentbody: commentText,
+      };
+      const res = await axios.put(`/comments/${blogid}`, body);
+      addToast(res.data.msg, { appearance: "success" });
+      setComments(res.data.comments);
+    } catch (err) {
+      const errors = err.response.data.errors;
+      console.log(errors);
+    }
   };
 
   const handleLikes = () => {
-    if (likeStatus) {
-      //Send put request to update a like;
-      //and use the output of the backend to update likes;
-      //   setLikes(res.data);
+    if (isLiked) {
+      unLike();
     } else {
-      //Send put request to remove a like;
-      //and use the output of the backend to update likes;
-      //   setLikes(res.data);
+      like();
     }
-    setLikeStatus(!likeStatus);
+    setIsLiked(!isLiked);
+  };
+
+  const like = async () => {
+    try {
+      const res = await axios.put(`/blogs/${blogid}/like`);
+      setLikes(res.data.likes);
+    } catch (err) {
+      const errors = err.response.data.errors;
+      console.log(errors);
+    }
+  };
+
+  const unLike = async () => {
+    try {
+      const res = await axios.delete(`/blogs/${blogid}/unlike`);
+      setLikes(res.data.likes);
+    } catch (err) {
+      const errors = err.response.data.errors;
+      console.log(errors);
+    }
   };
 
   const handleFollow = () => {
-    if (followStatus) {
+    if (isFollowing) {
+      unfollow();
     } else {
+      follow();
     }
-    setFollowStatus(!followStatus);
+    if (currentUser.userid !== blogDetails.userid) {
+      setIsFollowing(!isFollowing);
+    }
+  };
+
+  const unfollow = async () => {
+    try {
+      await axios.post(`/users/unfollow/${blogDetails.userid}`);
+    } catch (err) {
+      const errors = err.response.data.errors;
+      console.log(errors);
+    }
+  };
+
+  const follow = async () => {
+    try {
+      const res = await axios.post(`/users/follow/${blogDetails.userid}`);
+      res.data === "You can't Follow yourself" &&
+        addToast(res.data, { appearance: "error" });
+    } catch (err) {
+      const errors = err.response.data.errors;
+      console.log(errors);
+    }
+  };
+
+  const deleteComment = async (commentid) => {
+    try {
+      const res = await axios.delete(`/comments/${commentid}/${blogid}/delete`);
+      setComments(res.data.comments);
+      addToast(res.data.msg, { appearance: "warning" });
+    } catch (err) {
+      const errors = err.response.data.errors;
+      console.log(errors);
+    }
   };
 
   return (
     <>
       <Navbar />
-      <section id='main'>
-        <div className='blog'>
-          <h1 className='title'>{blogDetails.blogDetails.title}</h1>
-          <p className='blog-author d-flex align-center'>
-            <Link
-              to={`/user/${blogDetails.blogDetails.author
-                .split(" ")
-                .join("-")}`}
-              className='d-flex align-center'
-              style={{ marginBottom: "8px" }}>
-              <img src={blogDetails.blogDetails.author_img} alt='' />{" "}
-              {blogDetails.blogDetails.author}
-            </Link>
-            <button
-              className='d-flex align-center'
-              onClick={handleFollow}
-              style={{
-                border: "none",
-                padding: "5px 10px",
-                color: "#ffff",
-                backgroundColor: "blueviolet",
-                borderRadius: "20px",
-                marginTop: "-8px",
-              }}>
-              {followStatus ? "Following" : "Follow"}
-            </button>
-          </p>
-          <p className='blog-create'>
-            Posted On : {blogDetails.blogDetails.postedon}
-          </p>
-          <img src={blogDetails.blogDetails.blog_img} alt='' />
-          <div
-            className='blog-desc'
-            dangerouslySetInnerHTML={{
-              __html: blogDetails.blogDetails.description,
-            }}></div>
-        </div>
-
-        <div className='social-options d-flex'>
-          <button className='like d-flex align-center'>
-            {
-              <img
-                src={likeStatus ? likeImg : unLikeImg}
-                alt=''
-                onClick={handleLikes}
-              />
-            }
-            {likes.length}
-          </button>
-          <button
-            className='report d-flex align-center'
-            onClick={() => {
-              setReportForm(!reportForm);
-            }}>
-            <img src={redFlag} alt='' />
-            Report
-          </button>
-        </div>
-        <form
-          onSubmit={handleReportSubmit}
-          className='report-form'
-          style={reportForm ? { display: "block" } : { display: "none" }}>
-          <label htmlFor='reason'>Select Reason for Report:</label>
-          <select name='reason' id='' onChange={handleChange}>
-            <option value='Misleading'>Misleading</option>
-            <option value='Spam'>Spam</option>
-            <option value='Violent or Repulsive Content'>
-              Violent or Repulsive Content
-            </option>
-            <option value='Harrasment or Bullying'>
-              Harrasment or Bullying
-            </option>
-            <option value='Harmful'>Harmful</option>
-            <option value='Promotes Terrorism'>Promotes Terrorism</option>
-          </select>
-          <input type='submit' value='Report' />
-        </form>
-
-        <div className='comments-section'>
-          <h1>
-            Comments - <span>{comments.length}</span>
-          </h1>
-          <form className='comment-form' onSubmit={handleCommentSubmit}>
-            <textarea
-              name='commentbody'
-              rows='5'
-              placeholder='Leave a comment'
-              onChange={handleChange}></textarea>
-            <input type='submit' value='Comment' />
-          </form>
-          <div className='comments'>
-            {React.Children.toArray(
-              comments.map((comment) => {
-                return (
-                  <div className='comment d-flex'>
-                    <img src={comment.user_img} alt='' />
-                    <div className='comment-det'>
-                      <Link
-                        to={`/user/${comment.username.split(" ").join("-")}`}
-                        style={{ color: "blueviolet" }}>
-                        <h2>{comment.username}</h2>
-                      </Link>
-                      <p>{comment.postedon}</p>
-                      <p className='comment-body'>{comment.commentbody}</p>
-                    </div>
-                  </div>
-                );
-              })
-            )}
-            <div className='comment d-flex'>
-              <img
-                src='https://cdn.pixabay.com/photo/2016/04/04/14/12/monitor-1307227__480.jpg'
-                alt=''
-              />
-              <div className='comment-det'>
-                <h2>Pratham Shelar</h2>
-                <p>Posted on : 11/2/22</p>
-                <p className='comment-body'>
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Porro
-                  aperiam obcaecati qui perspiciatis culpa eos minus dolores
-                  accusantium, aliquam quibusdam fuga asperiores cum quisquam ea
-                  praesentium nam placeat officia consequatur tempore temporibus
-                  voluptates exercitationem. Blanditiis beatae aliquid
-                  reiciendis laudantium facere accusamus illum porro
-                  reprehenderit fuga, doloribus cupiditate inventore voluptas
-                  omnis.
-                </p>
-              </div>
-              <button className='comment-delete'>
-                <img src={bin} alt='' />
+      {blogDetails && (
+        <section id='main'>
+          <div className='blog'>
+            <h1 className='title'>{blogDetails.title}</h1>
+            <p className='blog-author d-flex align-center'>
+              <Link
+                to={`/user/${blogDetails.userid}`}
+                className='d-flex align-center'
+                style={{ marginBottom: "8px" }}>
+                <img src={blogDetails.author_img} alt='' /> {blogDetails.author}
+              </Link>
+              <button
+                className='d-flex align-center'
+                onClick={handleFollow}
+                style={{
+                  border: "none",
+                  padding: "5px 10px",
+                  color: "#ffff",
+                  backgroundColor: "blueviolet",
+                  borderRadius: "20px",
+                  marginTop: "-8px",
+                }}>
+                {blogDetails && (isFollowing ? "Following" : "Follow")}
               </button>
+            </p>
+            <p className='blog-create'>Posted On : {blogDetails.createdon}</p>
+            <img src={blogDetails.blog_img} alt='' />
+            <div
+              className='blog-desc'
+              dangerouslySetInnerHTML={{
+                __html: blogDetails.description,
+              }}></div>
+          </div>
+
+          <div className='social-options d-flex'>
+            <button className='like d-flex align-center'>
+              {
+                <img
+                  src={isLiked ? likeImg : unLikeImg}
+                  alt=''
+                  onClick={handleLikes}
+                />
+              }
+              {likes.length}
+            </button>
+            <button
+              className='report d-flex align-center'
+              onClick={() => {
+                setReportForm(!reportForm);
+              }}>
+              <img src={redFlag} alt='' />
+              Report
+            </button>
+          </div>
+          <form
+            onSubmit={handleReportSubmit}
+            className='report-form'
+            style={reportForm ? { display: "block" } : { display: "none" }}>
+            <label htmlFor='reason'>Select Reason for Report:</label>
+            <select name='reason' id='' onChange={handleChange}>
+              <option value='Misleading'>Misleading</option>
+              <option value='Spam'>Spam</option>
+              <option value='Violent or Repulsive Content'>
+                Violent or Repulsive Content
+              </option>
+              <option value='Harrasment or Bullying'>
+                Harrasment or Bullying
+              </option>
+              <option value='Harmful'>Harmful</option>
+              <option value='Promotes Terrorism'>Promotes Terrorism</option>
+            </select>
+            <input type='submit' value='Report' />
+          </form>
+
+          <div className='comments-section'>
+            <h1>
+              Comments - <span>{comments.length}</span>
+            </h1>
+            <form className='comment-form' onSubmit={handleCommentSubmit}>
+              <textarea
+                name='commentbody'
+                rows='5'
+                placeholder='Leave a comment'
+                onChange={handleChange}></textarea>
+              <input type='submit' value='Comment' />
+            </form>
+            <div className='comments'>
+              {currentUser &&
+                React.Children.toArray(
+                  comments.map((comment) => {
+                    return (
+                      <div className='comment d-flex'>
+                        <img src={comment.user_img} alt='' />
+                        <div className='comment-det'>
+                          <Link
+                            to={`/user/${comment.username
+                              .split(" ")
+                              .join("-")}`}
+                            style={{ color: "blueviolet" }}>
+                            <h2>{comment.username}</h2>
+                          </Link>
+                          <p>{comment.postedon}</p>
+                          <p className='comment-body'>{comment.commentbody}</p>
+                        </div>
+                        {currentUser.userid === comment.userid && (
+                          <button
+                            className='comment-delete'
+                            onClick={() => deleteComment(comment.commentid)}>
+                            <img src={bin} alt='' />
+                          </button>
+                        )}
+                      </div>
+                    );
+                  })
+                )}
+              {/* <div className='comment d-flex'>
+                <img
+                  src='https://cdn.pixabay.com/photo/2016/04/04/14/12/monitor-1307227__480.jpg'
+                  alt=''
+                />
+                <div className='comment-det'>
+                  <h2>Pratham Shelar</h2>
+                  <p>Posted on : 11/2/22</p>
+                  <p className='comment-body'>
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                    Porro aperiam obcaecati qui perspiciatis culpa eos minus
+                    dolores accusantium, aliquam quibusdam fuga asperiores cum
+                    quisquam ea praesentium nam placeat officia consequatur
+                    tempore temporibus voluptates exercitationem. Blanditiis
+                    beatae aliquid reiciendis laudantium facere accusamus illum
+                    porro reprehenderit fuga, doloribus cupiditate inventore
+                    voluptas omnis.
+                  </p>
+                </div>
+                <button className='comment-delete'>
+                  <img src={bin} alt='' />
+                </button>
+              </div> */}
             </div>
           </div>
-        </div>
-      </section>
+        </section>
+      )}
       <Footer />
     </>
   );

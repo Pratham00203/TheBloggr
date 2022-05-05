@@ -44,7 +44,6 @@ export default function Login() {
       }
     } catch (err) {
       const errors = err.response.data.errors;
-      console.log(errors);
       errors.forEach((err) => {
         addToast(err.msg, { appearance: "error" });
         // alert(err.msg);
