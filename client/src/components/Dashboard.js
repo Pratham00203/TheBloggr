@@ -42,7 +42,6 @@ function Dashboard() {
   };
 
   const showFollowModal = (option) => {
-    console.log(currentUser.followers);
     setModalOption(option);
     setShowModal(true);
   };
@@ -65,7 +64,8 @@ function Dashboard() {
       const res = await axios.delete("/users/me/delete", config);
       addToast(res.data, { appearance: "success" });
       auth.logout(() => {
-        history.push("/");
+        logout();
+        history.push("/login");
       });
     } catch (err) {}
   };

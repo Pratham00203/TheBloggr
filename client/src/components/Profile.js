@@ -71,30 +71,43 @@ export default function Profile() {
         headers: {
           Authorization: localStorage.getItem("token"),
         },
+        method: "POST",
       };
-      await axios.post(
-        `/users/unfollow/${profileDetails.userDetails.userid}`,
+      // await axios.put(`/users/unfollow/${profileDetails.userDetails.userid}`);
+      fetch(
+        `http://localhost:5000/users/unfollow/${profileDetails.userDetails.userid}`,
         config
-      );
+      ).then((res) => res.json());
     } catch (err) {
       const errors = err.response.data.errors;
       console.log(errors);
     }
   };
 
+  //profileDetails.userDetails.userid
   const follow = async () => {
     try {
       const config = {
         headers: {
           Authorization: localStorage.getItem("token"),
         },
+        method: "POST",
       };
-      const res = await axios.post(
-        `/users/follow/${profileDetails.userDetails.userid}`,
+      fetch(
+        `http://localhost:5000/users/follow/${profileDetails.userDetails.userid}`,
         config
-      );
-      res.data === "You can't Follow yourself" &&
-        addToast(res.data, { appearance: "error" });
+      )
+        .then((res) => res.json())
+        .then((res) => {
+          if (res === "You can't Follow yourself")
+            addToast(res, { appearance: "error" });
+        });
+      // const res = await axios.post(
+      //   `/users/follow/${profileDetails.userDetails.userid}`,
+      //   config
+      // );
+      // res.data === "You can't Follow yourself" &&
+      //   addToast(res.data, { appearance: "error" });
     } catch (err) {
       const errors = err.response.data.errors;
       console.log(errors);

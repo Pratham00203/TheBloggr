@@ -141,9 +141,13 @@ export default function Blog() {
         headers: {
           Authorization: localStorage.getItem("token"),
         },
+        method: "PUT",
       };
-      const res = await axios.put(`/blogs/${blogid}/like`, config);
-      setLikes(res.data.likes);
+      fetch(`http://localhost:5000/blogs/${blogid}/like`, config)
+        .then((res) => res.json())
+        .then((res) => setLikes(res.likes));
+      // const res = await axios.put(`/blogs/${blogid}/like`, config);
+      // setLikes(res.data.likes);
     } catch (err) {
       const errors = err.response.data.errors;
       console.log(errors);
@@ -156,9 +160,14 @@ export default function Blog() {
         headers: {
           Authorization: localStorage.getItem("token"),
         },
+        method: "DELETE",
       };
-      const res = await axios.delete(`/blogs/${blogid}/unlike`, config);
-      setLikes(res.data.likes);
+
+      fetch(`http://localhost:5000/blogs/${blogid}/unlike`, config)
+        .then((res) => res.json())
+        .then((res) => setLikes(res.likes));
+      // const res = await axios.delete(`/blogs/${blogid}/unlike`, config);
+      // setLikes(res.data.likes);
     } catch (err) {
       const errors = err.response.data.errors;
       console.log(errors);
@@ -182,8 +191,12 @@ export default function Blog() {
         headers: {
           Authorization: localStorage.getItem("token"),
         },
+        method: "POST",
       };
-      await axios.post(`/users/unfollow/${blogDetails.userid}`, config);
+      fetch(
+        `http://localhost:5000/users/unfollow/${blogDetails.userid}`,
+        config
+      ).then((res) => res.json());
     } catch (err) {
       const errors = err.response.data.errors;
       console.log(errors);
@@ -196,13 +209,20 @@ export default function Blog() {
         headers: {
           Authorization: localStorage.getItem("token"),
         },
+        method: "POST",
       };
-      const res = await axios.post(
-        `/users/follow/${blogDetails.userid}`,
-        config
-      );
-      res.data === "You can't Follow yourself" &&
-        addToast(res.data, { appearance: "error" });
+      fetch(`http://localhost:5000/users/follow/${blogDetails.userid}`, config)
+        .then((res) => res.json())
+        .then((res) => {
+          if (res === "You can't Follow yourself")
+            addToast(res, { appearance: "error" });
+        });
+      // const res = await axios.post(
+      //   `/users/follow/${blogDetails.userid}`,
+      //   config
+      // );
+      // res.data === "You can't Follow yourself" &&
+      //   addToast(res.data, { appearance: "error" });
     } catch (err) {
       const errors = err.response.data.errors;
       console.log(errors);
@@ -326,9 +346,7 @@ export default function Blog() {
                         <img src={comment.user_img} alt='' />
                         <div className='comment-det'>
                           <Link
-                            to={`/user/${comment.username
-                              .split(" ")
-                              .join("-")}`}
+                            to={`/user/${comment.userid}`}
                             style={{ color: "blueviolet" }}>
                             <h2>{comment.username}</h2>
                           </Link>

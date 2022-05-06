@@ -48,9 +48,7 @@ router.post(
       if (result.rows.length != 0) {
         const payload = { userid: result.rows[0].userid };
 
-        const accessToken = jwt.sign(payload, process.env.JWT_TOKEN, {
-          expiresIn: "2h",
-        });
+        const accessToken = jwt.sign(payload, process.env.JWT_TOKEN);
 
         res.status(201).json(accessToken);
       }
@@ -121,9 +119,7 @@ router.post(
 
       const payload = { userid: user.rows[0].userid };
 
-      const accessToken = jwt.sign(payload, process.env.JWT_TOKEN, {
-        expiresIn: "2h",
-      });
+      const accessToken = jwt.sign(payload, process.env.JWT_TOKEN);
 
       res.status(201).json(accessToken);
     } catch (err) {

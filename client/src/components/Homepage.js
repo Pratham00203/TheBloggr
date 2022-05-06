@@ -88,7 +88,7 @@ export default function Homepage({ blogs }) {
             </Link>
 
             {/* Check out More Section */}
-            <div className='check-more'>
+            {/* <div className='check-more'>
               <p>Check out more</p>
               <div className='c-blogs'>
                 {loadDetails &&
@@ -128,7 +128,7 @@ export default function Homepage({ blogs }) {
                     })
                   )}
               </div>
-            </div>
+            </div> */}
           </div>
 
           {/* Search Bar */}
@@ -164,7 +164,7 @@ export default function Homepage({ blogs }) {
           </div>
 
           {/* All blogs */}
-          <div className='main-blogs-container'>
+          {/* <div className='main-blogs-container'>
             <div className='main-blog-header d-flex'>
               <p>All Blogs</p>
               <Link to='/search/all'>More</Link>
@@ -204,10 +204,10 @@ export default function Homepage({ blogs }) {
                   })
                 )}
             </div>
-          </div>
+          </div> */}
 
           {/* Travel Blogs */}
-          <div className='main-blogs-container'>
+          {/* <div className='main-blogs-container'>
             <div className='main-blog-header d-flex'>
               <p>Travel</p>
               <Link to='/search/Travel'>More</Link>
@@ -253,10 +253,10 @@ export default function Homepage({ blogs }) {
                   })
                 )}
             </div>
-          </div>
+          </div> */}
 
           {/* Technology Blogs */}
-          <div className='main-blogs-container'>
+          {/* <div className='main-blogs-container'>
             <div className='main-blog-header d-flex'>
               <p>TECHNOLOGY</p>
               <Link to='/search/Technology'>More</Link>
@@ -302,7 +302,7 @@ export default function Homepage({ blogs }) {
                   })
                 )}
             </div>
-          </div>
+          </div> */}
         </section>
       )}
       <Footer />
