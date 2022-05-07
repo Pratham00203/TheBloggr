@@ -88,47 +88,50 @@ export default function Homepage({ blogs }) {
             </Link>
 
             {/* Check out More Section */}
-            {/* <div className='check-more'>
+            <div className='check-more'>
               <p>Check out more</p>
               <div className='c-blogs'>
                 {loadDetails &&
                   React.Children.toArray(
                     loadDetails.randomBlogs.map((blog) => {
-                      return (
-                        <Link to={`/blog/${blog.blogid}`}>
-                          <div className='c-blog d-flex align-center'>
-                            <img src={blog.blog_img} alt='' />
-                            <div className='c-blog-det'>
-                              <h1>{blog.title}</h1>
-                              <Link
-                                to={`/user/${blog.userid}`}
-                                style={{
-                                  marginTop: "8px",
-                                  gap: "10px",
-                                  color: "rgba(0, 0, 0, 0.5)",
-                                  fontSize: "1.4em",
-                                }}
-                                className='d-flex align-items'>
-                                {" "}
-                                <img
-                                  src={blog.author_img}
+                      if (blog !== null)
+                        return (
+                          <Link to={`/blog/${blog.blogid}`}>
+                            <div className='c-blog d-flex align-center'>
+                              {blog.blog_img && (
+                                <img src={blog.blog_img} alt='' />
+                              )}
+                              <div className='c-blog-det'>
+                                <h1>{blog.title}</h1>
+                                <Link
+                                  to={`/user/${blog.userid}`}
                                   style={{
-                                    width: "20px",
-                                    height: "20px",
-                                    borderRadius: "50%",
+                                    marginTop: "8px",
+                                    gap: "10px",
+                                    color: "rgba(0, 0, 0, 0.5)",
+                                    fontSize: "1.4em",
                                   }}
-                                  alt=''
-                                />{" "}
-                                {blog.author}
-                              </Link>
+                                  className='d-flex align-items'>
+                                  {" "}
+                                  <img
+                                    src={blog.author_img}
+                                    style={{
+                                      width: "20px",
+                                      height: "20px",
+                                      borderRadius: "50%",
+                                    }}
+                                    alt=''
+                                  />{" "}
+                                  {blog.author}
+                                </Link>
+                              </div>
                             </div>
-                          </div>
-                        </Link>
-                      );
+                          </Link>
+                        );
                     })
                   )}
               </div>
-            </div> */}
+            </div>
           </div>
 
           {/* Search Bar */}

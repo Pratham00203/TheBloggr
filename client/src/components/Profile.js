@@ -140,7 +140,7 @@ export default function Profile() {
                 profileDetails.blogs.map((blog) => {
                   return (
                     <div className='blog d-flex align-center'>
-                      <img src={blog.blog_img} alt='' />
+                      {blog.blog_img && <img src={blog.blog_img} alt='' />}
                       <div className='blog-det'>
                         <p
                           style={{

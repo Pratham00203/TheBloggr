@@ -277,7 +277,7 @@ export default function Blog() {
               </button>
             </p>
             <p className='blog-create'>Posted On : {blogDetails.createdon}</p>
-            <img src={blogDetails.blog_img} alt='' />
+            {blogDetails.blog_img && <img src={blogDetails.blog_img} alt='' />}
             <div
               className='blog-desc'
               dangerouslySetInnerHTML={{
