@@ -27,10 +27,17 @@ export default function Feed({ type }) {
         headers: {
           Authorization: localStorage.getItem("token"),
         },
+        method: "GET",
       };
-      const res = await axios.get("/blogs/me/my-feed", config);
-      setLoaded(true);
-      setFeedBlogs(res.data);
+      fetch("http://localhost:5000/blogs/me/my-feed", config)
+        .then((res) => res.json())
+        .then((res) => {
+          setLoaded(true);
+          setFeedBlogs(res);
+        });
+      // const res = await axios.get("/blogs/me/my-feed", config);
+      // setLoaded(true);
+      // setFeedBlogs(res.data);
     } catch (err) {}
   };
 
@@ -40,15 +47,28 @@ export default function Feed({ type }) {
         headers: {
           Authorization: localStorage.getItem("token"),
         },
+        method: "GET",
       };
       if (query === "all") {
-        const res = await axios.get("/blogs", config);
-        setLoaded(true);
-        setFeedBlogs(res.data.blogs);
+        fetch("http://localhost:5000/blogs", config)
+          .then((res) => res.json())
+          .then((res) => {
+            setLoaded(true);
+            setFeedBlogs(res.blogs);
+          });
+        // const res = await axios.get("/blogs", config);
+        // setLoaded(true);
+        // setFeedBlogs(res.data.blogs);
       } else {
-        const res = await axios.get(`/blogs/search/${query}`);
-        setLoaded(true);
-        setFeedBlogs(res.data);
+        fetch(`http://localhost:5000/blogs/search/${query}`, config)
+          .then((res) => res.json())
+          .then((res) => {
+            setLoaded(true);
+            setFeedBlogs(res);
+          });
+        // const res = await axios.get(`/blogs/search/${query}`);
+        // setLoaded(true);
+        // setFeedBlogs(res.data);
       }
     } catch (err) {}
   };

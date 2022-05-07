@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 import axios from "axios";
 import BlogForm from "./components/BlogForm";
 import UpdateUserForm from "./components/UpdateUserForm";
@@ -21,8 +20,8 @@ import PublicRoute from "./components/PublicRoute";
 import { ToastProvider } from "react-toast-notifications";
 
 axios.defaults.headers.common["Authorization"] = localStorage.getItem("token");
-axios.defaults.baseURL = "http://192.168.0.153:5000";
-// axios.defaults.baseURL = "http://localhost:5000";
+// axios.defaults.baseURL = "http://192.168.0.153:5000";
+axios.defaults.baseURL = "http://localhost:5000";
 
 export default function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(null);
@@ -79,15 +78,5 @@ export default function App() {
         </Switch>
       </Router>
     </ToastProvider>
-=======
-// import { useState } from "react";
-
-export default function App() {
-  // const [isAuthenticated, setAuthenticated] = useState(false);
-  return (
-    <>
-      <h1>Hello World</h1>
-    </>
->>>>>>> 7b7ef003d88bdd2d89e7f5a3254090dfe78e30c5
   );
 }

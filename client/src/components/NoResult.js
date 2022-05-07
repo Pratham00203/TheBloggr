@@ -9,7 +9,6 @@ import auth from "../auth";
 export default function NoResult() {
   const history = useHistory();
   document.title = "No Results Found";
-  const [searchQuery, setSearchQuery] = useState("");
 
   useEffect(() => {
     if (!checkAuth()) {
