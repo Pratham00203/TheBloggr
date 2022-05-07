@@ -890,12 +890,12 @@ select:focus {
   border: none;
 }
 
-#main .report-form select {
+#main .report-form input[type="text"] {
   background-color: whitesmoke;
   border: none;
   padding: 10px 20px;
   width: 50%;
-  font-size: 1.3em;
+  font-size: 1.2em;
   border-radius: 3px;
   display: block;
   margin: 20px 0;
@@ -1219,7 +1219,7 @@ footer .brand a {
     width: 100%;
   }
 
-  #main .report-form select {
+  #main .report-form input[type="text"] {
     width: 100%;
   }
 

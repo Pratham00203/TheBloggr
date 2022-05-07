@@ -1,16 +1,17 @@
 import { useState } from "react";
 import { useHistory } from "react-router-dom";
 import eyeIcon from "../images/eye.png";
+import axios from "axios";
+import { useToasts } from "react-toast-notifications";
 
 export default function ResetPassword() {
   const history = useHistory();
+  const { addToast } = useToasts();
   const [showPassword, setShowPassword] = useState(false);
-  const [enterOTP, setEnterOTP] = useState(false);
   const [enterPassword, setEnterPassword] = useState(false);
   const [userDetails, setUserDetails] = useState({
     email: "",
     password: "",
-    otp: "",
   });
 
   document.title = "Forgot Password";
@@ -25,22 +26,49 @@ export default function ResetPassword() {
     });
   };
 
-  const checkOTP = (e) => {
-    //if otp is correct
-    setEnterPassword(!enterPassword);
-    //else error that otp is incorrect
-  };
+  // const checkOTP = (e) => {
+  //   //if otp is correct
+  //   setEnterPassword(!enterPassword);
+  //   //else error that otp is incorrect
+  // };
 
   const checkEmail = (e) => {
     //if email is correct and exists in database
-    setEnterOTP(!enterOTP);
+    emailCheck();
     //else give err
+  };
+
+  const emailCheck = async () => {
+    try {
+      const body = {
+        email: userDetails.email,
+      };
+      const res = await axios.post("/auth/check-email", body);
+      if (res.status === 200) setEnterPassword(!enterPassword);
+    } catch (err) {
+      const errors = err.response.data.errors;
+      errors.forEach((err) => {
+        addToast(err.msg, { appearance: "error" });
+      });
+    }
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(userDetails);
-    history.push("/login");
+    changePassword();
+  };
+
+  const changePassword = async () => {
+    try {
+      const res = await axios.put("/users/me/reset-password", userDetails);
+      addToast(res.data, { appearance: "success" });
+      history.push("/login");
+    } catch (err) {
+      const errors = err.response.data.errors;
+      errors.forEach((err) => {
+        addToast(err.msg, { appearance: "error" });
+      });
+    }
   };
 
   return (
@@ -62,7 +90,7 @@ export default function ResetPassword() {
           <button className='submit-email' onClick={checkEmail}>
             Next
           </button>
-          <div
+          {/* <div
             className='otp-form'
             style={enterOTP ? { display: "block" } : { display: "none" }}>
             <label htmlFor='otp' className='d-flex flex-col'>
@@ -72,7 +100,7 @@ export default function ResetPassword() {
             <button className='submit-otp' onClick={checkOTP}>
               Proceed
             </button>
-          </div>
+          </div> */}
           <form
             className='reset-password'
             style={enterPassword ? { display: "block" } : { display: "none" }}

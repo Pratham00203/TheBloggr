@@ -380,20 +380,21 @@ router.post("/:blogid/report", auth, async (req, res) => {
     [req.params.blogid, req.user.userid]
   );
 
-  if (checkReport.rows.length === 0) {
-    await db.query(
-      "INSERT INTO REPORTS (userid,username,blogid,author,reason) VALUES ($1,$2,$3,$4,$5) RETURNING *",
-      [
-        req.user.userid,
-        user.rows[0].name,
-        req.params.blogid,
-        blog.rows[0].author,
-        reason,
-      ]
-    );
-
-    res.json("Report Added");
-  } else res.json("Already Reported the Blog");
+  if (blog.rows[0].userid !== req.user.userid) {
+    if (checkReport.rows.length === 0) {
+      await db.query(
+        "INSERT INTO REPORTS (userid,username,blogid,author,reason) VALUES ($1,$2,$3,$4,$5) RETURNING *",
+        [
+          req.user.userid,
+          user.rows[0].name,
+          req.params.blogid,
+          blog.rows[0].author,
+          reason,
+        ]
+      );
+      res.json("Report Added");
+    } else res.json("Already Reported the Blog");
+  } else res.json("You can't report your own blog");
 });
 
 module.exports = router;

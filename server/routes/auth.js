@@ -129,10 +129,10 @@ router.post(
   }
 );
 
-// @route GET /auth/check-email
+// @route POST /auth/check-email
 // @description Check if user exists by email
 // @access Public
-router.get(
+router.post(
   "/check-email",
   [check("email", "Enter a Valid Email Id").isEmail()],
   async (req, res) => {
@@ -147,7 +147,9 @@ router.get(
       const { email } = req.body;
       let check = await db.query("SELECT * FROM USERS WHERE email=$1", [email]);
       if (check.rows.length === 0) {
-        res.json({ errors: [{ msg: "User doesn't exists" }] });
+        res.status(400).json({ errors: [{ msg: "User doesn't exists" }] });
+      } else {
+        res.json("User found");
       }
     } catch (err) {
       console.log(err.message);

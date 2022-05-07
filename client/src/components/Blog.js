@@ -95,7 +95,9 @@ export default function Blog() {
     };
     try {
       const res = await axios.post(`/blogs/${blogid}/report`, body, config);
-      addToast(res.data, { appearance: "success" });
+      if (res.data === "Report Added")
+        addToast(res.data, { appearance: "success" });
+      else addToast(res.data, { appearance: "error" });
     } catch (err) {
       const errors = err.response.data.errors;
       console.log(errors);
@@ -309,8 +311,8 @@ export default function Blog() {
             onSubmit={handleReportSubmit}
             className='report-form'
             style={reportForm ? { display: "block" } : { display: "none" }}>
-            <label htmlFor='reason'>Select Reason for Report:</label>
-            <select name='reason' id='' onChange={handleChange}>
+            <label htmlFor='reason'>Enter Reason for Report:</label>
+            {/* <select name='reason' id='' onChange={handleChange}>
               <option value='Misleading'>Misleading</option>
               <option value='Spam'>Spam</option>
               <option value='Violent or Repulsive Content'>
@@ -321,7 +323,13 @@ export default function Blog() {
               </option>
               <option value='Harmful'>Harmful</option>
               <option value='Promotes Terrorism'>Promotes Terrorism</option>
-            </select>
+            </select> */}
+            <input
+              type='text'
+              name='reason'
+              placeholder='Enter your reason here...'
+              onChange={handleChange}
+            />
             <input type='submit' value='Report' />
           </form>
 
@@ -364,29 +372,6 @@ export default function Blog() {
                     );
                   })
                 )}
-              {/* <div className='comment d-flex'>
-                <img
-                  src='https://cdn.pixabay.com/photo/2016/04/04/14/12/monitor-1307227__480.jpg'
-                  alt=''
-                />
-                <div className='comment-det'>
-                  <h2>Pratham Shelar</h2>
-                  <p>Posted on : 11/2/22</p>
-                  <p className='comment-body'>
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                    Porro aperiam obcaecati qui perspiciatis culpa eos minus
-                    dolores accusantium, aliquam quibusdam fuga asperiores cum
-                    quisquam ea praesentium nam placeat officia consequatur
-                    tempore temporibus voluptates exercitationem. Blanditiis
-                    beatae aliquid reiciendis laudantium facere accusamus illum
-                    porro reprehenderit fuga, doloribus cupiditate inventore
-                    voluptas omnis.
-                  </p>
-                </div>
-                <button className='comment-delete'>
-                  <img src={bin} alt='' />
-                </button>
-              </div> */}
             </div>
           </div>
         </section>
