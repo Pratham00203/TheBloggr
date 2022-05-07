@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import axios from "axios";
 import BlogForm from "./components/BlogForm";
 import UpdateUserForm from "./components/UpdateUserForm";
@@ -78,5 +79,15 @@ export default function App() {
         </Switch>
       </Router>
     </ToastProvider>
+=======
+// import { useState } from "react";
+
+export default function App() {
+  // const [isAuthenticated, setAuthenticated] = useState(false);
+  return (
+    <>
+      <h1>Hello World</h1>
+    </>
+>>>>>>> 7b7ef003d88bdd2d89e7f5a3254090dfe78e30c5
   );
 }
