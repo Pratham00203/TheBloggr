@@ -159,13 +159,13 @@ export default function Feed({ type }) {
                   return (
                     <Link to={`/blog/${blog.blogid}`}>
                       <div className='f-blog d-flex'>
-                        {blog.blog_img && <img src={blog.blog_img} alt='' />}
+                        {/* {blog.blog_img && <img src={blog.blog_img} alt='' />} */}
                         <div className='f-blog-det'>
                           <p
                             style={{
                               margin: "10px 0",
                               textTransform: "uppercase",
-                              color: "blueviolet",
+                              color: "var(--green)",
                             }}>
                             {blog.category}
                           </p>

@@ -148,13 +148,13 @@ function Dashboard() {
                   currentUser.blogs.map((blog) => {
                     return (
                       <div className='blog d-flex align-center'>
-                        {blog.blog_img && <img src={blog.blog_img} alt='' />}
+                        {/* {blog.blog_img && <img src={blog.blog_img} alt='' />} */}
                         <div className='blog-det'>
                           <p
                             style={{
                               margin: "10px 0",
                               textTransform: "uppercase",
-                              color: "blueviolet",
+                              color: "var(--green)",
                             }}>
                             {blog.category}
                           </p>

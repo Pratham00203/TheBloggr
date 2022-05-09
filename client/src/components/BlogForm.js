@@ -159,7 +159,7 @@ export default function BlogForm({ type }) {
             <span>Description:</span>
             <SunEditor
               setContents={blogDetails.description}
-              setDefaultStyle="font-family : 'Lato', sans-serif !important"
+              setDefaultStyle="font-family : 'Poppins', sans-serif !important"
               height='300px'
               defaultValue={blogDetails.description}
               onChange={handleDescriptionChange}

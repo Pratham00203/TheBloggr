@@ -6,8 +6,13 @@ import { Link, useHistory } from "react-router-dom";
 import auth from "../auth";
 import { checkAuth } from "../helpers/helpers";
 import axios from "axios";
+import headerImg from '../images/header.svg'
+import freeIcon from '../images/icons8-free-60.png';
+import easyIcon from '../images/icons8-easy-skin-type-2-100.png';
+import noResultIcon from "../images/search-magnifier-with-a-cross.png";
 
-export default function Homepage({ blogs }) {
+
+export default function Homepage() {
   const history = useHistory();
   document.title = "TheBloggr";
   const [searchQuery, setSearchQuery] = useState("");
@@ -42,9 +47,19 @@ export default function Homepage({ blogs }) {
 
   return (
     <>
-      <Navbar />
+      <Navbar  />
       {loadDetails && (
+         <>
+          <header className="d-flex align-center">
+          <div>
+          <h1>TheBloggr.</h1>
+          <p>Where good ideas find you.</p>
+          <Link to='/create-blog'>Create a Blog</Link>
+          </div>
+          <img src={headerImg} alt="" />
+        </header>
         <section id='main'>
+        
           <div className='top-blog'>
             <Link to={`/blog/${loadDetails.trendingBlog.blogid}`}>
               <div className='trending'>
@@ -98,9 +113,9 @@ export default function Homepage({ blogs }) {
                         return (
                           <Link to={`/blog/${blog.blogid}`}>
                             <div className='c-blog d-flex align-center'>
-                              {blog.blog_img && (
+                              {/* {blog.blog_img && (
                                 <img src={blog.blog_img} alt='' />
-                              )}
+                              )} */}
                               <div className='c-blog-det'>
                                 <h1>{blog.title}</h1>
                                 <Link
@@ -135,7 +150,9 @@ export default function Homepage({ blogs }) {
           </div>
 
           {/* Search Bar */}
-          <div className='search d-flex justify-center align-center'>
+          
+        </section>
+        <div className='search d-flex justify-center align-center'>
             <form>
               <h1>Search for Blogs by Category, Authors, Interests</h1>
               <div
@@ -150,7 +167,7 @@ export default function Homepage({ blogs }) {
                 <Link
                   to={`/search/${searchQuery}`}
                   style={{
-                    fontFamily: "Lato, sans-serif",
+                    fontFamily: "Poppins, sans-serif",
                     padding: "10px",
                     backgroundColor: " #000",
                     color: "#fff",
@@ -165,148 +182,21 @@ export default function Homepage({ blogs }) {
               {/* <input type='submit' value='Search' /> */}
             </form>
           </div>
-
-          {/* All blogs */}
-          {/* <div className='main-blogs-container'>
-            <div className='main-blog-header d-flex'>
-              <p>All Blogs</p>
-              <Link to='/search/all'>More</Link>
-            </div>
-            <div className='main-blogs'>
-              {loadDetails &&
-                React.Children.toArray(
-                  loadDetails.blogs.map((blog) => {
-                    return (
-                      <Link to={`/blog/${blog.blogid}`}>
-                        <div className='main-blog d-flex flex-col'>
-                          <img src={blog.blog_img} alt='' />
-                          <h1>{blog.title}</h1>
-                          <Link
-                            to={`/user/${blog.userid}`}
-                            className='m-blog-author d-flex align-center'
-                            style={{
-                              marginTop: "8px",
-                              gap: "10px",
-                              color: "rgba(0, 0, 0, 0.5)",
-                              fontSize: "1.5em",
-                            }}>
-                            <img
-                              src={blog.author_img}
-                              style={{
-                                width: "20px",
-                                height: "20px",
-                                borderRadius: "50%",
-                              }}
-                              alt=''
-                            />{" "}
-                            {blog.author}
-                          </Link>
-                        </div>
-                      </Link>
-                    );
-                  })
-                )}
-            </div>
-          </div> */}
-
-          {/* Travel Blogs */}
-          {/* <div className='main-blogs-container'>
-            <div className='main-blog-header d-flex'>
-              <p>Travel</p>
-              <Link to='/search/Travel'>More</Link>
-            </div>
-            <div className='main-blogs'>
-              {loadDetails &&
-                React.Children.toArray(
-                  loadDetails.travelBlogs.map((blog) => {
-                    return (
-                      <Link to={`/blog/${blog.blogid}`}>
-                        <div className='main-blog d-flex flex-col'>
-                          <img src={blog.blog_img} alt='' />
-                          <p
-                            className='m-blog-category'
-                            style={{ textTransform: "uppercase" }}>
-                            {blog.category}
-                          </p>
-                          <h1>{blog.title}</h1>
-
-                          <Link
-                            to={`/user/${blog.userid}`}
-                            className='m-blog-author d-flex align-center'
-                            style={{
-                              marginTop: "8px",
-                              gap: "10px",
-                              color: "rgba(0, 0, 0, 0.5)",
-                              fontSize: "1.5em",
-                            }}>
-                            <img
-                              src={blog.author_img}
-                              style={{
-                                width: "20px",
-                                height: "20px",
-                                borderRadius: "50%",
-                              }}
-                              alt=''
-                            />{" "}
-                            {blog.author}
-                          </Link>
-                        </div>
-                      </Link>
-                    );
-                  })
-                )}
-            </div>
-          </div> */}
-
-          {/* Technology Blogs */}
-          {/* <div className='main-blogs-container'>
-            <div className='main-blog-header d-flex'>
-              <p>TECHNOLOGY</p>
-              <Link to='/search/Technology'>More</Link>
-            </div>
-            <div className='main-blogs'>
-              {loadDetails &&
-                React.Children.toArray(
-                  loadDetails.technologyBlogs.map((blog) => {
-                    return (
-                      <Link to={`/blog/${blog.title.split(" ").join("-")}`}>
-                        <div className='main-blog d-flex flex-col'>
-                          <img src={blog.blog_img} alt='' />
-                          <p
-                            className='m-blog-category'
-                            style={{ textTransform: "uppercase" }}>
-                            {blog.category}
-                          </p>
-                          <h1>{blog.title}</h1>
-
-                          <Link
-                            to={`/user/${blog.author.split(" ").join("-")}`}
-                            className='m-blog-author d-flex align-center'
-                            style={{
-                              marginTop: "8px",
-                              gap: "10px",
-                              color: "rgba(0, 0, 0, 0.5)",
-                              fontSize: "1.5em",
-                            }}>
-                            <img
-                              src={blog.author_img}
-                              style={{
-                                width: "20px",
-                                height: "20px",
-                                borderRadius: "50%",
-                              }}
-                              alt=''
-                            />{" "}
-                            {blog.author}
-                          </Link>
-                        </div>
-                      </Link>
-                    );
-                  })
-                )}
-            </div>
-          </div> */}
-        </section>
+          <div className="perks">
+             <div className="perk">
+               <img src={freeIcon} alt="" />
+               <p>Absolutely free to use.</p>
+             </div>
+             <div className="perk">
+               <img src={easyIcon} alt="" />
+               <p>Easy to use.</p>
+             </div>
+             <div className="perk">
+               <img src={noResultIcon} alt="" />
+               <p>Moderated Content.</p>
+             </div>
+          </div>
+         </>
       )}
       <Footer />
     </>

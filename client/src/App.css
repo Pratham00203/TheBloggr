@@ -1,4 +1,11 @@
 @import url("https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Lato:wght@400;700&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Poppins:wght@400;600;700&display=swap');
+:root {
+  --green : rgb(26, 137, 23);
+  --yellow : #FFC017;
+  --violet : blueviolet;
+}
+
 * {
   box-sizing: border-box;
   padding: 0;
@@ -15,11 +22,11 @@ textarea {
 input[type="submit"],
 button {
   cursor: pointer;
-  font-family: "Lato", sans-serif;
+  font-family: "Poppins", sans-serif;
 }
 
 body {
-  font-family: "Lato", sans-serif;
+  font-family: "Poppins", sans-serif;
   position: relative;
 }
 
@@ -52,7 +59,7 @@ a {
   top: 0;
   padding: 1.5%;
   color: #fff;
-  font-family: "Lato", sans-serif;
+  font-family: "Poppins", sans-serif;
   z-index: 99;
 }
 
@@ -76,8 +83,9 @@ a {
 
 .modal {
   background-color: #ffff;
-  border: 3px solid blueviolet;
+  /* border: 3px solid var(--green); */
   padding: 20px;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 }
 
 #delete-blog,
@@ -143,7 +151,7 @@ a {
 }
 
 .f-user-container::-webkit-scrollbar {
-  background-color: blueviolet;
+  background-color: var(--green);
   width: 5px;
 }
 
@@ -153,7 +161,7 @@ a {
 }
 
 .f-modal .f-user-container .f-user h1:hover {
-  color: blueviolet;
+  color: var(--green);
 }
 
 .f-modal .f-user-container hr {
@@ -180,8 +188,9 @@ nav {
   font-size: 62.5%;
   background-color: #fff;
   justify-content: space-between;
-  padding: 13px 26px;
-  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  /* padding: 13px 26px; */
+  padding: 1.5% 4.5%;
+  /* box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px; */
   width: 100%;
 }
 
@@ -214,7 +223,8 @@ nav ul li a {
 }
 
 nav ul li a:hover {
-  color: blueviolet;
+  /* color: blueviolet; */
+  color: var(--green);
 }
 
 nav ul li a img {
@@ -232,6 +242,7 @@ nav ul li a img {
   padding: 7% 3%;
   gap: 50px;
   background-color: #ffff;
+  font-size: 62.5%;
 }
 
 .register-text {
@@ -247,7 +258,8 @@ nav ul li a img {
 
 .register-text h1 span,
 .l-container h1 span {
-  color: blueviolet;
+  /* color: blueviolet; */
+  color: var(--green);
 }
 
 .register-text p {
@@ -261,7 +273,7 @@ nav ul li a img {
 .r-container form input,
 .r-container form textarea,
 .l-container form input {
-  font-family: "Lato", sans-serif;
+  font-family: "Poppins", sans-serif;
   padding: 10px;
   font-size: 15px;
   border-radius: 3px;
@@ -272,10 +284,15 @@ nav ul li a img {
 
 .r-container form input[type="submit"],
 .l-container form input[type="submit"] {
-  background-color: blueviolet;
-  color: #fff;
+  /* background-color: blueviolet; */
+  background-color: var(--yellow);
+  color: #000;
+  font-weight: 600;
+  font-size: 1.5em;
   padding: 15px 10px;
   cursor: pointer;
+  /* border: none; */
+  outline: none;
 }
 
 label[for="password"] {
@@ -329,7 +346,7 @@ label[for="password"] .toggle-password {
   font-size: 13px;
   padding: 8px;
   margin-top: 10px;
-  font-family: "Lato", sans-serif;
+  font-family: "Poppins", sans-serif;
 }
 
 .r-container form .profile-img-upload .preview-img,
@@ -362,7 +379,9 @@ label[for="password"] .toggle-password {
 
 .r-container a,
 .l-container a {
-  color: blueviolet;
+  color: #000;
+  font-size: 1.5em;
+  opacity: .7;
   text-decoration: underline;
 }
 
@@ -392,13 +411,52 @@ label[for="password"] .toggle-password {
   gap: 50px;
 }
 
+header{
+  background-color: var(--yellow);
+  color: #000;
+  padding: 7% 5%;
+  margin-bottom: 50px;
+  font-size: 62.5%;
+  justify-content: space-between;
+}
+header div {
+  width: 100%;
+  margin-left: 150px;
+}
+ header div h1{
+  font-size:6em;
+  font-family: 'Abril Fatface',serif;
+}
+
+header div p{
+  font-size: 2em;
+  padding-top: 20px;
+  margin-bottom: 30px;
+}
+
+
+header div a{
+  padding: 10px;
+  font-size: 1.4em;
+  background-color: #000;
+  color: #fff;
+  border: none;
+}
+
+header img{
+  width: 40%;
+  margin-right: 200px;
+}
+
 .top-blog .trending > p,
 .top-blog .check-more > p,
 .main-blogs-container .main-blog-header {
   text-transform: uppercase;
   letter-spacing: 1px;
-  color: blueviolet;
+  /* color: blueviolet; */
+  color: var(--green);
   font-size: 1.5em;
+  font-weight: 600;
 }
 
 .top-blog .trending > p img {
@@ -416,9 +474,10 @@ label[for="password"] .toggle-password {
     rgba(0, 0, 0, 1)
   );
   width: 100%;
-  height: 360px;
+  height: 400px;
   justify-content: end;
   color: #fff;
+  border-radius: 20px;
 }
 
 .top-blog .trending .t-blog .t-bg-img {
@@ -427,6 +486,8 @@ label[for="password"] .toggle-password {
   width: 100%;
   background-size: contain;
   height: 100%;
+  border-radius: 20px;
+
 }
 
 .top-blog .trending .t-blog .t-blog-details {
@@ -446,20 +507,21 @@ label[for="password"] .toggle-password {
 
 .top-blog .check-more {
   padding: 20px;
-  border: 1px solid #000;
+  /* border: 1px solid #000; */
 }
 
 .top-blog .check-more .c-blogs {
   margin-top: 20px;
   display: grid;
   grid-template-columns: 1fr;
-  height: 360px;
+  height: 360px; 
   overflow-y: scroll;
 }
 
 .top-blog .check-more .c-blogs::-webkit-scrollbar {
   /* visibility: hidden; */
-  background-color: blueviolet;
+  /* background-color: blueviolet; */
+  background-color: var(--green);
   height: 5px;
   width: 4px;
 }
@@ -478,15 +540,15 @@ label[for="password"] .toggle-password {
 
 .top-blog .check-more .c-blogs .c-blog h1 {
   text-transform: capitalize;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
-    Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  font-family: 'Poppins', sans-serif;
   font-size: 1.9em;
   font-weight: bold;
 }
 
 .top-blog .check-more .c-blogs .c-blog h1:hover,
 .main-blog h1:hover {
-  color: blueviolet;
+  /* color: blueviolet; */
+  color: var(--green);
 }
 
 .top-blog .check-more .c-blogs .c-blog p {
@@ -495,9 +557,12 @@ label[for="password"] .toggle-password {
 }
 
 .search {
-  background-color: blueviolet;
+  /* background-color: blueviolet; */
+  background-color: var(--yellow);
   margin: 50px 0;
-  padding: 30px 150px;
+  /* padding: 50px 150px; */
+  padding: 7%;
+  font-size: 62.5%;
 }
 
 .search form {
@@ -506,7 +571,7 @@ label[for="password"] .toggle-password {
 
 .search form h1 {
   font-size: 4.5em;
-  color: #fff;
+  color: #000;
   font-family: "Abril Fatface", serif;
   margin-bottom: 30px;
 }
@@ -515,17 +580,37 @@ label[for="password"] .toggle-password {
   width: 50%;
   padding: 10px;
   font-size: 1.4em;
-  font-family: "Lato", sans-serif;
+  font-family: "Poppins", sans-serif;
 }
 
 .search form input[type="submit"] {
-  font-family: "Lato", sans-serif;
+  font-family: "Poppins", sans-serif;
   padding: 10px;
   background-color: #000;
   color: #fff;
   outline: none;
   border: none;
   cursor: pointer;
+}
+
+.perks{
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  margin: 60px 0;
+  margin-bottom: 100px;
+}
+
+.perks .perk {
+  text-align: center;
+}
+
+.perks .perk img{
+  width: 70px;
+}
+
+.perks .perk p{
+  font-size: 1.3em;
+  margin-top: 20px;
 }
 
 .main-blogs-container {
@@ -659,7 +744,7 @@ label[for="password"] .toggle-password {
   padding: 10px;
   font-size: 1em;
   border: 1px solid black;
-  font-family: "Lato", sans-serif;
+  font-family: "Poppins", sans-serif;
   resize: none;
 }
 
@@ -698,9 +783,12 @@ label[for="password"] .toggle-password {
 #main .user-update input[type="submit"] {
   width: 25%;
   padding: 10px;
-  font-family: "Lato", sans-serif;
-  background-color: blueviolet;
-  color: #fff;
+  font-family: "Poppins", sans-serif;
+  /* background-color: blueviolet; */
+  background-color: var(--yellow);
+  font-weight: 600;
+  color: #000;
+  /* color: #fff; */
   font-size: 1.5em;
   margin-top: 20px;
   cursor: pointer;
@@ -727,7 +815,7 @@ label[for="password"] .toggle-password {
 .profile-details .col-1 .profile-det p {
   font-size: 1.5em;
   color: #999;
-  margin-top: 10px;
+  /* margin-top: 10px; */
   margin-bottom: 20px;
 }
 
@@ -739,8 +827,10 @@ label[for="password"] .toggle-password {
 .prof-buttons a,
 .prof-buttons button {
   font-size: 1.3em;
-  background-color: blueviolet;
-  color: #fff;
+  background-color: var(--yellow);
+  /* color: #fff; */
+  color: #000;
+  font-size: 600;
   padding: 10px;
   border: none;
   border-radius: 3px;
@@ -848,13 +938,13 @@ label[for="password"] .toggle-password {
 }
 
 #main > .blog .blog-author a {
-  color: blueviolet;
+  color: rgba(0, 0, 0, 0.5);
   gap: 10px;
 }
 
-#main > .blog .blog-author a:hover {
+/* #main > .blog .blog-author a:hover {
   text-decoration: underline;
-}
+} */
 
 #main > .blog .blog-author,
 #main > .blog .blog-create {
@@ -902,12 +992,13 @@ select:focus {
 }
 
 #main .report-form input[type="submit"] {
-  width: 25%;
-  padding: 10px;
-  background-color: blueviolet;
-  color: #fff;
-  font-size: 1.3em;
-  border-radius: 3px;
+  width: fit-content;
+    padding: 10px 20px;
+    background-color: red;
+    font-weight: 600;
+    color: #fff;
+    font-size: 1em;
+    border-radius: 3px;
 }
 
 #main .social-options button {
@@ -959,6 +1050,7 @@ select:focus {
 
 #main .comments-section .comments .comment .comment-det h2 {
   font-size: 1.5em;
+  color: #000;
 }
 
 #main .comments-section .comments .comment .comment-det p {
@@ -994,15 +1086,17 @@ select:focus {
   display: block;
   border: 1px solid black;
   margin-top: 20px;
-  font-family: "Lato", sans-serif;
+  font-family: "Poppins", sans-serif;
   padding: 10px;
 }
 
 #main .comments-section .comment-form input[type="submit"] {
   padding: 10px;
   font-size: 1.5em;
-  background-color: blueviolet;
-  color: #fff;
+  /* background-color: blueviolet; */
+  background-color: var(--yellow);
+  color: #000;
+  font-weight: 600;
   border-radius: 3px;
   margin: 10px 0 20px 0;
   cursor: pointer;
@@ -1028,10 +1122,12 @@ select:focus {
 
 #main .no-results-found a {
   font-size: 1.5em;
-  background-color: blueviolet;
-  color: #fff;
-  padding: 15px;
-  border-radius: 3px;
+  /* background-color: blueviolet; */
+  background-color: var(--yellow);
+  color: #000;
+  font-weight: 600;
+  padding: 15px 20px;
+  border-radius: 35px;
   border: none;
   margin: 20px 0;
 }
@@ -1068,8 +1164,12 @@ select:focus {
 
 .forgot-p button,
 .forgot-p input[type="submit"] {
-  background-color: blueviolet;
-  color: #fff;
+  /* background-color: blueviolet; */
+  background-color: var(--yellow);
+  color: #000;
+  /* color: #fff; */
+  font-weight: 600;
+  font-size: 15px;
   padding: 10px;
   border: none;
   border-radius: 3px;
@@ -1113,7 +1213,11 @@ footer .brand a {
 
 @media (min-width: 1300px) {
   nav,
-  #main {
+  #main,
+  header,
+  .search ,
+  .r-container,
+.l-container{
     font-size: 72.5%;
   }
 }
@@ -1240,6 +1344,25 @@ footer .brand a {
   .search-div {
     flex-direction: column;
   }
+
+  header{
+    flex-direction: column;
+  }
+
+  header div{
+    margin: 0;
+  }
+
+  header img{
+    width: 70%;
+    margin-top: 50px;
+    margin-right: 0px
+
+  }
+  .perks{
+    grid-template-columns: 1fr;
+    gap: 30px;
+  }
 }
 
 @media (max-width: 550px) {
@@ -1267,5 +1390,14 @@ footer .brand a {
     flex-direction: column;
     align-items: flex-start;
     gap: 20px;
+  }
+
+  header {
+    padding-top: 30%;
+    padding-bottom: 30%;
+  }
+
+  header img{
+    width: 90%;
   }
 }

@@ -126,7 +126,7 @@ export default function Profile() {
                 <h1>{profileDetails.userDetails.name}</h1>
                 <p>{profileDetails.userDetails.bio}</p>
                 <div className='prof-buttons'>
-                  <button className='follow-btn' onClick={handleFollow}>
+                  <button className='follow-btn' style={{backgroundColor : 'var(--yellow)' , color : "#000", borderRadius: '30px', padding : '10px 50px', fontWeight:"600" }} onClick={handleFollow}>
                     {isFollowing ? "Following" : "Follow"}
                   </button>
                 </div>
@@ -140,13 +140,13 @@ export default function Profile() {
                 profileDetails.blogs.map((blog) => {
                   return (
                     <div className='blog d-flex align-center'>
-                      {blog.blog_img && <img src={blog.blog_img} alt='' />}
+                      {/* {blog.blog_img && <img src={blog.blog_img} alt='' />} */}
                       <div className='blog-det'>
                         <p
                           style={{
                             margin: "10px 0",
                             textTransform: "uppercase",
-                            color: "blueviolet",
+                            color: "var(--green)",
                           }}>
                           {blog.category}
                         </p>

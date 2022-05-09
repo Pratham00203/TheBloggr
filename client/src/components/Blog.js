@@ -267,13 +267,22 @@ export default function Blog() {
               <button
                 className='d-flex align-center'
                 onClick={handleFollow}
-                style={{
+                style={isFollowing ? {
                   border: "none",
-                  padding: "5px 10px",
+                  padding: "5px 15px",
                   color: "#ffff",
-                  backgroundColor: "blueviolet",
+                  backgroundColor: "var(--green)",
                   borderRadius: "20px",
                   marginTop: "-8px",
+                  fontWeight : 600
+                } : {
+                  border: "1px solid var(--green)",
+                  padding: "5px 15px",
+                  color: "var(--green)",
+                  backgroundColor: "#ffff",
+                  borderRadius: "20px",
+                  marginTop: "-8px",
+                  fontWeight : 600
                 }}>
                 {blogDetails && (isFollowing ? "Following" : "Follow")}
               </button>
@@ -355,7 +364,7 @@ export default function Blog() {
                         <div className='comment-det'>
                           <Link
                             to={`/user/${comment.userid}`}
-                            style={{ color: "blueviolet" }}>
+                            >
                             <h2>{comment.username}</h2>
                           </Link>
                           <p>{comment.postedon}</p>
