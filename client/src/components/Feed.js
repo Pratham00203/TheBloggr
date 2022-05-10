@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 import { Link, Redirect, useHistory, useParams } from "react-router-dom";
 import { checkAuth } from "../helpers/helpers";
 import auth from "../auth";
+import Spinner from './Spinner'
 import axios from "axios";
 
 export default function Feed({ type }) {
@@ -149,7 +150,7 @@ export default function Feed({ type }) {
   return (
     <>
       <Navbar />
-      {loaded && (
+      {loaded ? (
         <section id='main' className='myfeed'>
           <h1>{type === "feed" ? "My Feed" : "Results"}</h1>
           <div className='my-feed-blogs d-flex flex-col'>
@@ -201,7 +202,7 @@ export default function Feed({ type }) {
             )}
           </div>
         </section>
-      )}
+      ) : <Spinner/>}
       <Footer />
     </>
   );

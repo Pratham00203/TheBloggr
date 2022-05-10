@@ -10,6 +10,7 @@ import headerImg from '../images/header.svg'
 import freeIcon from '../images/icons8-free-60.png';
 import easyIcon from '../images/icons8-easy-skin-type-2-100.png';
 import noResultIcon from "../images/search-magnifier-with-a-cross.png";
+import Spinner from "./Spinner";
 
 
 export default function Homepage() {
@@ -48,7 +49,7 @@ export default function Homepage() {
   return (
     <>
       <Navbar  />
-      {loadDetails && (
+      {loadDetails ? (
          <>
           <header className="d-flex align-center">
           <div>
@@ -73,6 +74,7 @@ export default function Homepage() {
                     className='t-bg-img'
                     style={{
                       backgroundImage: `url(${loadDetails.trendingBlog.blog_img})`,
+                      backgroundSize : 'cover'
                     }}></div>
                   <div className='t-blog-details'>
                     <h1>{loadDetails.trendingBlog.title}</h1>
@@ -149,7 +151,6 @@ export default function Homepage() {
             </div>
           </div>
 
-          {/* Search Bar */}
           
         </section>
         <div className='search d-flex justify-center align-center'>
@@ -197,7 +198,7 @@ export default function Homepage() {
              </div>
           </div>
          </>
-      )}
+      ) : <Spinner/>}
       <Footer />
     </>
   );

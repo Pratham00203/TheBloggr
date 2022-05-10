@@ -11,6 +11,7 @@ import auth from "../auth";
 import { checkAuth } from "../helpers/helpers";
 import axios from "axios";
 import { useToasts } from "react-toast-notifications";
+import Spinner from "./Spinner";
 
 export default function Blog() {
   const history = useHistory();
@@ -254,7 +255,7 @@ export default function Blog() {
   return (
     <>
       <Navbar />
-      {blogDetails && (
+      {blogDetails ? (
         <section id='main'>
           <div className='blog'>
             <h1 className='title'>{blogDetails.title} </h1>
@@ -390,7 +391,7 @@ export default function Blog() {
             </div>
           </div>
         </section>
-      )}
+      ) : <Spinner/>}
       <Footer />
     </>
   );

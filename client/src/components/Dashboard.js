@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Navbar from "./Navbar";
 import Footer from "./Footer";
+import Spinner from './Spinner'
 import Modal from "./Modal";
 import bin from "../images/bin.png";
 import pencil from "../images/pencil.png";
@@ -102,7 +103,7 @@ function Dashboard() {
           }
         />
       )}
-      {currentUser && (
+      {currentUser ? (
         <section id='main'>
           <div style={{ filter: `${showModal ? "blur(10px)" : "blur(0px)"}` }}>
             <div className='profile-details d-flex flex-col'>
@@ -199,7 +200,7 @@ function Dashboard() {
             </div>
           </div>
         </section>
-      )}
+      ) : <Spinner/>}
       <Footer />
     </>
   );

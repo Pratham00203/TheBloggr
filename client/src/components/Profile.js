@@ -6,6 +6,7 @@ import { checkAuth } from "../helpers/helpers";
 import auth from "../auth";
 import axios from "axios";
 import { useToasts } from "react-toast-notifications";
+import Spinner from "./Spinner";
 export default function Profile() {
   const history = useHistory();
   const { addToast } = useToasts();
@@ -117,7 +118,7 @@ export default function Profile() {
   return (
     <>
       <Navbar />
-      {profileDetails && (
+      {profileDetails ? (
         <section id='main'>
           <div className='profile-details d-flex flex-col'>
             <div className='col-1 d-flex'>
@@ -182,7 +183,7 @@ export default function Profile() {
             </div>
           </div>
         </section>
-      )}
+      ) : <Spinner/>}
       <Footer />
     </>
   );
