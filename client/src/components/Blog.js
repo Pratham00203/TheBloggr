@@ -3,6 +3,7 @@ import Footer from "./Footer";
 import likeImg from "../images/liked.png";
 import unLikeImg from "../images/unliked.png";
 import redFlag from "../images/red-flag.png";
+import pencil from "../images/pencil.png";
 import bin from "../images/bin.png";
 import React, { useEffect, useState } from "react";
 import { Link, useHistory, useParams } from "react-router-dom";
@@ -256,7 +257,7 @@ export default function Blog() {
       {blogDetails && (
         <section id='main'>
           <div className='blog'>
-            <h1 className='title'>{blogDetails.title}</h1>
+            <h1 className='title'>{blogDetails.title} </h1>
             <p className='blog-author d-flex align-center'>
               <Link
                 to={`/user/${blogDetails.userid}`}
@@ -286,6 +287,11 @@ export default function Blog() {
                 }}>
                 {blogDetails && (isFollowing ? "Following" : "Follow")}
               </button>
+            {currentUser && (currentUser.userid === blogDetails.userid && <Link to={`/update-blog/${blogDetails.blogid}`}><img style={{
+              width : '20px',
+              height : '20px',
+              borderRadius : '0'
+            }} src={pencil} alt="update"/></Link>)}
             </p>
             <p className='blog-create'>Posted On : {blogDetails.createdon}</p>
             {blogDetails.blog_img && <img src={blogDetails.blog_img} alt='' />}
