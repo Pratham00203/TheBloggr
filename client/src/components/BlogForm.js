@@ -108,7 +108,12 @@ export default function BlogForm({ type }) {
       await axios.put(`/blogs/${blogid}/update`, blogDetails, config);
       addToast("Blog Updated", { appearance: "success" });
       history.push("/dashboard");
-    } catch (err) {}
+    } catch (err) {
+      const errors = err.response.data.errors;
+      errors.forEach((err) => {
+        addToast(err.msg, { appearance: "error" });
+      });
+    }
   };
 
   const createBlog = async () => {
@@ -121,7 +126,12 @@ export default function BlogForm({ type }) {
       await axios.post(`/blogs/create`, blogDetails, config);
       addToast("Blog Created", { appearance: "success" });
       history.push("/dashboard");
-    } catch (err) {}
+    } catch (err) {
+      const errors = err.response.data.errors;
+      errors.forEach((err) => {
+        addToast(err.msg, { appearance: "error" });
+      });
+    }
   };
 
   return (

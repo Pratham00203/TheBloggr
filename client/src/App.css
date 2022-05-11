@@ -1015,9 +1015,9 @@ select:focus {
 }
 
 #main .comments-section {
-  padding: 10px;
+  padding: 10px 0;
   margin-top: 20px;
-  border: 1px solid rgba(0, 0, 0, 0.4);
+  /* border: 1px solid rgba(0, 0, 0, 0.4); */
 }
 
 #main .comments-section h1 {
