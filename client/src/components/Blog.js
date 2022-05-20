@@ -124,6 +124,7 @@ export default function Blog() {
       const res = await axios.put(`/comments/${blogid}`, body, config);
       addToast(res.data.msg, { appearance: "success" });
       setComments(res.data.comments);
+      setCommentText('')
     } catch (err) {
       const errors = err.response.data.errors;
       console.log(errors);
@@ -355,6 +356,7 @@ export default function Blog() {
             </h1>
             <form className='comment-form' onSubmit={handleCommentSubmit}>
               <textarea
+                value={commentText}
                 name='commentbody'
                 rows='5'
                 placeholder='Leave a comment'

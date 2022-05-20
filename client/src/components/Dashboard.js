@@ -56,37 +56,43 @@ function Dashboard() {
   };
 
   const deleteProfile = async () => {
-    try {
-      const config = {
-        headers: {
-          Authorization: localStorage.getItem("token"),
-        },
-      };
-      const res = await axios.delete("/users/me/delete", config);
-      addToast(res.data, { appearance: "success" });
-      auth.logout(() => {
-        logout();
-        history.push("/login");
-      });
-    } catch (err) {}
+    if(window.confirm('Are you sure you want to delete the account?')){
+      try {
+        const config = {
+          headers: {
+            Authorization: localStorage.getItem("token"),
+          },
+        };
+        const res = await axios.delete("/users/me/delete", config);
+        addToast(res.data, { appearance: "success" });
+        auth.logout(() => {
+          logout();
+          history.push("/login");
+        });
+      } catch (err) {}
+    }
   };
 
   const deleteBlog = async (blogid) => {
-    try {
-      const config = {
-        headers: {
-          Authorization: localStorage.getItem("token"),
-        },
-      };
-      const res = await axios.delete(`/blogs/${blogid}/delete`, config);
-      setCurrentUser((prev) => {
-        return {
-          ...prev,
-          blogs: res.data.blogs,
+    if(window.confirm("Do you really want to delete this Blog?")){
+      try {
+    
+        const config = {
+          headers: {
+            Authorization: localStorage.getItem("token"),
+          },
         };
-      });
-      addToast(res.data.msg, { appearance: "warning" });
-    } catch (err) {}
+        const res = await axios.delete(`/blogs/${blogid}/delete`, config);
+        setCurrentUser((prev) => {
+          return {
+            ...prev,
+            blogs: res.data.blogs,
+          };
+        });
+        addToast(res.data.msg, { appearance: "warning" });
+      } catch (err) {}
+    }
+   
   };
 
   return (
