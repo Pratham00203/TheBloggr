@@ -1,6 +1,5 @@
 import hamburgerIcon from "../images/icons8-hamburger-menu-60.png";
 import closeIcon from "../images/close.png";
-import defaultProfileIcon from "../images/profile.jpg";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 
@@ -28,9 +27,6 @@ export default function Navbar() {
         />
         <li>
           <Link to='/home'>Home</Link>
-        </li>
-        <li>
-          <Link to='/my-feed'>My Feed</Link>
         </li>
         <li>
           <Link to='/create-blog'>Create a Blog</Link>

@@ -13,7 +13,6 @@ export default function Profile() {
 
   const { userid } = useParams();
 
-  const [isFollowing, setIsFollowing] = useState(false);
   const [profileDetails, setProfileDetails] = useState();
   const [currentUser, setCurrentUser] = useState();
 
@@ -36,7 +35,6 @@ export default function Profile() {
       };
       const res = await axios.get(`/users/${userid}`, config);
       setProfileDetails(res.data);
-      setIsFollowing(res.data.followStatus);
       document.title = `${res.data.userDetails.name}`;
     } catch (err) {}
   };
@@ -55,66 +53,6 @@ export default function Profile() {
     }
   };
 
-  const handleFollow = () => {
-    if (isFollowing) {
-      unfollow();
-    } else {
-      follow();
-    }
-    if (currentUser.userid !== profileDetails.userDetails.userid) {
-      setIsFollowing(!isFollowing);
-    }
-  };
-
-  const unfollow = async () => {
-    try {
-      const config = {
-        headers: {
-          Authorization: localStorage.getItem("token"),
-        },
-        method: "POST",
-      };
-      // await axios.put(`/users/unfollow/${profileDetails.userDetails.userid}`);
-      fetch(
-        `http://localhost:5000/users/unfollow/${profileDetails.userDetails.userid}`,
-        config
-      ).then((res) => res.json());
-    } catch (err) {
-      const errors = err.response.data.errors;
-      console.log(errors);
-    }
-  };
-
-  //profileDetails.userDetails.userid
-  const follow = async () => {
-    try {
-      const config = {
-        headers: {
-          Authorization: localStorage.getItem("token"),
-        },
-        method: "POST",
-      };
-      fetch(
-        `http://localhost:5000/users/follow/${profileDetails.userDetails.userid}`,
-        config
-      )
-        .then((res) => res.json())
-        .then((res) => {
-          if (res === "You can't Follow yourself")
-            addToast(res, { appearance: "error" });
-        });
-      // const res = await axios.post(
-      //   `/users/follow/${profileDetails.userDetails.userid}`,
-      //   config
-      // );
-      // res.data === "You can't Follow yourself" &&
-      //   addToast(res.data, { appearance: "error" });
-    } catch (err) {
-      const errors = err.response.data.errors;
-      console.log(errors);
-    }
-  };
-
   return (
     <>
       <Navbar />
@@ -126,11 +64,6 @@ export default function Profile() {
               <div className='profile-det'>
                 <h1>{profileDetails.userDetails.name}</h1>
                 <p>{profileDetails.userDetails.bio}</p>
-                <div className='prof-buttons'>
-                  <button className='follow-btn' style={{backgroundColor : 'var(--yellow)' , color : "#000", borderRadius: '30px', padding : '10px 50px', fontWeight:"600" }} onClick={handleFollow}>
-                    {isFollowing ? "Following" : "Follow"}
-                  </button>
-                </div>
               </div>
             </div>
           </div>
@@ -183,7 +116,9 @@ export default function Profile() {
             </div>
           </div>
         </section>
-      ) : <Spinner/>}
+      ) : (
+        <Spinner />
+      )}
       <Footer />
     </>
   );

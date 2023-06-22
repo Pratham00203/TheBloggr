@@ -4,10 +4,9 @@ import React, { useEffect, useState } from "react";
 import { Link, Redirect, useHistory, useParams } from "react-router-dom";
 import { checkAuth } from "../helpers/helpers";
 import auth from "../auth";
-import Spinner from './Spinner'
-import axios from "axios";
+import Spinner from "./Spinner";
 
-export default function Feed({ type }) {
+export default function Feed() {
   const { query } = useParams();
   const history = useHistory();
   const [loaded, setLoaded] = useState(false);
@@ -19,28 +18,8 @@ export default function Feed({ type }) {
         history.push("/login");
       });
     }
-    type === "feed" ? getFeedBlogs() : getResults();
+    getResults();
   }, []);
-
-  const getFeedBlogs = async () => {
-    try {
-      const config = {
-        headers: {
-          Authorization: localStorage.getItem("token"),
-        },
-        method: "GET",
-      };
-      fetch("http://localhost:5000/blogs/me/my-feed", config)
-        .then((res) => res.json())
-        .then((res) => {
-          setLoaded(true);
-          setFeedBlogs(res);
-        });
-      // const res = await axios.get("/blogs/me/my-feed", config);
-      // setLoaded(true);
-      // setFeedBlogs(res.data);
-    } catch (err) {}
-  };
 
   const getResults = async () => {
     try {
@@ -145,14 +124,14 @@ export default function Feed({ type }) {
   //   },
   // ];
 
-  document.title = type === "feed" ? "My Feed" : "Results";
+  document.title = "Results";
 
   return (
     <>
       <Navbar />
       {loaded ? (
         <section id='main' className='myfeed'>
-          <h1>{type === "feed" ? "My Feed" : "Results"}</h1>
+          <h1>Results</h1>
           <div className='my-feed-blogs d-flex flex-col'>
             {feedBlogs.length !== 0 ? (
               React.Children.toArray(
@@ -202,7 +181,9 @@ export default function Feed({ type }) {
             )}
           </div>
         </section>
-      ) : <Spinner/>}
+      ) : (
+        <Spinner />
+      )}
       <Footer />
     </>
   );

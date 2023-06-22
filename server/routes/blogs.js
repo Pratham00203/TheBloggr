@@ -98,15 +98,10 @@ router.get("/", auth, async (req, res) => {
 // @access Public
 router.get("/:blogid", auth, async (req, res) => {
   try {
-    let likeStatus = false;
-    let followStatus = false;
     let blog = await db.query("SELECT * FROM BLOGS WHERE blogid=$1", [
       req.params.blogid,
     ]);
 
-    // let user = await db.query("SELECT * FROM USERS WHERE userid=$1", [
-    //   blog.rows[0].userid,
-    // ]);
     if (blog.rows[0].userid !== req.user.userid) {
       let totalviews = blog.rows[0].totalviews;
       totalviews += 1;
@@ -117,38 +112,8 @@ router.get("/:blogid", auth, async (req, res) => {
       );
     }
 
-    let comments = await db.query("SELECT * FROM COMMENTS where blogid=$1", [
-      req.params.blogid,
-    ]);
-
-    let likes = await db.query("SELECT * FROM LIKES WHERE blogid=$1", [
-      req.params.blogid,
-    ]);
-
-    let checkLike = await db.query(
-      "SELECT * FROM LIKES WHERE blogid=$1 AND userid=$2",
-      [req.params.blogid, req.user.userid]
-    );
-
-    let followCheck = await db.query(
-      "SELECT * FROM FOLLOWS WHERE follower_id=$1 AND following_id=$2",
-      [req.user.userid, blog.rows[0].userid]
-    );
-
-    if (followCheck.rows.length !== 0) {
-      followStatus = true;
-    }
-
-    if (checkLike.rows.length !== 0) {
-      likeStatus = true;
-    }
-
     res.json({
       blogDetails: blog.rows[0],
-      comments: comments.rows,
-      likes: likes.rows,
-      likeStatus: likeStatus,
-      followStatus: followStatus,
     });
   } catch (err) {
     console.log(err.message);
@@ -271,130 +236,6 @@ router.delete("/:blogid/delete", auth, async (req, res) => {
     console.log(err.message);
     res.status(500).send("Server Error");
   }
-});
-
-// @route PUT /blogs/:blogid/like
-// @description Like a Blog
-// @access Private
-router.put("/:blogid/like", auth, async (req, res) => {
-  try {
-    let user = await db.query("SELECT (name) FROM USERS WHERE userid=$1", [
-      req.user.userid,
-    ]);
-
-    let check = await db.query(
-      "SELECT * FROM LIKES WHERE userid=$1 AND blogid=$2",
-      [req.user.userid, req.params.blogid]
-    );
-
-    if (check.rows.length === 0) {
-      await db.query(
-        "INSERT INTO LIKES (userid,username,blogid) VALUES ($1,$2,$3) RETURNING *",
-        [req.user.userid, user.rows[0].name, req.params.blogid]
-      );
-
-      let likes = await db.query("SELECT * FROM LIKES WHERE blogid=$1", [
-        req.params.blogid,
-      ]);
-      res.json({ msg: "Liked", likes: likes.rows });
-    } else {
-      res.json({ msg: "Already Liked" });
-    }
-  } catch (err) {
-    console.log(err.message);
-    res.status(500).send("Server Error");
-  }
-});
-
-// @route DELETE /blogs/:blogid/unlike
-// @description Unlike a Blog
-// @access Private
-router.delete("/:blogid/unlike", auth, async (req, res) => {
-  try {
-    let check = await db.query(
-      "SELECT * FROM LIKES WHERE userid=$1 AND blogid=$2",
-      [req.user.userid, req.params.blogid]
-    );
-
-    if (check.rows.length !== 0) {
-      await db.query("DELETE FROM LIKES WHERE userid=$1 AND blogid=$2", [
-        req.user.userid,
-        req.params.blogid,
-      ]);
-
-      let likes = await db.query("SELECT * FROM LIKES WHERE  blogid=$1", [
-        req.params.blogid,
-      ]);
-
-      res.json({ msg: "Unliked", likes: likes.rows });
-    } else {
-      res.json("Not liked yet");
-    }
-  } catch (err) {
-    console.log(err.message);
-    res.status(500).send("Server Error");
-  }
-});
-
-// @route GET /blogs/my-feed
-// @description Show Feed according to user's following
-// @access Private
-router.get("/me/my-feed", auth, async (req, res) => {
-  try {
-    let results = await db.query("SELECT * FROM FOLLOWS WHERE follower_id=$1", [
-      req.user.userid,
-    ]);
-
-    let followingPeopleId = results.rows;
-    let myFeed = [];
-    let blogs = await db.query("SELECT * FROM BLOGS");
-    blogs.rows.forEach((blog) => {
-      followingPeopleId.forEach((f) => {
-        if (blog.userid === f.following_id) {
-          myFeed.push(blog);
-        }
-      });
-    });
-
-    res.json(myFeed);
-  } catch (err) {
-    console.log(err.message);
-    res.status(500).send("Server Error");
-  }
-});
-
-// @route POST /blogs/:blogid/report
-// @description Report a Blog
-// @access Private
-router.post("/:blogid/report", auth, async (req, res) => {
-  const { reason } = req.body;
-  let blog = await db.query("SELECT * FROM BLOGS WHERE blogid=$1", [
-    req.params.blogid,
-  ]);
-  let user = await db.query("SELECT * FROM USERS WHERE userid=$1", [
-    req.user.userid,
-  ]);
-
-  let checkReport = await db.query(
-    "SELECT * FROM REPORTS WHERE blogid=$1 AND userid=$2",
-    [req.params.blogid, req.user.userid]
-  );
-
-  if (blog.rows[0].userid !== req.user.userid) {
-    if (checkReport.rows.length === 0) {
-      await db.query(
-        "INSERT INTO REPORTS (userid,username,blogid,author,reason) VALUES ($1,$2,$3,$4,$5) RETURNING *",
-        [
-          req.user.userid,
-          user.rows[0].name,
-          req.params.blogid,
-          blog.rows[0].author,
-          reason,
-        ]
-      );
-      res.json("Report Added");
-    } else res.json("Already Reported the Blog");
-  } else res.json("You can't report your own blog");
 });
 
 module.exports = router;

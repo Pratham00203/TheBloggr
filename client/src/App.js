@@ -5,7 +5,6 @@ import Register from "./components/Register";
 import Blog from "./components/Blog";
 import ResetPassword from "./components/ResetPassword";
 import Profile from "./components/Profile";
-import Feed from "./components/Feed";
 import Dashboard from "./components/Dashboard";
 import Homepage from "./components/Homepage";
 import Login from "./components/Login";
@@ -14,6 +13,7 @@ import "./App.css";
 import { useState, useEffect } from "react";
 import NoResult from "./components/NoResult";
 import ProtectedRoute from "./components/ProtectedRoute";
+import Feed from "./components/Feed";
 import auth from "./auth";
 import { checkAuth } from "./helpers/helpers";
 import PublicRoute from "./components/PublicRoute";
@@ -56,11 +56,6 @@ export default function App() {
             component={() => <BlogForm type='Update' />}
           />
           <ProtectedRoute exact path='/dashboard' component={Dashboard} />
-          <ProtectedRoute
-            exact
-            path='/my-feed'
-            component={() => <Feed type='feed' />}
-          />
           <ProtectedRoute exact path='/blog/:blogid' component={Blog} />
           <ProtectedRoute exact path='/user/:userid' component={Profile} />
           <ProtectedRoute

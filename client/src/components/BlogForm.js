@@ -2,8 +2,6 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import Navbar from "./Navbar";
 import Footer from "./Footer";
-import SunEditor from "suneditor-react";
-import "suneditor/dist/css/suneditor.min.css";
 import { useHistory, useParams } from "react-router-dom";
 import { checkAuth } from "../helpers/helpers";
 import auth from "../auth";
@@ -51,7 +49,7 @@ export default function BlogForm({ type }) {
       const file = e.target.files[0];
       // const fileSize = Math.round(file.size / 1024);
       // if (fileSize < 70) {
-        previewFile(file);
+      previewFile(file);
       // } else {
       //   addToast("File Size to Large, upload a image less than 75kb", {
       //     appearance: "error",
@@ -78,15 +76,6 @@ export default function BlogForm({ type }) {
         };
       });
     };
-  };
-
-  const handleDescriptionChange = (e) => {
-    setBlogDetails((prev) => {
-      return {
-        ...prev,
-        description: e,
-      };
-    });
   };
 
   const handleSubmit = (e) => {
@@ -167,52 +156,7 @@ export default function BlogForm({ type }) {
           </div>
           <label htmlFor='description' className='d-flex flex-col'>
             <span>Description:</span>
-            <SunEditor
-              setContents={blogDetails.description}
-              setDefaultStyle="font-family : 'Poppins', sans-serif !important"
-              height='300px'
-              defaultValue={blogDetails.description}
-              onChange={handleDescriptionChange}
-              setOptions={{
-                buttonList: [
-                  ["undo", "redo"],
-                  [
-                    ":p-More Paragraph-default.more_paragraph",
-                    // "font",
-                    "fontSize",
-                    "formatBlock",
-                    "paragraphStyle",
-                    "blockquote",
-                  ],
-                  [
-                    "link",
-                    "bold",
-                    "underline",
-                    "italic",
-                    "strike",
-                    "subscript",
-                    "superscript",
-                  ],
-
-                  ["fontColor", "hiliteColor", "textStyle"],
-                  ["removeFormat"],
-                  ["outdent", "indent"],
-                  ["align", "horizontalRule", "list", "lineHeight"],
-                  [
-                    "-right",
-                    ":i-More Misc-default.more_vertical",
-                    "fullScreen",
-                    "showBlocks",
-                    "codeView",
-                    "preview",
-                    "print",
-                    "save",
-                    "template",
-                  ],
-                ],
-              }}
-            />
-            {/* <textarea
+            <textarea
               name='description'
               cols='30'
               rows='10'
@@ -230,10 +174,8 @@ export default function BlogForm({ type }) {
                       .filter((el) => {
                         return el !== " ";
                       }).length
-
-               
               }`}
-            </span> */}
+            </span>
           </label>
           <label htmlFor='keywords ' className='d-flex flex-col'>
             <span>Keywords:</span>

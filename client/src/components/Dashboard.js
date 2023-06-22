@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Navbar from "./Navbar";
 import Footer from "./Footer";
-import Spinner from './Spinner'
-import Modal from "./Modal";
+import Spinner from "./Spinner";
 import bin from "../images/bin.png";
 import pencil from "../images/pencil.png";
 import { Link, useHistory } from "react-router-dom";
@@ -15,8 +14,6 @@ function Dashboard() {
   document.title = "Dashboard";
   const history = useHistory();
   const { addToast } = useToasts();
-  const [showModal, setShowModal] = useState(false);
-  const [modalOption, setModalOption] = useState("");
   const [currentUser, setCurrentUser] = useState();
 
   useEffect(() => {
@@ -42,11 +39,6 @@ function Dashboard() {
     }
   };
 
-  const showFollowModal = (option) => {
-    setModalOption(option);
-    setShowModal(true);
-  };
-
   const handleLogout = () => {
     logout();
     addToast("Logged Out Successfully", { appearance: "success" });
@@ -56,7 +48,7 @@ function Dashboard() {
   };
 
   const deleteProfile = async () => {
-    if(window.confirm('Are you sure you want to delete the account?')){
+    if (window.confirm("Are you sure you want to delete the account?")) {
       try {
         const config = {
           headers: {
@@ -74,9 +66,8 @@ function Dashboard() {
   };
 
   const deleteBlog = async (blogid) => {
-    if(window.confirm("Do you really want to delete this Blog?")){
+    if (window.confirm("Do you really want to delete this Blog?")) {
       try {
-    
         const config = {
           headers: {
             Authorization: localStorage.getItem("token"),
@@ -92,26 +83,14 @@ function Dashboard() {
         addToast(res.data.msg, { appearance: "warning" });
       } catch (err) {}
     }
-   
   };
 
   return (
     <>
       <Navbar />
-      {showModal && (
-        <Modal
-          option={modalOption}
-          closeModal={setShowModal}
-          followDetails={
-            modalOption === "followers"
-              ? currentUser.followers
-              : currentUser.following
-          }
-        />
-      )}
       {currentUser ? (
         <section id='main'>
-          <div style={{ filter: `${showModal ? "blur(10px)" : "blur(0px)"}` }}>
+          <div>
             <div className='profile-details d-flex flex-col'>
               <div className='col-1 d-flex'>
                 <img src={currentUser.userDetails.profile_img} alt='profile' />
@@ -139,14 +118,6 @@ function Dashboard() {
                   </div>
                 </div>
               </div>
-              <div className='col-2'>
-                <p onClick={() => showFollowModal("followers")}>
-                  <span>{currentUser.followers.length}</span>Followers
-                </p>
-                <p onClick={() => showFollowModal("following")}>
-                  <span>{currentUser.following.length}</span>Following
-                </p>
-              </div>
             </div>
             <div className='user-blogs'>
               <h1>My Blogs</h1>
@@ -155,7 +126,6 @@ function Dashboard() {
                   currentUser.blogs.map((blog) => {
                     return (
                       <div className='blog d-flex align-center'>
-                        {/* {blog.blog_img && <img src={blog.blog_img} alt='' />} */}
                         <div className='blog-det'>
                           <p
                             style={{
@@ -206,7 +176,9 @@ function Dashboard() {
             </div>
           </div>
         </section>
-      ) : <Spinner/>}
+      ) : (
+        <Spinner />
+      )}
       <Footer />
     </>
   );
